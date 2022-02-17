@@ -1,1 +1,182 @@
 /* THIS IS ONLY FOR EDITOR STYLES! */
+
+main {
+  background-color: var(--neutral1);
+  display: flex;
+  flex-direction: row;
+  height: 93vh;
+  width: 100%;
+  padding: 5px;
+  /* border: 1px solid red; */
+}
+main div {
+  /* border: 1px solid red; */
+  margin: 3px;
+  box-sizing: border-box;
+}
+
+h2 {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin: 0px;
+}
+
+p {
+  font-size: 0.8rem;
+  margin: 0px;
+}
+
+.settings,
+.canvas,
+.parameters {
+  color: var(--main1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.settings {
+  margin-top: 30px;
+  width: 15%;
+}
+
+.project-name {
+  border-bottom: 1px solid black;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.settings-box {
+  width: 100%;
+  background-color: var(--neutral2);
+  padding: 17px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+select,
+button {
+  border-radius: 5px;
+  padding: 5px 8px;
+  margin: 5px 0px;
+  border: 1px solid var(--neutral3);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  background-color: var(--main2);
+}
+
+button {
+  margin-right: 5px;
+}
+
+label {
+  font-size: 0.9rem;
+}
+
+.formats {
+  display: flex;
+  align-items: center;
+}
+
+#square,
+#portrait,
+#landscape {
+  border: 1px solid var(--neutral3);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--main2);
+  margin: 7px;
+}
+
+#square {
+  width: 35px;
+  height: 35px;
+}
+
+#portrait {
+  width: 25px;
+  height: 40px;
+}
+
+#landscape {
+  width: 40px;
+  height: 25px;
+}
+
+.color-picker .react-colorful {
+  width: 95%;
+  height: 150px;
+  /* border: 5px solid blue; */
+}
+
+.custom-pointers .react-colorful__saturation-pointer {
+  width: 16px;
+  height: 16px;
+  border-radius: 1px;
+  border: 0.5px solid black;
+}
+
+.custom-pointers .react-colorful__hue-pointer,
+.custom-pointers .react-colorful__alpha-pointer {
+  width: 14px;
+  border-radius: 1px;
+  border: 0.5px solid black;
+}
+
+/* CANVAS */
+
+.canvas {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.controls {
+  /* border: 1px red solid; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: space-around; */
+}
+
+.control-speed {
+  margin-left: 30px;
+}
+
+.control-speed input {
+  width: 200px;
+}
+
+.easel {
+  background-color: var(--main2);
+  padding: 7px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  /* width: 100%; */
+}
+
+.artwork {
+  border: 1px solid rgba(0, 0, 0, 0.187);
+  background-color: black;
+  width: 500px;
+  height: 500px;
+  padding: 0px;
+}
+
+.p5Sketch {
+  /* padding: 0px; */
+  /* border: 2px red solid; */
+  transform: translateX(10);
+  position: relative;
+  top: -4px;
+  left: -5px;
+}
+
+/* PARAMETERS */
+
+.parameters {
+  width: 15%;
+}

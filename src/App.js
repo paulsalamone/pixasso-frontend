@@ -1,9 +1,10 @@
 import "./App.css";
+import AppRouter from "./AppRouter";
 
 function App() {
   return (
     <div className="App">
-      <h1>pixasso coming soon</h1>
+      <AppRouter />
     </div>
   );
 }

@@ -1,7 +1,69 @@
-/* DON'T USE THIS STYLE SHEET!
-USE THE APPROPRIATE STYLE SHEET
-IN THE 'STYLES' DIRECTORY!! */
+/* global styles only! */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 
-.App {
-  border: 1px dotted lightgrey;
+* {
+  /* border: 1px dotted lightgrey; */
+
+  font-family: "Open Sans", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+}
+
+/* GLOBAL COLOR VARIABLES */
+:root {
+  --main1: black;
+  --main2: white;
+  --sub1: #1a1a1a;
+  --sub2: #4b024f;
+  --neutral1: #e1e1e1;
+  --neutral2: #cccccc;
+  --neutral3: #999999;
+  --highlight1: #00ff00;
+  --highlight2: #ff00ff;
+  --highlight3: #ffff00;
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--main1);
+  color: var(--main2);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+}
+
+header {
+}
+
+nav {
+  background-color: var(--main1);
+  display: flex;
+  font-size: 1rem;
+  padding: 3px;
+}
+
+nav a {
+  color: var(--main2);
+  text-decoration: none;
+  margin: 5px;
+}
+
+.app-content {
+  flex: 1;
+}
+
+footer {
+  background-color: var(--sub2);
+  color: var(--main2);
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
