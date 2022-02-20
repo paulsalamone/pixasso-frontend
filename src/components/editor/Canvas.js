@@ -29,7 +29,7 @@ const Canvas = (props) => {
           <input type="range" min="0" max="200"></input>
         </div>
       </div>
-      <div className="easel">
+      <div className="frame">
         <Artwork BGcolor={props.BGcolor} start={start} />
       </div>
 

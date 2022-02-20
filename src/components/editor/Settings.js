@@ -1,11 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { HexColorPicker } from "react-colorful";
-
+import { AlgoContext } from "../../contexts/AlgoContext";
+import Algo1 from "../../algorithms/001_demo/Algo1";
+import Algo2 from "../../algorithms/001_demo/Algo2";
 const Settings = (props) => {
   const [color, setColor] = useState("#aabbcc");
+  const [algo, setAlgo] = useContext(AlgoContext);
+
+  // console.log("first render settings page");
+  // console.log(algo);
+
   props.setBGcolor(color);
 
-  console.log(color);
+  // console.log(color);
+
+  const algoSelectionHandler = (e) => {
+    setAlgo(e.target.value);
+  };
+
+  // console.log("settings page:");
+  // console.log(algo);
+
   return (
     <div className="settings">
       <div className="project-name">
@@ -13,12 +28,12 @@ const Settings = (props) => {
       </div>
       <div className="settings-box" id="choose-algorithm">
         <p>Choose algorithm:</p>
-        <select>
-          <option>Algo 1</option>
-          <option>Algo 2</option>
+        <select onChange={algoSelectionHandler}>
+          <option value="algo1">Algo 1</option>
+          <option value="algo2">Algo 2</option>
         </select>
       </div>
-      <div className="settings-box" id="format">
+      {/* <div className="settings-box" id="format">
         <p>Format:</p>
         <div className="formats">
           <div id="square"></div>
@@ -35,7 +50,7 @@ const Settings = (props) => {
         <div className="custom-pointers example color-picker">
           <HexColorPicker color={color} onChange={setColor} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

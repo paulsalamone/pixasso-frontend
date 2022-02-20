@@ -151,7 +151,7 @@ label {
   width: 200px;
 }
 
-.easel {
+.frame {
   background-color: var(--main2);
   padding: 7px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
