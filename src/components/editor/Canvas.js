@@ -3,6 +3,7 @@ import Artwork from "./Artwork";
 
 const Canvas = (props) => {
   const [start, setStart] = useState(false);
+  const [rate, setRate] = useState(25);
 
   const handleStart = () => {
     if (start) {
@@ -24,13 +25,19 @@ const Canvas = (props) => {
           <button onClick={handleStart}>Start/Stop</button>
           <button onClick={refreshPage}>Refresh</button>
         </div>
-        <div className="control-speed">
+        {/* <div className="control-speed">
           <label for="speed">Speed: </label>
-          <input type="range" min="0" max="200"></input>
-        </div>
+          <input
+            type="range"
+            min="0"
+            max="60"
+            onChange={(e) => setRate(e.target.value)}
+            value={rate}
+          ></input>
+        </div> */}
       </div>
       <div className="frame">
-        <Artwork BGcolor={props.BGcolor} start={start} />
+        <Artwork BGcolor={props.BGcolor} start={start} frameRate={rate} />
       </div>
 
       <div className="export">

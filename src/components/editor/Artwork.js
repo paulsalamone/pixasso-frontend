@@ -13,10 +13,10 @@ const Artwork = (props) => {
   useEffect(() => {
     switch (algo) {
       case "algo1":
-        setChoice(<Algo1 start={props.start} />);
+        setChoice(<Algo1 start={props.start} rate={props.rate} />);
         break;
       case "algo2":
-        setChoice(<Algo2 start={props.start} />);
+        setChoice(<Algo2 start={props.start} rate={props.rate} />);
         break;
       default:
         console.log("default");
