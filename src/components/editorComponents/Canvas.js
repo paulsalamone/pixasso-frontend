@@ -1,20 +1,54 @@
 import { useState, useEffect } from "react";
+import Algo1 from "../../algorithms/001_demo/Algo1";
+import Algo2 from "../../algorithms/001_demo/Algo2";
 
 const Canvas = (props) => {
-  // console.log(props.state.formatWidth);
+  const [algoChoice, setAlgoChoice] = useState(
+    <Algo1
+      formatWidth={props.state.formatWidth}
+      formatHeight={props.state.formatHeight}
+      BGcolor={props.state.BGcolor}
+    />
+  );
+  useEffect(() => {
+    switch (props.state.algoSelection) {
+      case "algo1":
+        setAlgoChoice(
+          <Algo1
+            formatWidth={props.state.formatWidth}
+            formatHeight={props.state.formatHeight}
+            BGcolor={props.state.BGcolor}
+          />
+        );
+        break;
+      case "algo2":
+        setAlgoChoice(
+          <Algo2
+            formatWidth={props.state.formatWidth}
+            formatHeight={props.state.formatHeight}
+            BGcolor={props.state.BGcolor}
+          />
+        );
+        break;
+      default:
+        console.log("error");
+    }
+    console.log(algoChoice);
+  }, [props.state.algoSelection]);
 
   return (
     <>
-      <h2>{props.projectName}</h2>
       <div className="canvas-frame">
         <div
           className="sketch"
-          style={{
-            width: `${props.state.formatWidth}px`,
-            height: `${props.state.formatHeight}px`,
-            backgroundColor: `${props.state.BGcolor}`,
-          }}
-        ></div>
+          // style={{
+          //   width: `${props.state.formatWidth}px`,
+          //   height: `${props.state.formatHeight}px`,
+          //   backgroundColor: `${props.state.BGcolor}`,
+          // }}
+        >
+          {algoChoice}
+        </div>
       </div>
     </>
   );

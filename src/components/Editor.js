@@ -5,6 +5,8 @@ import Format from "./editorComponents/Format";
 import Background from "./editorComponents/Background";
 // import Reducer from "./editorComponents/Reducer";
 import Canvas from "./editorComponents/Canvas";
+import Parameters from "./editorComponents/Parameters";
+import AlgoSelector from "./editorComponents/AlgoSelector";
 
 const Reducer = (state, action) => {
   switch (action.type) {
@@ -16,6 +18,8 @@ const Reducer = (state, action) => {
       return { ...state, formatHeight: action.payload };
     case "newBGcolor":
       return { ...state, BGcolor: action.payload };
+    case "newAlgoSelection":
+      return { ...state, algoSelection: action.payload };
     default:
       throw new Error();
   }
@@ -24,9 +28,10 @@ const Reducer = (state, action) => {
 const Editor = () => {
   const [state, dispatch] = useReducer(Reducer, {
     projectName: "my-project",
-    formatHeight: 500,
-    formatWidth: 500,
+    formatHeight: 400,
+    formatWidth: 400,
     BGcolor: "#CCCCCC",
+    algoSelection: "algo1",
   });
 
   return (
@@ -38,6 +43,12 @@ const Editor = () => {
             dispatch={dispatch}
             projectName={state.projectName}
           />
+          <AlgoSelector
+            state={state}
+            dispatch={dispatch}
+            algoSelection={state.algoSelection}
+          />
+
           <Format
             state={state}
             dispatch={dispatch}
@@ -51,14 +62,22 @@ const Editor = () => {
           />
         </section>
         <section className="easel">
-          <Canvas
-            state={state}
-            dispatch={dispatch}
-            projectName={state.projectName}
-            formatWidth={state.formatWidth}
-            formatHeight={state.formatHeight}
-            BGcolor={state.BGcolor}
-          />
+          <div className="controls">start/stop ... speed</div>
+          <div className="canvas-parameters">
+            <Canvas
+              state={state}
+              dispatch={dispatch}
+              projectName={state.projectName}
+              formatWidth={state.formatWidth}
+              formatHeight={state.formatHeight}
+              BGcolor={state.BGcolor}
+              algoSelection={state.algoSelection}
+            />
+            <Parameters />
+          </div>
+          <div className="utilities">
+            <button>save</button>
+          </div>
         </section>
       </main>
     </>

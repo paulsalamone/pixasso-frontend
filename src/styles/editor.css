@@ -43,6 +43,21 @@ input {
   margin: 3px;
 }
 
+.easel {
+  width: 100%;
+}
+.controls {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+}
+
+.canvas-parameters {
+  display: flex;
+  border: 1px solid black;
+  justify-content: space-between;
+}
+
 .canvas-frame {
   background-color: var(--main2);
   padding: 5px;
@@ -52,4 +67,10 @@ input {
 
 .sketch {
   border: 1px solid black;
+}
+
+.utilities {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
 }
