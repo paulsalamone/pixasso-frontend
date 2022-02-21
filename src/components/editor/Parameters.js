@@ -5,37 +5,17 @@ import { ParametersContext } from "../../contexts/ParametersContext";
 const Parameters = () => {
   const [parameters, setParameters] = useContext(ParametersContext);
 
+  const [allParameters, setAllParameters] = useContext(ParametersContext);
+
+  console.log("000000000");
+  console.log(parameters);
+  console.log(allParameters);
+
   return (
     <div className="parameters">
-      <h2>Parameters</h2>
-      {Object.keys(parameters).map((e, index) => {
-        return (
-          <>
-            <p>{parameters[`parameter${index + 1}`].name}</p>
-            <input
-              type="range"
-              min={parameters[`parameter${index + 1}`].min}
-              max={parameters[`parameter${index + 1}`].max}
-              onChange={(e) =>
-                (parameters[`parameter${index + 1}`].set = e.target.value)
-              }
-            />
-            <p>Value: {parameters[`parameter${index + 1}`].value}</p>
-            <br />
-          </>
-        );
-      })}
-      {/* {parameters !== {} ? (
-        parameters.map((e) => {
-          return (
-            <>
-              <p>{e.name}</p>
-            </>
-          );
-        })
-      ) : (
-        <p>Loading...</p>
-      )} */}
+      {/* {parameters.map((e) => {
+        return <>{e}</>;
+      })} */}
     </div>
   );
 };

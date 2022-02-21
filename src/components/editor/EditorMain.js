@@ -11,7 +11,6 @@ const Editor = () => {
     <main>
       <Settings setBGcolor={setBGcolor} />
       <Canvas BGcolor={BGcolor} />
-      <Parameters />
     </main>
   );
 };

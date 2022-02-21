@@ -1,9 +1,14 @@
+//this isn't working, posted here for reference
+
 import { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import { ParametersContext } from "../../contexts/ParametersContext";
 
 const Algo1 = (props) => {
-  // DECLARE PARAMETER USE STATES:
+  const [parameters, setParameters] = useContext(ParametersContext);
+
+  const [allParameters, setAllParameters] = useContext(ParametersContext);
+
   const [a, setA] = useContext(ParametersContext);
   const [b, setB] = useContext(ParametersContext);
   const [c, setC] = useContext(ParametersContext);
@@ -13,6 +18,59 @@ const Algo1 = (props) => {
   const [g, setG] = useContext(ParametersContext);
   const [h, setH] = useContext(ParametersContext);
   const [aa, setAA] = useContext(ParametersContext);
+
+  useState(() => {
+    // setA(100);
+    setAllParameters({
+      ParameterA: {
+        label: "Circle Diameter",
+        min: 3,
+        max: 100,
+      },
+      ParameterB: {
+        label: "Jitter",
+        min: 0,
+        max: 10,
+      },
+      ParameterC: {
+        label: "Move horizontally",
+        min: -100,
+        max: 100,
+      },
+      ParameterD: {
+        label: "Circle Diameter",
+        min: 3,
+        max: 100,
+      },
+      ParameterE: {
+        label: "Jitter",
+        min: 0,
+        max: 10,
+      },
+      ParameterF: {
+        label: "Move horizontally",
+        min: -100,
+        max: 100,
+      },
+      ParameterG: {
+        label: "Circle Diameter",
+        min: 3,
+        max: 100,
+      },
+      ParameterH: {
+        label: "Jitter",
+        min: 0,
+        max: 10,
+      },
+      ParameterAA: {
+        label: "Move horizontally",
+        min: -100,
+        max: 100,
+      },
+    });
+  }, []);
+
+  //   console.log(allParameters);
 
   // START P5 SKETCH: //
   const setup = (p5, canvasParentRef) => {
@@ -30,7 +88,7 @@ const Algo1 = (props) => {
     // }
   };
 
-  //  EVENT HANDLERS FOR PARAMETERS
+  // END P5 SKETCH //
 
   return (
     <>
@@ -38,14 +96,6 @@ const Algo1 = (props) => {
       <Sketch setup={setup} draw={draw} className="p5Sketch" />
       <div className="parameters">
         <div className="parameter-group">
-          <div className="parameter">
-            <label>Parameter name</label>
-            <input type="range"></input>
-          </div>
-          <div className="parameter">
-            <label>Parameter name</label>
-            <input type="range"></input>
-          </div>
           <div className="parameter">
             <label>Parameter name</label>
             <input type="range"></input>

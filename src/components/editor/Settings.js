@@ -40,7 +40,8 @@ const Settings = (props) => {
           <div id="portrait"></div>
           <div id="landscape"></div>
         </div>
-      </div>
+      </div> */}
+
       <div
         className="settings-box"
         id="format"
@@ -50,7 +51,7 @@ const Settings = (props) => {
         <div className="custom-pointers example color-picker">
           <HexColorPicker color={color} onChange={setColor} />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

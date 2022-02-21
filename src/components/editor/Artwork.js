@@ -26,6 +26,7 @@ const Artwork = (props) => {
   return (
     <>
       <div className="artwork" style={{ backgroundColor: `${props.BGcolor}` }}>
+        {/* ALGORITHMS APPEAR HERE: */}
         {choice}
       </div>
     </>
