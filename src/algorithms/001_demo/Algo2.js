@@ -4,7 +4,7 @@ import Sketch from "react-p5";
 const Algo2 = () => {
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500).parent(canvasParentRef);
-    p5.background(100);
+    p5.background(10);
   };
 
   const draw = (p5) => {

@@ -18,6 +18,7 @@ const Canvas = (props) => {
             formatWidth={props.state.formatWidth}
             formatHeight={props.state.formatHeight}
             BGcolor={props.state.BGcolor}
+            parameterA={props.state.parameterA}
           />
         );
         break;
@@ -27,6 +28,7 @@ const Canvas = (props) => {
             formatWidth={props.state.formatWidth}
             formatHeight={props.state.formatHeight}
             BGcolor={props.state.BGcolor}
+            parameterA={props.state.parameterA}
           />
         );
         break;

@@ -20,6 +20,8 @@ const Reducer = (state, action) => {
       return { ...state, BGcolor: action.payload };
     case "newAlgoSelection":
       return { ...state, algoSelection: action.payload };
+    case "newParameterA":
+      return { ...state, parameterA: action.playload };
     default:
       throw new Error();
   }
@@ -32,8 +34,10 @@ const Editor = () => {
     formatWidth: 400,
     BGcolor: "#CCCCCC",
     algoSelection: "algo1",
+    parameterA: 10,
   });
 
+  console.log(state.parameterA);
   return (
     <>
       <main>
@@ -48,8 +52,7 @@ const Editor = () => {
             dispatch={dispatch}
             algoSelection={state.algoSelection}
           />
-
-          <Format
+          {/* <Format
             state={state}
             dispatch={dispatch}
             formatWidth={state.formatWidth}
@@ -58,8 +61,7 @@ const Editor = () => {
           <Background
             state={state}
             dispatch={dispatch}
-            projectName={state.projectName}
-          />
+            projectName={state.projectName} /> */}
         </section>
         <section className="easel">
           <div className="controls">start/stop ... speed</div>
@@ -72,8 +74,13 @@ const Editor = () => {
               formatHeight={state.formatHeight}
               BGcolor={state.BGcolor}
               algoSelection={state.algoSelection}
+              parameterA={state.parameterA}
             />
-            <Parameters />
+            <Parameters
+              state={state}
+              dispatch={dispatch}
+              parameterA={state.parameterA}
+            />
           </div>
           <div className="utilities">
             <button>save</button>
