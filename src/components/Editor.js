@@ -37,6 +37,8 @@ const Editor = () => {
     parameterA: 30,
   });
 
+  // const [backgroundColor, setBackgroundColor] = useState("$")
+
   const [AA, setAA] = useState(30);
 
   console.log("Editor: " + state.parameterA);
@@ -55,15 +57,16 @@ const Editor = () => {
             algoSelection={state.algoSelection}
           />
           {/* <Format
-            state={state}
-            dispatch={dispatch}
-            formatWidth={state.formatWidth}
-            formatHeight={state.formatHeight}
-          />
+          state={state}
+          dispatch={dispatch}
+          formatWidth={state.formatWidth}
+          formatHeight={state.formatHeight}
+          /> */}
           <Background
-            state={state}
-            dispatch={dispatch}
-            projectName={state.projectName} /> */}
+          // state={state}
+          // dispatch={dispatch}
+          // projectName={state.projectName}
+          />
         </section>
         <section className="easel">
           <div className="controls">start/stop ... speed</div>

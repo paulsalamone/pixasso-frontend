@@ -1,160 +1,182 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
+import Parameter from "./Parameter";
+import { ProjectContext } from "../../contexts/ProjectContext";
 
 const Algo1 = (props) => {
-  console.log("Props A = " + props.parameterA);
+  const [project, setProject] = useContext(ProjectContext);
+  const [_, set_] = useState({
+    squareSize: 50,
+    squareMargin: 15,
+    squareWidth: 5,
+    red: 120,
+    green: 120,
+    blue: 120,
+    stroke: 10,
+    strokeWeight: 0,
+    cornerRadius: 0,
+    shear: 0,
+    rotate: 0,
+    randomize: 0,
+  });
 
-  // const [BGcolor, setBGcolor] = useState("black");
+  // console.log(Object.keys(_.blue.value));
 
-  const [A, setA] = useState(10);
-  const [B, setB] = useState(1);
-  const [C, setC] = useState(0);
-  const [D, setD] = useState(10);
-  const [E, setE] = useState(0);
-  const [F, setF] = useState(1);
-
-  const [G, setG] = useState(0);
-  const [H, setH] = useState(0);
-  const [I, setI] = useState(0);
+  const handleParameter = ({ currentTarget: input }) => {
+    set_({ ..._, [input.name]: input.value });
+  };
 
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500).parent(canvasParentRef);
+    p5.createCanvas(project.width, project.height).parent(canvasParentRef);
   };
-
-  let XX = (top) => Math.floor(Math.random() * top);
-
-  //   let x = 0;
   const draw = (p5) => {
-    p5.background(D);
-    p5.frameRate(10);
-    p5.strokeWeight(B);
-    p5.stroke(E);
+    p5.background(project.red, project.green, project.blue);
+    p5.rectMode(p5.CENTER);
 
-    for (let i = 0; i < p5.width / 10; i += 1) {
-      for (let j = 0; j < p5.height / 10; j += 1) {
-        let x = i * 50;
-        let y = j * 50;
-        let d = A;
-        p5.shearX(p5.PI / F);
-        let r = p5.map(i, 0, 7, 0, 255);
-        let g = p5.map(i, 0, 7, 255, 0);
-        let b = p5.map(j, 0, 7, 0, 255);
-        p5.fill(r + D * i * j, g + D * i * j, b + D * i * j);
-        // p5.fill(i * j * D);
-
-        p5.square(x, y + XX(200), d + j * 10, C);
+    //shadow
+    p5.noStroke();
+    // p5.translate(p5.width / 2, p5.height / 2);
+    p5.rotate(p5.radians(_.rotate));
+    for (let i = 0; i < 30; i += 1) {
+      for (let j = 0; j < 60; j += 1) {
+        p5.fill(120, 120, 120, 100);
+        p5.square(
+          i * _.squareSize + 8,
+          j * _.squareSize + 8,
+          _.squareSize - _.squareMargin
+          // _.cornerRadius
+        );
       }
     }
-    // p5.noLoop();
+    p5.strokeWeight(_.strokeWeight);
+    p5.stroke(_.stroke, _.stroke, _.stroke);
+    // let margin = _.squareMargin;
+    for (let i = 0; i < 30; i += 1) {
+      for (let j = 0; j < 60; j += 1) {
+        if (i % 2 !== 0 || j % 2 !== 0) {
+          p5.fill(_.red, _.green, _.blue);
+        } else {
+          p5.fill(_.red / 2, _.green / 2, _.blue / 2);
+        }
+        p5.square(
+          i * _.squareSize,
+          j * _.squareSize,
+          _.squareSize - _.squareMargin
+          // _.cornerRadius
+        );
+      }
+    }
   };
 
-  //   const draw = (p5) => {
-  //     p5.background(10);
-  //     p5.frameRate(10);
-  //     p5.strokeWeight(B);
-  //     p5.stroke(E);
-  //     p5.translate(100);
-  //     for (let i = 0; i < 100; i += 1) {
-  //       for (let j = 0; j < 100; j += 1) {
-  //         p5.fill(i * j * D, (i * j * D) / 2, (i * j * D) / 3);
-  //         p5.square(i * A, j * A, A, C);
-  //         x += D;
-  //       }
-  //     }
-  //   };
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   return (
     <>
-      <div className="canvas-parameters">
-        <Sketch setup={setup} draw={draw} />
-        <div className="parameters-section">
-          <div className="parameters">
-            <div className="parameter">
-              <p>A: box size</p>
-              <input
-                type="range"
-                value={A}
-                min="5"
-                max="100"
-                onChange={(e) => setA(parseInt(e.target.value))}
-              />
-            </div>
-            <div className="parameter">
-              <p>B: stroke weight</p>
-              <input
-                type="range"
-                value={B}
-                min="0"
-                max="20"
-                onChange={(e) => setB(parseInt(e.target.value))}
-              />
-            </div>
-            <div className="parameter">
-              <p>C: radius</p>
-              <input
-                type="range"
-                value={C}
-                min="0"
-                max="30"
-                onChange={(e) => setC(parseInt(e.target.value))}
-              />
-            </div>
-            <div className="parameter">
-              <p>D: shade</p>
-              <input
-                type="range"
-                value={D}
-                min="0"
-                max="50"
-                onChange={(e) => setD(parseInt(e.target.value))}
-              />
-            </div>
-            <div className="parameter">
-              <p>E: stroke color</p>
-              <input
-                type="range"
-                value={E}
-                min="0"
-                max="255"
-                onChange={(e) => setE(parseInt(e.target.value))}
-              />
-            </div>
-
-            <div className="parameter">
-              <p>F: misc</p>
-              <input
-                type="range"
-                value={F}
-                min="500"
-                max="2000"
-                onChange={(e) => setF(parseInt(e.target.value))}
-              />
-            </div>
+      <button onClick={refreshPage}>refresh</button>{" "}
+      <p>Algo name: Shadow Checkers</p>
+      <div className="canvas-with-parameters">
+        <div className="canvas-container">
+          <Sketch setup={setup} draw={draw} />
+        </div>
+        {/* PARAMETERS */}
+        <div className="parameters">
+          <div className="parameters-group">
+            <p>Sizing:</p>
+            <Parameter
+              name="squareSize"
+              value={_.squareSize}
+              min="1"
+              max="100"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="squareMargin"
+              value={_.squareMargin}
+              min="10"
+              max="80"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="squareWidth"
+              value={_.squareWidth}
+              min="0"
+              max="20"
+              handleParameter={handleParameter}
+            />
           </div>
-          <div className="parameters">
-            {/* <div>
-              <input type="text" placeholder="BG color"></input>
-            </div> */}
-            <div className="parameter">
-              <p>G: misc</p>
-              <input
-                type="range"
-                value={G}
-                min="500"
-                max="2000"
-                onChange={(e) => setG(parseInt(e.target.value))}
-              />
-            </div>
-            <div className="parameter">
-              <p>H: misc</p>
-              <input
-                type="range"
-                value={H}
-                min="500"
-                max="2000"
-                onChange={(e) => setH(parseInt(e.target.value))}
-              />
-            </div>
+          <div className="parameters-group">
+            <p>Color:</p>
+            <Parameter
+              name="red"
+              value={_.red}
+              min="0"
+              max="255"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="green"
+              value={_.green}
+              min="0"
+              max="255"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="blue"
+              value={_.blue}
+              min="0"
+              max="255"
+              handleParameter={handleParameter}
+            />
+          </div>
+          <div className="parameters-group">
+            <p>Border:</p>
+            <Parameter
+              name="stroke"
+              value={_.stroke}
+              min="0"
+              max="100"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="strokeWeight"
+              value={_.strokeWeight}
+              min="0"
+              max="20"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="cornerRadius"
+              value={_.cornerRadius}
+              min="0"
+              max="10"
+              handleParameter={handleParameter}
+            />
+          </div>
+          <div className="parameters-group">
+            <p>Effects:</p>
+            <Parameter
+              name="shear"
+              value={_.shear}
+              min="0"
+              max="2000"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="rotate"
+              value={_.rotate}
+              min="0"
+              max="90"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="randomize"
+              value={_.randomize}
+              min="0"
+              max="255"
+              handleParameter={handleParameter}
+            />
           </div>
         </div>
       </div>
@@ -163,36 +185,3 @@ const Algo1 = (props) => {
 };
 
 export default Algo1;
-
-// OLD VERSIOn
-
-// import React, { useState, useEffect } from "react";
-// import Sketch from "react-p5";
-
-// const Algo1 = (props) => {
-//   console.log("Props A = " + props.parameterA);
-
-//   const setup = (p5, canvasParentRef) => {
-//     p5.createCanvas(500, 500).parent(canvasParentRef);
-//   };
-//   const draw = (p5) => {
-//     p5.background(10);
-//     p5.frameRate(10);
-
-//     for (let i = 0; i < p5.width / 10; i++) {
-//       for (let j = 0; j < p5.height / 10; j++) {
-//         p5.fill(i * 10 + j * 20);
-//         p5.square(i * props.parameterA, j * 10, 10);
-//         // p5.square(i * props.parameterA, j * props.parameterA, props.A);
-//       }
-//     }
-//   };
-
-//   return (
-//     <>
-//       <Sketch setup={setup} draw={draw} />
-//     </>
-//   );
-// };
-
-// export default Algo1;

@@ -23,6 +23,7 @@ const Canvas = (props) => {
             formatHeight={props.state.formatHeight}
             BGcolor={props.state.BGcolor}
             parameterA={props.state.parameterA}
+            background="#45bf99"
           />
         );
         break;
