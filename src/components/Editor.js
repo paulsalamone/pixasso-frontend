@@ -34,10 +34,12 @@ const Editor = () => {
     formatWidth: 400,
     BGcolor: "#CCCCCC",
     algoSelection: "algo1",
-    parameterA: 10,
+    parameterA: 30,
   });
 
-  console.log(state.parameterA);
+  const [AA, setAA] = useState(30);
+
+  console.log("Editor: " + state.parameterA);
   return (
     <>
       <main>
@@ -65,23 +67,18 @@ const Editor = () => {
         </section>
         <section className="easel">
           <div className="controls">start/stop ... speed</div>
-          <div className="canvas-parameters">
-            <Canvas
-              state={state}
-              dispatch={dispatch}
-              projectName={state.projectName}
-              formatWidth={state.formatWidth}
-              formatHeight={state.formatHeight}
-              BGcolor={state.BGcolor}
-              algoSelection={state.algoSelection}
-              parameterA={state.parameterA}
-            />
-            <Parameters
-              state={state}
-              dispatch={dispatch}
-              parameterA={state.parameterA}
-            />
-          </div>
+
+          <Canvas
+            state={state}
+            dispatch={dispatch}
+            projectName={state.projectName}
+            formatWidth={state.formatWidth}
+            formatHeight={state.formatHeight}
+            BGcolor={state.BGcolor}
+            algoSelection={state.algoSelection}
+            parameterA={state.parameterA}
+          />
+
           <div className="utilities">
             <button>save</button>
           </div>

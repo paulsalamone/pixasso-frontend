@@ -74,3 +74,18 @@ input {
   padding: 5px;
   margin: 5px;
 }
+
+.parameters-section {
+  display: flex;
+}
+.parameters {
+  width: 100%;
+}
+
+.parameter p {
+  font-size: 0.8rem;
+}
+
+.parameter input {
+  margin: 0px;
+}

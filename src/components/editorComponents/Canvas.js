@@ -8,8 +8,12 @@ const Canvas = (props) => {
       formatWidth={props.state.formatWidth}
       formatHeight={props.state.formatHeight}
       BGcolor={props.state.BGcolor}
+      parameterA={props.state.parameterA}
     />
   );
+
+  // console.log("Canvas says: " + props.state.parameterA);
+
   useEffect(() => {
     switch (props.state.algoSelection) {
       case "algo1":
@@ -35,7 +39,7 @@ const Canvas = (props) => {
       default:
         console.log("error");
     }
-    console.log(algoChoice);
+    // console.log(algoChoice);
   }, [props.state.algoSelection]);
 
   return (
