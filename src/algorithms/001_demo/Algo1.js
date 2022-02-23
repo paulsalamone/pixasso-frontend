@@ -46,6 +46,7 @@ const Algo1 = (props) => {
           // NORMAL SQUARE
 
           p5.fill(_.hue, _.saturation, _.brightness);
+          p5.translate(_.columnize / 10, 0);
 
           p5.square(
             i * _.squareSize + p5.random(0, _.shake),
@@ -94,7 +95,7 @@ const Algo1 = (props) => {
             <Parameter
               name="checkSize"
               value={_.checkSize}
-              min="1"
+              min="0"
               max="100"
               step="0"
               handleParameter={handleParameter}
@@ -174,7 +175,7 @@ const Algo1 = (props) => {
               name="columnize"
               value={_.columnize}
               min="0"
-              max="2s0"
+              max="10"
               step="0"
               handleParameter={handleParameter}
             />
