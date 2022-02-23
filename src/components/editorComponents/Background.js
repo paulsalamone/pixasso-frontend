@@ -16,24 +16,24 @@ const Background = (props) => {
         <p>Background Color:</p>
         <div className="parameters-group">
           <Parameter
-            name="red"
-            value={project.red}
+            name="hue"
+            value={project.hue}
             min="0"
-            max="255"
+            max="360"
             handleParameter={handleParameter}
           />
           <Parameter
-            name="green"
-            value={project.green}
+            name="saturation"
+            value={project.saturation}
             min="0"
-            max="255"
+            max="100"
             handleParameter={handleParameter}
           />
           <Parameter
-            name="blue"
-            value={project.blue}
+            name="brightness"
+            value={project.brightness}
             min="0"
-            max="255"
+            max="100"
             handleParameter={handleParameter}
           />
         </div>

@@ -1,5 +1,5 @@
 import "../styles/editor.css";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useContext, useEffect, useReducer } from "react";
 import ProjectName from "./editorComponents/ProjectName";
 import Format from "./editorComponents/Format";
 import Background from "./editorComponents/Background";
@@ -7,6 +7,7 @@ import Background from "./editorComponents/Background";
 import Canvas from "./editorComponents/Canvas";
 import Parameters from "./editorComponents/Parameters";
 import AlgoSelector from "./editorComponents/AlgoSelector";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 const Reducer = (state, action) => {
   switch (action.type) {
@@ -28,6 +29,7 @@ const Reducer = (state, action) => {
 };
 
 const Editor = () => {
+  const [project, setProject] = useContext(ProjectContext);
   const [state, dispatch] = useReducer(Reducer, {
     projectName: "my-project",
     formatHeight: 400,
@@ -36,6 +38,13 @@ const Editor = () => {
     algoSelection: "algo1",
     parameterA: 30,
   });
+
+  function refreshPage() {
+    window.location.reload(false);
+    setProject({ ...project, hue: 0 });
+    setProject({ ...project, saturation: 0 });
+    setProject({ ...project, brightness: 50 });
+  }
 
   // const [backgroundColor, setBackgroundColor] = useState("$")
 
@@ -69,7 +78,13 @@ const Editor = () => {
           />
         </section>
         <section className="easel">
-          <div className="controls">start/stop ... speed</div>
+          <div className="controls">
+            <p>
+              Controls:
+              <button onClick={refreshPage}>refresh</button>
+              ... start/stop ... speed
+            </p>
+          </div>
 
           <Canvas
             state={state}

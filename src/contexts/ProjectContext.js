@@ -10,6 +10,9 @@ export const ProjectController = (props) => {
     red: 100,
     green: 100,
     blue: 100,
+    hue: 0,
+    saturation: 0,
+    brightness: 50,
   });
 
   return (

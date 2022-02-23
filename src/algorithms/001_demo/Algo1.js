@@ -7,75 +7,67 @@ const Algo1 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
   const [_, set_] = useState({
     squareSize: 50,
-    squareMargin: 15,
-    squareWidth: 5,
-    red: 120,
-    green: 120,
-    blue: 120,
-    stroke: 10,
-    strokeWeight: 0,
-    cornerRadius: 0,
-    shear: 0,
-    rotate: 0,
-    randomize: 0,
+    spacing: 15,
+    checkSize: 50,
+    hue: 0,
+    saturation: 20,
+    brightness: 50,
+    strokeWeight: 2,
+    strokeHue: 0,
+    strokeBrightness: 0,
+    randomColors: 0,
+    randomSize: 3,
+    columnize: 0,
+    shake: 3,
   });
 
-  // console.log(Object.keys(_.blue.value));
-
   const handleParameter = ({ currentTarget: input }) => {
-    set_({ ..._, [input.name]: input.value });
+    set_({
+      ..._,
+      [input.name]: input.value,
+    });
   };
 
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(project.width, project.height).parent(canvasParentRef);
   };
   const draw = (p5) => {
-    p5.background(project.red, project.green, project.blue);
+    p5.background(project.hue, project.saturation, project.brightness);
+    p5.colorMode(p5.HSB);
+    p5.frameRate(15);
     p5.rectMode(p5.CENTER);
-
-    //shadow
-    p5.noStroke();
-    // p5.translate(p5.width / 2, p5.height / 2);
-    p5.rotate(p5.radians(_.rotate));
-    for (let i = 0; i < 30; i += 1) {
-      for (let j = 0; j < 60; j += 1) {
-        p5.fill(120, 120, 120, 100);
-        p5.square(
-          i * _.squareSize + 8,
-          j * _.squareSize + 8,
-          _.squareSize - _.squareMargin
-          // _.cornerRadius
-        );
-      }
-    }
+    p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
     p5.strokeWeight(_.strokeWeight);
-    p5.stroke(_.stroke, _.stroke, _.stroke);
-    // let margin = _.squareMargin;
-    for (let i = 0; i < 30; i += 1) {
-      for (let j = 0; j < 60; j += 1) {
+
+    //GRID
+    for (let i = 0; i < 100; i += 1) {
+      for (let j = 0; j < 100; j += 1) {
         if (i % 2 !== 0 || j % 2 !== 0) {
-          p5.fill(_.red, _.green, _.blue);
+          // NORMAL SQUARE
+
+          p5.fill(_.hue, _.saturation, _.brightness);
+
+          p5.square(
+            i * _.squareSize + p5.random(0, _.shake),
+            j * _.squareSize + p5.random(0, _.shake),
+            _.squareSize - _.spacing + p5.random(0, _.randomSize)
+          );
         } else {
-          p5.fill(_.red / 2, _.green / 2, _.blue / 2);
+          // DARK SQUARE
+          p5.fill(_.hue, _.saturation / 2, _.brightness - 50);
+          p5.translate(_.columnize / 10, 0);
+          p5.square(
+            i * _.squareSize + p5.random(0, _.shake),
+            j * _.squareSize + p5.random(0, _.shake),
+            _.checkSize - _.spacing + p5.random(0, _.randomSize)
+          );
         }
-        p5.square(
-          i * _.squareSize,
-          j * _.squareSize,
-          _.squareSize - _.squareMargin
-          // _.cornerRadius
-        );
       }
     }
   };
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
-
   return (
     <>
-      <button onClick={refreshPage}>refresh</button>{" "}
-      <p>Algo name: Shadow Checkers</p>
       <div className="canvas-with-parameters">
         <div className="canvas-container">
           <Sketch setup={setup} draw={draw} />
@@ -89,92 +81,118 @@ const Algo1 = (props) => {
               value={_.squareSize}
               min="1"
               max="100"
+              step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="squareMargin"
-              value={_.squareMargin}
+              name="spacing"
+              value={_.spacing}
               min="10"
               max="80"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="squareWidth"
-              value={_.squareWidth}
-              min="0"
-              max="20"
+              name="checkSize"
+              value={_.checkSize}
+              min="1"
+              max="100"
+              step="0"
               handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
             <p>Color:</p>
             <Parameter
-              name="red"
-              value={_.red}
+              name="hue"
+              value={_.hue}
               min="0"
-              max="255"
+              max="360"
+              step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="green"
-              value={_.green}
+              name="saturation"
+              value={_.saturation}
               min="0"
-              max="255"
+              max="100"
+              step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="blue"
-              value={_.blue}
+              name="brightness"
+              value={_.brightness}
               min="0"
-              max="255"
+              max="100"
+              step="0"
               handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
             <p>Border:</p>
             <Parameter
-              name="stroke"
-              value={_.stroke}
-              min="0"
-              max="100"
-              handleParameter={handleParameter}
-            />
-            <Parameter
               name="strokeWeight"
               value={_.strokeWeight}
               min="0"
               max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+
+            <Parameter
+              name="strokeBrightness"
+              value={_.strokeBrightness}
+              min="0"
+              max="100"
+              step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="cornerRadius"
-              value={_.cornerRadius}
+              name="strokeHue"
+              value={_.strokeHue}
               min="0"
-              max="10"
+              max="360"
+              step="0"
               handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
             <p>Effects:</p>
-            <Parameter
-              name="shear"
-              value={_.shear}
+            {/* <label className="switch">
+              Randomize Color
+              <input type="checkbox" />
+              <span className="slider"></span>
+            </label> */}
+            {/* <Parameter
+              name="randomColors"
+              value={_.randomColors}
               min="0"
-              max="2000"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            /> */}
+            <Parameter
+              name="columnize"
+              value={_.columnize}
+              min="0"
+              max="2s0"
+              step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="rotate"
-              value={_.rotate}
+              name="randomSize"
+              value={_.randomSize}
               min="0"
-              max="90"
+              max="50"
+              step="0"
               handleParameter={handleParameter}
             />
+
             <Parameter
-              name="randomize"
-              value={_.randomize}
+              name="shake"
+              value={_.shake}
               min="0"
-              max="255"
+              max="40"
+              step="0"
               handleParameter={handleParameter}
             />
           </div>

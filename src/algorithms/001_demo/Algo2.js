@@ -1,86 +1,203 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
+import Parameter from "./Parameter";
+import { ProjectContext } from "../../contexts/ProjectContext";
 
-import { handleColors } from "./algoFunctions";
-import { AlgoContext } from "../AlgoContext";
+const Algo2 = (props) => {
+  const [project, setProject] = useContext(ProjectContext);
+  const [_, set_] = useState({
+    squareSize: 50,
+    spacing: 15,
+    checkSize: 50,
+    hue: 0,
+    saturation: 20,
+    brightness: 50,
+    strokeWeight: 0,
+    strokeHue: 0,
+    strokeBrightness: 0,
+    randomColors: 0,
+    randomSize: 0,
+    columnize: 0,
+    shake: 0,
+  });
 
-const Algo2 = () => {
-  const [colors, setColors] = useContext(AlgoContext);
-  const [stroke, setStroke] = useContext(AlgoContext);
-  // const handleColors = useContext(AlgoContext);
-
-  // const handleParameter = ({ currentTarget: input }, state, setter) => {
-  //   setter({ ...state, [input.name]: input.value });
-  // };
-
-  const handleColors = ({ currentTarget: input }) => {
-    setColors({ ...colors, [input.name]: input.value });
+  const handleParameter = ({ currentTarget: input }) => {
+    set_({
+      ..._,
+      [input.name]: input.value,
+    });
   };
-
-  // const handleStroke = ({ currentTarget: input }) => {
-  //   setStroke({ ...stroke, [input.name]: input.value });
-  // };
-
-  // const handleChange = ({currentTarget: input}) => {
-  //   setUser({...user, [input.name]:input.value})
-  // }
-
-  // const [stroke, setStroke] = useState({
-  //   strokeColor: 155,
-  //   strokeWeight: 1,
-  // });
 
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500).parent(canvasParentRef);
-    p5.background(10);
+    p5.createCanvas(project.width, project.height).parent(canvasParentRef);
   };
   const draw = (p5) => {
-    p5.fill(colors.red, colors.green, colors.blue);
-    p5.stroke("white");
-    p5.strokeWeight(stroke.strokeWeight);
-    p5.square(200, 200, 100);
-  };
+    p5.background(project.hue, project.saturation, project.brightness);
+    p5.colorMode(p5.HSB);
+    p5.frameRate(15);
+    p5.rectMode(p5.CENTER);
+    p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
+    p5.strokeWeight(_.strokeWeight);
 
-  // console.log(rgb);
+    //GRID
+    for (let i = 0; i < 100; i += 1) {
+      for (let j = 0; j < 100; j += 1) {
+        if (i % 2 !== 0 || j % 2 !== 0) {
+          // NORMAL SQUARE
+
+          p5.fill(_.hue, _.saturation, _.brightness);
+
+          p5.square(
+            i * _.squareSize + p5.random(0, _.shake),
+            j * _.squareSize + p5.random(0, _.shake),
+            _.squareSize - _.spacing + p5.random(0, _.randomSize)
+          );
+        } else {
+          // DARK SQUARE
+          p5.fill(_.hue, _.saturation / 2, _.brightness - 50);
+          p5.translate(_.columnize / 10, 0);
+          p5.square(
+            i * _.squareSize + p5.random(0, _.shake),
+            j * _.squareSize + p5.random(0, _.shake),
+            _.checkSize - _.spacing + p5.random(0, _.randomSize)
+          );
+        }
+      }
+    }
+  };
 
   return (
     <>
-      <div>
-        <label for="red">Red:</label>
-        <input
-          type="range"
-          name="red"
-          value={colors.red}
-          min="0"
-          max="255"
-          onChange={handleColors}
-        />
-        {/* <input
-          type="range"
-          name="green"
-          value={colors.green}
-          min="0"
-          max="255"
-          onChange={handleParameter(colors, setColors)}
-        ></input>
-        <input
-          type="range"
-          name="blue"
-          value={colors.blue}
-          min="0"
-          max="255"
-          onChange={handleParameter(colors, setColors)}
-        ></input>
-        <input
-          type="range"
-          name="strokeWeight"
-          value={stroke.strokeWeight}
-          min="0"
-          max="20"
-          onChange={handleParameter(stroke, setStroke)}
-        ></input> */}
+      <div className="canvas-with-parameters">
+        <div className="canvas-container">
+          <Sketch setup={setup} draw={draw} />
+        </div>
+        {/* PARAMETERS */}
+        <div className="parameters">
+          <div className="parameters-group">
+            <p>Sizing:</p>
+            <Parameter
+              name="squareSize"
+              value={_.squareSize}
+              min="1"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="spacing"
+              value={_.spacing}
+              min="10"
+              max="80"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="checkSize"
+              value={_.checkSize}
+              min="1"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
+          <div className="parameters-group">
+            <p>Color:</p>
+            <Parameter
+              name="hue"
+              value={_.hue}
+              min="0"
+              max="360"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="saturation"
+              value={_.saturation}
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="brightness"
+              value={_.brightness}
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
+          <div className="parameters-group">
+            <p>Border:</p>
+            <Parameter
+              name="strokeWeight"
+              value={_.strokeWeight}
+              min="0"
+              max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+
+            <Parameter
+              name="strokeBrightness"
+              value={_.strokeBrightness}
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="strokeHue"
+              value={_.strokeHue}
+              min="0"
+              max="360"
+              step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
+          <div className="parameters-group">
+            <p>Effects:</p>
+            {/* <label className="switch">
+              Randomize Color
+              <input type="checkbox" />
+              <span className="slider"></span>
+            </label> */}
+            {/* <Parameter
+              name="randomColors"
+              value={_.randomColors}
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            /> */}
+            <Parameter
+              name="columnize"
+              value={_.columnize}
+              min="0"
+              max="10"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="randomSize"
+              value={_.randomSize}
+              min="0"
+              max="50"
+              step="0"
+              handleParameter={handleParameter}
+            />
+
+            <Parameter
+              name="shake"
+              value={_.shake}
+              min="0"
+              max="40"
+              step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
+        </div>
       </div>
-      <Sketch setup={setup} draw={draw} />
     </>
   );
 };
