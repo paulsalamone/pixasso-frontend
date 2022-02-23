@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
+
+
 const Register = () => {
   const [user, setUser] = useState({
     username: "",
@@ -14,19 +16,22 @@ const Register = () => {
     setUser({...user, [input.name]:input.value})
   }
   const handleSubmit = async(e) => {
-    e.prevent.Default()
+    e.preventDefault()
     try{
-      const url = "http://localhost:5000/api/users"
-      const{user:res}= await axios.post(url, user)
+      const url = "http://localhost:5000/api/auth/register"
+      await axios
+      .post(url, user)
       console.log('saved')
       navigate("/login")
+
+
     } catch(error){
       if (error.response && error.resposne.status === 400){
         setError(error.response.messege)
       }
     }
   }
-
+console.log(user)
   return (
     <div>
       <form onSubmit={handleSubmit}>
