@@ -10,17 +10,19 @@ import SketchImage from "./components/SketchImage";
 const AppRouter = () => {
   return (
     <>
-      <Nav />
-      <div className="app-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/" element={<SketchImage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/editor" element={<Editor />} />
-        </Routes>
-      </div>
-      <Footer />
+      <body>
+        <Nav />
+        <div className="app-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/" element={<SketchImage />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/editor" element={<Editor />} />
+          </Routes>
+        </div>
+        <Footer />
+      </body>
     </>
   );
 };

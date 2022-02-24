@@ -12,12 +12,10 @@ const Refresh = () => {
   }
 
   return (
-    <>
-      <p>
-        Page:
-        <button onClick={refreshPage}>refresh</button>
-      </p>
-    </>
+    <div>
+      <p>Page:</p>
+      <button onClick={refreshPage}>refresh</button>
+    </div>
   );
 };
 

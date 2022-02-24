@@ -15,12 +15,10 @@ const StartStop = () => {
   };
 
   return (
-    <>
-      <p>
-        Animation:
-        <button onClick={startHandler}>start / stop</button>
-      </p>
-    </>
+    <div>
+      <p>Animation: </p>
+      <button onClick={startHandler}>start / stop</button>
+    </div>
   );
 };
 

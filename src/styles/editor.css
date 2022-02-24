@@ -56,15 +56,19 @@ input {
   width: 100%;
 }
 .controls {
-  border: 1px solid black;
-  padding: 5px;
-  margin: 5px;
+  /* border: 2px solid rgb(172, 172, 172); */
+  background-color: rgb(233, 233, 233);
+  border-radius: 3px;
+  /* padding: 5px; */
+  /* margin: 5px; */
   display: flex;
   align-items: center;
+  /* justify-content: space-between; */
   font-size: 0.8rem;
 }
 
-.controls p {
+.controls div {
+  display: flex;
   margin: 15px;
 }
 

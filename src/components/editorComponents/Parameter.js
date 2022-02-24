@@ -17,7 +17,7 @@ const Parameter = (props) => {
     <>
       <div className="parameter" style={{ filter: `${parameterStatus}` }}>
         <label>
-          <p>{props.name}</p>
+          <p>{props.id}</p>
           <p>{props.value}</p>
         </label>
         <input

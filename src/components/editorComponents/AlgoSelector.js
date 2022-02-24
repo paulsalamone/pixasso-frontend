@@ -10,23 +10,21 @@ const AlgoSelector = (props) => {
 
   // console.log(project);
   return (
-    <>
-      <p>
-        AlgoSelector:
-        {/* <select onChange={handleParameter}> */}
-        <select
-          onChange={(e) =>
-            props.dispatch({
-              type: "newAlgoSelection",
-              payload: e.target.value,
-            })
-          }
-        >
-          <option value="algo1">Algo 1</option>
-          <option value="algo2">Algo 2</option>
-        </select>
-      </p>
-    </>
+    <div>
+      <p>AlgoSelector:</p>
+      <select
+        onChange={(e) =>
+          props.dispatch({
+            type: "newAlgoSelection",
+            payload: e.target.value,
+          })
+        }
+      >
+        <option value="algo1">Algo 1</option>
+        <option value="algo2">Algo 2</option>
+        <option value="nests">Nests</option>
+      </select>
+    </div>
   );
 };
 

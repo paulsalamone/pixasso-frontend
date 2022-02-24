@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import Algo1 from "../../algorithms/001_demo/Algo1";
-import Algo2 from "../../algorithms/001_demo/Algo2";
+import Algo1 from "../algorithms/Algo1";
+import Algo2 from "../algorithms/Algo2";
+import Nests from "../algorithms/001_Nests";
 
 const Canvas = (props) => {
   const [algoChoice, setAlgoChoice] = useState(<Algo1 />);
@@ -12,6 +13,9 @@ const Canvas = (props) => {
         break;
       case "algo2":
         setAlgoChoice(<Algo2 />);
+        break;
+      case "nests":
+        setAlgoChoice(<Nests />);
         break;
       default:
         console.log("error");
