@@ -26,7 +26,7 @@ const Parameter = (props) => {
           value={props.value}
           min={props.min}
           max={props.max}
-          onChange={props.handleParameter}
+          onChange={project.start ? props.handleParameter : null}
         />
       </div>
       {/* <p>{props.value}</p> */}
