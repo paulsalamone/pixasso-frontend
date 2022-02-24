@@ -11,8 +11,8 @@ const AlgoSelector = (props) => {
   // console.log(project);
   return (
     <>
-      <div className="BGcolor">
-        <p>AlgoSelector:</p>
+      <p>
+        AlgoSelector:
         {/* <select onChange={handleParameter}> */}
         <select
           onChange={(e) =>
@@ -25,7 +25,7 @@ const AlgoSelector = (props) => {
           <option value="algo1">Algo 1</option>
           <option value="algo2">Algo 2</option>
         </select>
-      </div>
+      </p>
     </>
   );
 };

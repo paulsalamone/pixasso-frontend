@@ -6,9 +6,9 @@ import { ProjectContext } from "../../contexts/ProjectContext";
 const Algo2 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
   const [_, set_] = useState({
-    squareSize: 50,
-    spacing: 15,
-    checkSize: 50,
+    squareSize: 150,
+    spacing: 5,
+    checkSize: 10,
     hue: 0,
     saturation: 20,
     brightness: 50,

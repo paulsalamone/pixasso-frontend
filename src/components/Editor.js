@@ -7,7 +7,8 @@ import BackgroundSelector from "./editorComponents/BackgroundSelector";
 import AlgoContainer from "./editorComponents/AlgoContainer";
 import Parameters from "./editorComponents/Parameters";
 import Controls from "./editorComponents/Controls";
-
+import StartStop from "./editorComponents/StartStop";
+import Refresh from "./editorComponents/Refresh";
 import AlgoSelector from "./editorComponents/AlgoSelector";
 import { ProjectContext } from "../contexts/ProjectContext";
 
@@ -50,11 +51,7 @@ const Editor = () => {
             dispatch={dispatch}
             projectName={state.projectName}
           />
-          <AlgoSelector
-            state={state}
-            dispatch={dispatch}
-            algoSelection={state.algoSelection}
-          />
+
           {/* <Format
           state={state}
           dispatch={dispatch}
@@ -68,7 +65,21 @@ const Editor = () => {
           />
         </section>
         <section className="easel">
-          <Controls />
+          {/* <Controls /> */}
+          <div className="controls">
+            <AlgoSelector
+              state={state}
+              dispatch={dispatch}
+              algoSelection={state.algoSelection}
+            />
+            <StartStop />
+            <Refresh />
+
+            {/* <p>
+          Speed:
+          <input type="range" min="-2" max="62" onChange={rateHandler} />
+        </p> */}
+          </div>
 
           <AlgoContainer
             state={state}

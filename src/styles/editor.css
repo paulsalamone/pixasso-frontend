@@ -11,6 +11,15 @@ main {
   color: var(--main1);
 }
 
+button,
+select {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 3px 10px;
+  margin: 3px;
+  background-color: var(--main2);
+}
+
 .settings {
   border: 1px solid black;
   padding: 10px;
@@ -51,7 +60,16 @@ input {
   padding: 5px;
   margin: 5px;
   display: flex;
+  align-items: center;
   font-size: 0.8rem;
+}
+
+.controls p {
+  margin: 15px;
+}
+
+.algo-selector {
+  display: flex;
 }
 
 .canvas-with-parameters {
