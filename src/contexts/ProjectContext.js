@@ -5,7 +5,11 @@ export const ProjectContext = createContext();
 export const ProjectController = (props) => {
   const [project, setProject] = useState({
     name: "my-project",
-    algo: "algo1",
+    algoChoice: "algo1",
+    start: true,
+    refresh: false,
+    parameterStatus: "contrast(100%) saturate(100%) brightness(1)",
+    rate: 10,
     width: 500,
     height: 500,
     red: 100,

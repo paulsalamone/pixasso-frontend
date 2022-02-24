@@ -1,32 +1,37 @@
 import { ProjectContext } from "../../contexts/ProjectContext";
 import { useContext } from "react";
+import { AlgoContext } from "../../contexts/AlgoContext";
+import Algo1 from "../algorithms/Algo1";
+import Algo2 from "../algorithms/Algo2";
 
 const AlgoSelector = (props) => {
-  const [project, setProject] = useContext(ProjectContext);
+  const [algo, setAlgo] = useContext(AlgoContext);
 
-  const handleParameter = ({ currentTarget: input }) => {
-    setProject({ ...project, [input.name]: input.value });
-  };
+  console.log(algo);
 
-  console.log(project);
   return (
-    <>
-      <div className="BGcolor">
-        <p>AlgoSelector:</p>
-        {/* <select onChange={handleParameter}> */}
+    <div className="algo-selector">
+      <p>
+        Algorithm:
         <select
-          onChange={(e) =>
-            props.dispatch({
-              type: "newAlgoSelection",
-              payload: e.target.value,
-            })
-          }
+          onChange={(e) => {
+            setAlgo(e.target.value);
+            console.log("selection made");
+          }}
         >
-          <option value="algo1">Algo 1</option>
-          <option value="algo2">Algo 2</option>
+          <option value="Algo1" selected={algo === "Algo1" ? "selected" : ""}>
+            Psychic Raindrops
+          </option>
+          <option value="Algo2" selected={algo === "Algo2" ? "selected" : ""}>
+            Circles vs. Squares
+          </option>
+          {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
+            Sci-Fi Clouds
+          </option> */}
+          {/* <option value="Nests">Nests</option> */}
         </select>
-      </div>
-    </>
+      </p>
+    </div>
   );
 };
 
