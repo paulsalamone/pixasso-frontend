@@ -7,22 +7,25 @@ const Algo1 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
 
   const [_, set_] = useState({
-    squareSize: 34,
-    spacing: 10,
-    checkSize: 34,
-    hue: 0,
-    saturation: 60,
-    brightness: 50,
-    strokeWeight: 0,
-    strokeHue: 0,
-    strokeBrightness: 0,
-    randomColors: 0,
-    randomSize: 3,
-    columnize: 0,
-    shake: 3,
+    sizeRange: 35,
+    scale: 2,
+    strokeWeight: 1,
+
+    jiggle: 0,
+    jiggle2: 0,
+    strokeShade: 0,
+    strokeOpacity: 0,
+
+    red: 185,
+    green: 185,
+    blue: 185,
+
+    spread: 0,
+    K: 0,
+    L: 0,
     BGhue: 100,
-    BGsaturation: 50,
-    BGbrightness: 50,
+    BGsaturation: 70,
+    BGbrightness: 0,
   });
 
   useEffect(() => {
@@ -42,42 +45,102 @@ const Algo1 = (props) => {
   };
 
   const draw = (p5) => {
+    // let value = p5.alpha(30);
+    p5.frameRate(7);
+
     if (project.start) {
-      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness);
-      p5.frameRate(project.rate);
-
       p5.colorMode(p5.HSB);
-      p5.rectMode(p5.CENTER);
-      p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
-      p5.strokeWeight(_.strokeWeight);
 
-      //GRID
-      for (let i = 0; i < 100; i += 1) {
-        for (let j = 0; j < 100; j += 1) {
-          if (i % 2 !== 0 || j % 2 !== 0) {
-            // NORMAL SQUARE
+      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 50);
+      p5.colorMode(p5.RGB);
 
-            p5.fill(_.hue, _.saturation, _.brightness);
-            p5.translate(_.columnize / 10, 0);
+      p5.stroke(_.strokeShade, _.strokeShade, _.strokeShade, 50);
 
-            p5.circle(
-              i * _.squareSize + p5.random(0, _.shake),
-              j * _.squareSize + p5.random(0, _.shake),
-              _.squareSize - _.spacing + p5.random(0, _.randomSize)
-            );
-          } else {
-            // DARK SQUARE
-            p5.fill(_.hue, _.saturation / 2, _.brightness - 50);
-            p5.translate(_.columnize / 10, 0);
-            p5.square(
-              i * _.squareSize + p5.random(0, _.shake),
-              j * _.squareSize + p5.random(0, _.shake),
-              _.checkSize - _.spacing + p5.random(0, _.randomSize)
-            );
-          }
-        }
+      p5.translate(p5.width / 2, p5.height / 2);
+      p5.scale(_.scale / 2);
+
+      let jglX = p5.random(-_.jiggle, _.jiggle);
+      let jglY = p5.random(-_.jiggle, _.jiggle);
+
+      p5.translate(_.shake, _.randomSize);
+      for (let i = 0; i < 30; i += 2) {
+        let jglXX = p5.random(-_.jiggle2, _.jiggle2);
+        let jglYY = p5.random(-_.jiggle2, _.jiggle2);
+
+        p5.strokeWeight(p5.random(_.strokeWeight / 4, _.strokeWeight));
+
+        p5.fill(
+          p5.random(_.red - 100, _.red),
+          p5.random(_.green - 100, _.green),
+          p5.random(_.blue - 100, _.blue),
+          50
+        );
+        // p5.erase();
+        psycheCircle(
+          p5,
+          _.spread,
+          _.spread,
+          jglX,
+          jglXX,
+          jglY,
+          jglYY,
+          i,
+          _.sizeRange
+        );
+        psycheCircle(
+          p5,
+          -_.spread,
+          _.spread,
+          jglX,
+          jglXX,
+          jglY,
+          jglYY,
+          i,
+          _.sizeRange
+        );
+        psycheCircle(
+          p5,
+          -_.spread,
+          -_.spread,
+          jglX,
+          jglXX,
+          jglY,
+          jglYY,
+          i,
+          _.sizeRange
+        );
+        psycheCircle(
+          p5,
+          _.spread,
+          -_.spread,
+          jglX,
+          jglXX,
+          jglY,
+          jglYY,
+          i,
+          _.sizeRange
+        );
+        psycheCircle(
+          p5,
+          _.spread / _.spread,
+          _.spread / _.spread,
+          jglX,
+          jglXX,
+          jglY,
+          jglYY,
+          i,
+          _.sizeRange
+        );
       }
     }
+  };
+
+  const psycheCircle = (p5, x, y, jglX, jglXX, jglY, jglYY, i, sizeRange) => {
+    return p5.circle(
+      jglX + jglXX + x,
+      jglY + jglYY + y,
+      p5.width - i * 20 - p5.random(0, sizeRange)
+    );
   };
 
   return (
@@ -131,28 +194,30 @@ const Algo1 = (props) => {
           <div className="parameters-group">
             <h4>Sizing:</h4>
             <Parameter
-              name="squareSize"
-              value={_.squareSize}
-              id="Circle Size"
+              name="sizeRange"
+              value={_.sizeRange}
+              id="Size Range"
               min="1"
+              max="500"
+              step="0"
+              handleParameter={handleParameter}
+            />
+
+            <Parameter
+              name="jiggle"
+              value={_.jiggle}
+              id="Jiggle"
+              min="0"
               max="100"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="spacing"
-              value={_.spacing}
-              id="Spacing"
-              min="10"
-              max="80"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="checkSize"
-              value={_.checkSize}
-              id="Square Size"
+              name="jiggle2"
+              value={_.jiggle2}
+              id="Scramble"
               min="0"
-              max="100"
+              max="200"
               step="0"
               handleParameter={handleParameter}
             />
@@ -160,29 +225,29 @@ const Algo1 = (props) => {
           <div className="parameters-group">
             <h4>Color:</h4>
             <Parameter
-              name="hue"
-              value={_.hue}
-              id="Hue"
+              name="red"
+              value={_.red}
+              id="Red"
               min="0"
-              max="360"
+              max="255"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="saturation"
-              value={_.saturation}
-              id="Saturation"
+              name="green"
+              value={_.green}
+              id="Green"
               min="0"
-              max="100"
+              max="255"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="brightness"
-              value={_.brightness}
-              id="Brightness"
+              name="blue"
+              value={_.blue}
+              id="Blue"
               min="0"
-              max="100"
+              max="255"
               step="0"
               handleParameter={handleParameter}
             />
@@ -194,26 +259,26 @@ const Algo1 = (props) => {
               value={_.strokeWeight}
               id="Stroke Weight"
               min="0"
-              max="20"
+              max="60"
               step="0"
               handleParameter={handleParameter}
             />
 
             <Parameter
-              name="strokeBrightness"
-              value={_.strokeBrightness}
-              id="Stroke Brightness"
+              name="strokeShade"
+              value={_.strokeShade}
+              id="Stroke Shade"
               min="0"
-              max="100"
-              step="0"
+              max="255"
+              // step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="strokeHue"
-              value={_.strokeHue}
-              id="Stroke Hue"
+              name="spread"
+              value={_.spread}
+              id="Spread"
               min="0"
-              max="360"
+              max="400"
               step="0"
               handleParameter={handleParameter}
             />
@@ -222,29 +287,28 @@ const Algo1 = (props) => {
             <h4>Effects:</h4>
 
             <Parameter
-              name="columnize"
-              value={_.columnize}
-              id="Spread Columns"
-              min="0"
-              max="10"
-              step="0"
+              name="scale"
+              value={_.scale}
+              id="Scale"
+              min="1"
+              max="6"
               handleParameter={handleParameter}
             />
             <Parameter
               name="randomSize"
               value={_.randomSize}
-              id="Random Size"
-              min="0"
-              max="50"
+              id="Move Vertically"
+              min="-200"
+              max="200"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
               name="shake"
               value={_.shake}
-              id="Shake"
-              min="0"
-              max="50"
+              id="Move Horizontally"
+              min="-200"
+              max="200"
               step="0"
               handleParameter={handleParameter}
             />

@@ -10,7 +10,7 @@ const Parameter = (props) => {
     console.log("start");
   } else {
     console.log("stop");
-    parameterStatus = "contrast(50%) saturate(0%) brightness(1.2)";
+    parameterStatus = "contrast(0%) saturate(0%) brightness(.8)";
   }
 
   return (

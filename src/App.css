@@ -107,6 +107,7 @@ nav select {
 
 nav select:hover {
   color: var(--main2);
+  box-shadow: 0 0 10px var(--neutral2);
 }
 
 .app-content {
