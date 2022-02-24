@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SketchImage = () => {
+
+const UploadSketch = () => {
     const [image, setImage ] = useState("");
     const [imageUrl, setImageUrl ] = useState("");
-    const [loading, setLoading] = useState(false);
     // const [sketchInfo, setSketchInfo] =useState({
     //     sketch_name = "",
     //     sketch_Url = imageUrl
@@ -49,4 +49,4 @@ return (
     </div>
 )
 }
-export default SketchImage;
+export default UploadSketch;
