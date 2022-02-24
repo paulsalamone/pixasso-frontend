@@ -7,9 +7,9 @@ const Algo1 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
 
   const [_, set_] = useState({
-    squareSize: 62,
-    spacing: 22,
-    checkSize: 64,
+    squareSize: 34,
+    spacing: 10,
+    checkSize: 34,
     hue: 0,
     saturation: 60,
     brightness: 50,
@@ -123,7 +123,7 @@ const Algo1 = (props) => {
             <Parameter
               name="squareSize"
               value={_.squareSize}
-              id="Square Size"
+              id="Circle Size"
               min="1"
               max="100"
               step="0"
@@ -140,7 +140,7 @@ const Algo1 = (props) => {
             <Parameter
               name="checkSize"
               value={_.checkSize}
-              id="Black square size"
+              id="Square Size"
               min="0"
               max="100"
               step="0"
@@ -182,7 +182,7 @@ const Algo1 = (props) => {
             <Parameter
               name="strokeWeight"
               value={_.strokeWeight}
-              id="Stroke weight"
+              id="Stroke Weight"
               min="0"
               max="20"
               step="0"
@@ -192,7 +192,7 @@ const Algo1 = (props) => {
             <Parameter
               name="strokeBrightness"
               value={_.strokeBrightness}
-              id="Stroke brightness"
+              id="Stroke Brightness"
               min="0"
               max="100"
               step="0"
@@ -201,7 +201,7 @@ const Algo1 = (props) => {
             <Parameter
               name="strokeHue"
               value={_.strokeHue}
-              id="Stroke hue"
+              id="Stroke Hue"
               min="0"
               max="360"
               step="0"
@@ -214,7 +214,7 @@ const Algo1 = (props) => {
             <Parameter
               name="columnize"
               value={_.columnize}
-              id="Spread columns"
+              id="Spread Columns"
               min="0"
               max="10"
               step="0"
@@ -223,7 +223,7 @@ const Algo1 = (props) => {
             <Parameter
               name="randomSize"
               value={_.randomSize}
-              id="Random size"
+              id="Random Size"
               min="0"
               max="50"
               step="0"

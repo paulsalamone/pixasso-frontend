@@ -2,12 +2,15 @@ import "./App.css";
 import AppRouter from "./AppRouter";
 
 import { ProjectController } from "./contexts/ProjectContext";
+import { AlgoController } from "./contexts/AlgoContext";
 
 function App() {
   return (
     <div className="App">
       <ProjectController>
-        <AppRouter />
+        <AlgoController>
+          <AppRouter />
+        </AlgoController>
       </ProjectController>{" "}
     </div>
   );
