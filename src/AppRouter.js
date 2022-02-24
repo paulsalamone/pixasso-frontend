@@ -13,7 +13,7 @@ const AppRouter = () => {
       <TopNav />
       <div className="app-content">
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Home />} /> 
           <Route path="/" element={<SketchImage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
