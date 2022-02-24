@@ -10,22 +10,27 @@ const AlgoSelector = (props) => {
   console.log(algo);
 
   return (
-    <div>
-      <p>AlgoSelector:</p>
-      <select
-        onChange={(e) => {
-          setAlgo(e.target.value);
-          console.log("selection made");
-        }}
-      >
-        <option value="Algo1" selected={algo === "Algo1" ? "selected" : ""}>
-          Algo 1
-        </option>
-        <option value="Algo2" selected={algo === "Algo2" ? "selected" : ""}>
-          Algo 2
-        </option>
-        <option value="Nests">Nests</option>
-      </select>
+    <div className="algo-selector">
+      <p>
+        Algorithm:
+        <select
+          onChange={(e) => {
+            setAlgo(e.target.value);
+            console.log("selection made");
+          }}
+        >
+          <option value="Algo1" selected={algo === "Algo1" ? "selected" : ""}>
+            Psychic Raindrops
+          </option>
+          <option value="Algo2" selected={algo === "Algo2" ? "selected" : ""}>
+            Circles vs. Squares
+          </option>
+          {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
+            Sci-Fi Clouds
+          </option> */}
+          {/* <option value="Nests">Nests</option> */}
+        </select>
+      </p>
     </div>
   );
 };

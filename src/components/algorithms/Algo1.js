@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
-
+import StartStop from "../editorComponents/StartStop";
 const Algo1 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
 
@@ -37,7 +37,8 @@ const Algo1 = (props) => {
   };
 
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(project.width, project.height).parent(canvasParentRef);
+    p5.createCanvas(500, 500).parent(canvasParentRef);
+    // p5.createCanvas(project.width, project.height).parent(canvasParentRef);
   };
 
   const draw = (p5) => {
@@ -82,9 +83,14 @@ const Algo1 = (props) => {
   return (
     <>
       <div className="canvas-with-parameters">
-        <div className="parameters">
+        <div className="parameters-left">
+          <div className="parameter-group">
+            <div style={{ opacity: "0" }}>
+              <Parameter />
+            </div>
+          </div>
           <div className="parameters-group">
-            <p>BackGround Color:</p>
+            <h4>BackGround Color:</h4>
             <Parameter
               name="BGhue"
               value={_.BGhue}
@@ -116,10 +122,14 @@ const Algo1 = (props) => {
 
         <div className="canvas-container">
           <Sketch setup={setup} draw={draw} />
+          <div className="canvas-utilities">
+            <button>save to desktop</button>
+            <StartStop />
+          </div>
         </div>
-        <div className="parameters">
+        <div className="parameters-right">
           <div className="parameters-group">
-            <p>Sizing:</p>
+            <h4>Sizing:</h4>
             <Parameter
               name="squareSize"
               value={_.squareSize}
@@ -148,7 +158,7 @@ const Algo1 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <p>Color:</p>
+            <h4>Color:</h4>
             <Parameter
               name="hue"
               value={_.hue}
@@ -178,7 +188,7 @@ const Algo1 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <p>Border:</p>
+            <h4>Border:</h4>
             <Parameter
               name="strokeWeight"
               value={_.strokeWeight}
@@ -209,7 +219,7 @@ const Algo1 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <p>Effects:</p>
+            <h4>Effects:</h4>
 
             <Parameter
               name="columnize"

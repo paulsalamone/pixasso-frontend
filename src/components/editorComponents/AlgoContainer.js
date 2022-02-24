@@ -51,6 +51,7 @@ const Canvas = (props) => {
     <>
       <div className="canvas-frame">
         <div className="sketch">{algoChoice}</div>
+        {/* <button>save</button> */}
       </div>
     </>
   );

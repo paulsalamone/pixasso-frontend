@@ -2,27 +2,27 @@ import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
-
+import StartStop from "../editorComponents/StartStop";
 const Algo2 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
 
   const [_, set_] = useState({
-    squareSize: 42,
-    spacing: 22,
-    checkSize: 80,
-    hue: 20,
+    squareSize: 34,
+    spacing: 10,
+    checkSize: 34,
+    hue: 0,
     saturation: 60,
-    brightness: 50,
-    strokeWeight: 3,
-    strokeHue: 20,
-    strokeBrightness: 20,
+    brightness: 80,
+    strokeWeight: 0,
+    strokeHue: 0,
+    strokeBrightness: 0,
     randomColors: 0,
     randomSize: 3,
     columnize: 0,
     shake: 3,
-    BGhue: 10,
+    BGhue: 100,
     BGsaturation: 50,
-    BGbrightness: 50,
+    BGbrightness: 70,
   });
 
   useEffect(() => {
@@ -37,7 +37,8 @@ const Algo2 = (props) => {
   };
 
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(project.width, project.height).parent(canvasParentRef);
+    p5.createCanvas(500, 500).parent(canvasParentRef);
+    // p5.createCanvas(project.width, project.height).parent(canvasParentRef);
   };
 
   const draw = (p5) => {
@@ -82,9 +83,14 @@ const Algo2 = (props) => {
   return (
     <>
       <div className="canvas-with-parameters">
-        <div className="parameters">
+        <div className="parameters-left">
+          <div className="parameter-group">
+            <div style={{ opacity: "0" }}>
+              <Parameter />
+            </div>
+          </div>
           <div className="parameters-group">
-            <p>BackGround Color:</p>
+            <h4>BackGround Color:</h4>
             <Parameter
               name="BGhue"
               value={_.BGhue}
@@ -116,14 +122,18 @@ const Algo2 = (props) => {
 
         <div className="canvas-container">
           <Sketch setup={setup} draw={draw} />
+          <div className="canvas-utilities">
+            <button>save to desktop</button>
+            <StartStop />
+          </div>
         </div>
-        <div className="parameters">
+        <div className="parameters-right">
           <div className="parameters-group">
-            <p>Sizing:</p>
+            <h4>Sizing:</h4>
             <Parameter
               name="squareSize"
               value={_.squareSize}
-              id="Square Size"
+              id="Circle Size"
               min="1"
               max="100"
               step="0"
@@ -140,7 +150,7 @@ const Algo2 = (props) => {
             <Parameter
               name="checkSize"
               value={_.checkSize}
-              id="Black square size"
+              id="Square Size"
               min="0"
               max="100"
               step="0"
@@ -148,7 +158,7 @@ const Algo2 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <p>Color:</p>
+            <h4>Color:</h4>
             <Parameter
               name="hue"
               value={_.hue}
@@ -178,11 +188,11 @@ const Algo2 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <p>Border:</p>
+            <h4>Border:</h4>
             <Parameter
               name="strokeWeight"
               value={_.strokeWeight}
-              id="Stroke weight"
+              id="Stroke Weight"
               min="0"
               max="20"
               step="0"
@@ -192,7 +202,7 @@ const Algo2 = (props) => {
             <Parameter
               name="strokeBrightness"
               value={_.strokeBrightness}
-              id="Stroke brightness"
+              id="Stroke Brightness"
               min="0"
               max="100"
               step="0"
@@ -201,7 +211,7 @@ const Algo2 = (props) => {
             <Parameter
               name="strokeHue"
               value={_.strokeHue}
-              id="Stroke hue"
+              id="Stroke Hue"
               min="0"
               max="360"
               step="0"
@@ -209,12 +219,12 @@ const Algo2 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <p>Effects:</p>
+            <h4>Effects:</h4>
 
             <Parameter
               name="columnize"
               value={_.columnize}
-              id="Spread columns"
+              id="Spread Columns"
               min="0"
               max="10"
               step="0"
@@ -223,7 +233,7 @@ const Algo2 = (props) => {
             <Parameter
               name="randomSize"
               value={_.randomSize}
-              id="Random size"
+              id="Random Size"
               min="0"
               max="50"
               step="0"

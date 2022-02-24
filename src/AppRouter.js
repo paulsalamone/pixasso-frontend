@@ -11,7 +11,9 @@ const AppRouter = () => {
   return (
     <>
       <body>
-        <Nav />
+        <header>
+          <Nav />
+        </header>
         <div className="app-content">
           <Routes>
             <Route path="/" element={<Home />} />

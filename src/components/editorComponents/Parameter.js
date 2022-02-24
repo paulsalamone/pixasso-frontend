@@ -27,6 +27,7 @@ const Parameter = (props) => {
           min={props.min}
           max={props.max}
           onChange={project.start ? props.handleParameter : null}
+          className="slider"
         />
       </div>
       {/* <p>{props.value}</p> */}

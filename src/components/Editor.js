@@ -36,38 +36,21 @@ const Editor = () => {
         <section className="easel">
           {/* <Controls /> */}
           <div className="controls">
-            <AlgoSelector
-            // state={state}
-            // dispatch={dispatch}
-            // algoSelection={state.algoSelection}
-            />
-            <Refresh />
-            <StartStop />
+            {/* <AlgoSelector /> */}
+            {/* <Refresh /> */}
+            {/* <StartStop /> */}
 
             {/* <p>
           Speed:
           <input type="range" min="-2" max="62" onChange={rateHandler} />
         </p> */}
           </div>
-          {/* <div className="controls">
-            <div>BG color</div>
-            <div>Format</div>
-          </div> */}
 
-          <AlgoContainer
-          // state={state}
-          // dispatch={dispatch}
-          // projectName={state.projectName}
-          // formatWidth={state.formatWidth}
-          // formatHeight={state.formatHeight}
-          // BGcolor={state.BGcolor}
-          // algoSelection={state.algoSelection}
-          // parameterA={state.parameterA}
-          />
+          <AlgoContainer />
 
-          <div className="utilities">
+          {/* <div className="utilities">
             <button>save</button>
-          </div>
+          </div> */}
         </section>
       </main>
     </>
