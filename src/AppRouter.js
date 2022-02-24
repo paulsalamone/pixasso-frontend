@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Editor from "./components/Editor";
 
 import SketchImage from "./components/SketchImage";
+//import TestImage from "./components/TestImage";
 
 const AppRouter = () => {
   return (
@@ -15,7 +16,7 @@ const AppRouter = () => {
       <TopNav />
       <div className="app-content">
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} /> */}
           <Route path="/" element={<SketchImage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
