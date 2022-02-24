@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import SketchImage from "./components/SketchImage";
 import Editor from "./components/editor/EditorMain";
 
 const AppRouter = () => {
@@ -12,7 +13,8 @@ const AppRouter = () => {
       <TopNav />
       <div className="app-content">
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<SketchImage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/editor" element={<Editor />} />
