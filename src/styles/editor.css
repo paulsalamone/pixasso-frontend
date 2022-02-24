@@ -41,6 +41,7 @@ select {
 
 button:hover {
   color: var(--main2);
+  box-shadow: 0 0 5px var(--neutral2);
 }
 
 .settings {
@@ -219,8 +220,14 @@ input {
 }
 
 .parameter p {
-  font-weight: 400;
+  font-weight: 600;
   color: var(--neutral2);
+}
+
+.parameter p:nth-child(2) {
+  font-weight: 400;
+
+  color: var(--neutral3);
 }
 
 .parameter label {
@@ -238,6 +245,9 @@ input {
   flex-direction: row;
 }
 
+.start-stop button {
+  /* border: green 2px solid; */
+}
 .slider {
   -webkit-appearance: none;
   width: 100%;
