@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Editor from "./components/editor/EditorMain";
+import Editor from "./components/Editor";
 
 const AppRouter = () => {
   return (
