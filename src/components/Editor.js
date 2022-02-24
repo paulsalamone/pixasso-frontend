@@ -2,9 +2,9 @@ import "../styles/editor.css";
 import { useState, useContext, useEffect, useReducer } from "react";
 import ProjectName from "./editorComponents/ProjectName";
 import Format from "./editorComponents/Format";
-import Background from "./editorComponents/Background";
+import BackgroundSelector from "./editorComponents/BackgroundSelector";
 // import Reducer from "./editorComponents/Reducer";
-import Canvas from "./editorComponents/Canvas";
+import AlgoContainer from "./editorComponents/AlgoContainer";
 import Parameters from "./editorComponents/Parameters";
 import Controls from "./editorComponents/Controls";
 
@@ -61,7 +61,7 @@ const Editor = () => {
           formatWidth={state.formatWidth}
           formatHeight={state.formatHeight}
           /> */}
-          <Background
+          <BackgroundSelector
           // state={state}
           // dispatch={dispatch}
           // projectName={state.projectName}
@@ -70,7 +70,7 @@ const Editor = () => {
         <section className="easel">
           <Controls />
 
-          <Canvas
+          <AlgoContainer
             state={state}
             dispatch={dispatch}
             projectName={state.projectName}

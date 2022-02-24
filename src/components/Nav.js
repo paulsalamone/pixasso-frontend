@@ -1,7 +1,7 @@
 import "../App.css";
 import { Route, Routes, Link } from "react-router-dom";
 
-const TopNav = () => {
+const Nav = () => {
   return (
     <>
       <nav>
@@ -15,4 +15,4 @@ const TopNav = () => {
   );
 };
 
-export default TopNav;
+export default Nav;

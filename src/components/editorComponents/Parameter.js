@@ -1,7 +1,21 @@
+import { ProjectContext } from "../../contexts/ProjectContext";
+import { useContext } from "react";
+
 const Parameter = (props) => {
+  const [project, setProject] = useContext(ProjectContext);
+
+  let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
+
+  if (project.start) {
+    console.log("start");
+  } else {
+    console.log("stop");
+    parameterStatus = "contrast(50%) saturate(0%) brightness(1.2)";
+  }
+
   return (
     <>
-      <div className="parameter">
+      <div className="parameter" style={{ filter: `${parameterStatus}` }}>
         <label>
           <p>{props.name}</p>
           <p>{props.value}</p>
