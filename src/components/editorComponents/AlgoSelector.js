@@ -8,7 +8,7 @@ const AlgoSelector = (props) => {
     setProject({ ...project, [input.name]: input.value });
   };
 
-  console.log(project);
+  // console.log(project);
   return (
     <>
       <div className="BGcolor">

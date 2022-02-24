@@ -50,6 +50,8 @@ input {
   border: 1px solid black;
   padding: 5px;
   margin: 5px;
+  display: flex;
+  font-size: 0.8rem;
 }
 
 .canvas-with-parameters {
@@ -62,6 +64,7 @@ input {
 .canvas-container {
   display: flex;
   justify-content: center;
+  /* width: 700px; */
   /* border: 1px solid red; */
 }
 

@@ -6,6 +6,8 @@ export const ProjectController = (props) => {
   const [project, setProject] = useState({
     name: "my-project",
     algo: "algo1",
+    start: "true",
+    rate: 10,
     width: 500,
     height: 500,
     red: 100,

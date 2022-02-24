@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
-import Parameter from "./Parameter";
+import Parameter from "../../components/editorComponents/Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
 
 const Algo1 = (props) => {
@@ -12,7 +12,7 @@ const Algo1 = (props) => {
     hue: 0,
     saturation: 20,
     brightness: 50,
-    strokeWeight: 2,
+    strokeWeight: -2,
     strokeHue: 0,
     strokeBrightness: 0,
     randomColors: 0,
@@ -31,37 +31,41 @@ const Algo1 = (props) => {
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(project.width, project.height).parent(canvasParentRef);
   };
+
   const draw = (p5) => {
-    p5.background(project.hue, project.saturation, project.brightness);
-    p5.colorMode(p5.HSB);
-    p5.frameRate(15);
-    p5.rectMode(p5.CENTER);
-    p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
-    p5.strokeWeight(_.strokeWeight);
+    if (project.start) {
+      p5.background(project.hue, project.saturation, project.brightness);
+      p5.frameRate(project.rate);
 
-    //GRID
-    for (let i = 0; i < 100; i += 1) {
-      for (let j = 0; j < 100; j += 1) {
-        if (i % 2 !== 0 || j % 2 !== 0) {
-          // NORMAL SQUARE
+      p5.colorMode(p5.HSB);
+      p5.rectMode(p5.CENTER);
+      p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
+      p5.strokeWeight(_.strokeWeight);
 
-          p5.fill(_.hue, _.saturation, _.brightness);
-          p5.translate(_.columnize / 10, 0);
+      //GRID
+      for (let i = 0; i < 100; i += 1) {
+        for (let j = 0; j < 100; j += 1) {
+          if (i % 2 !== 0 || j % 2 !== 0) {
+            // NORMAL SQUARE
 
-          p5.square(
-            i * _.squareSize + p5.random(0, _.shake),
-            j * _.squareSize + p5.random(0, _.shake),
-            _.squareSize - _.spacing + p5.random(0, _.randomSize)
-          );
-        } else {
-          // DARK SQUARE
-          p5.fill(_.hue, _.saturation / 2, _.brightness - 50);
-          p5.translate(_.columnize / 10, 0);
-          p5.square(
-            i * _.squareSize + p5.random(0, _.shake),
-            j * _.squareSize + p5.random(0, _.shake),
-            _.checkSize - _.spacing + p5.random(0, _.randomSize)
-          );
+            p5.fill(_.hue, _.saturation, _.brightness);
+            p5.translate(_.columnize / 10, 0);
+
+            p5.circle(
+              i * _.squareSize + p5.random(0, _.shake),
+              j * _.squareSize + p5.random(0, _.shake),
+              _.squareSize - _.spacing + p5.random(0, _.randomSize)
+            );
+          } else {
+            // DARK SQUARE
+            p5.fill(_.hue, _.saturation / 2, _.brightness - 50);
+            p5.translate(_.columnize / 10, 0);
+            p5.square(
+              i * _.squareSize + p5.random(0, _.shake),
+              j * _.squareSize + p5.random(0, _.shake),
+              _.checkSize - _.spacing + p5.random(0, _.randomSize)
+            );
+          }
         }
       }
     }
@@ -73,7 +77,6 @@ const Algo1 = (props) => {
         <div className="canvas-container">
           <Sketch setup={setup} draw={draw} />
         </div>
-        {/* PARAMETERS */}
         <div className="parameters">
           <div className="parameters-group">
             <p>Sizing:</p>
@@ -133,7 +136,7 @@ const Algo1 = (props) => {
             <Parameter
               name="strokeWeight"
               value={_.strokeWeight}
-              min="0"
+              min="-2"
               max="20"
               step="0"
               handleParameter={handleParameter}
@@ -158,19 +161,7 @@ const Algo1 = (props) => {
           </div>
           <div className="parameters-group">
             <p>Effects:</p>
-            {/* <label className="switch">
-              Randomize Color
-              <input type="checkbox" />
-              <span className="slider"></span>
-            </label> */}
-            {/* <Parameter
-              name="randomColors"
-              value={_.randomColors}
-              min="0"
-              max="100"
-              step="0"
-              handleParameter={handleParameter}
-            /> */}
+
             <Parameter
               name="columnize"
               value={_.columnize}

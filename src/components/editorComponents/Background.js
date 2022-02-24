@@ -1,6 +1,6 @@
 import { HuePicker } from "react-color";
 import { useState, useContext } from "react";
-import Parameter from "../../algorithms/001_demo/Parameter";
+import Parameter from "./Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
 
 const Background = (props) => {

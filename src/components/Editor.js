@@ -6,6 +6,8 @@ import Background from "./editorComponents/Background";
 // import Reducer from "./editorComponents/Reducer";
 import Canvas from "./editorComponents/Canvas";
 import Parameters from "./editorComponents/Parameters";
+import Controls from "./editorComponents/Controls";
+
 import AlgoSelector from "./editorComponents/AlgoSelector";
 import { ProjectContext } from "../contexts/ProjectContext";
 
@@ -39,18 +41,6 @@ const Editor = () => {
     parameterA: 30,
   });
 
-  function refreshPage() {
-    window.location.reload(false);
-    setProject({ ...project, hue: 0 });
-    setProject({ ...project, saturation: 0 });
-    setProject({ ...project, brightness: 50 });
-  }
-
-  // const [backgroundColor, setBackgroundColor] = useState("$")
-
-  const [AA, setAA] = useState(30);
-
-  console.log("Editor: " + state.parameterA);
   return (
     <>
       <main>
@@ -78,13 +68,7 @@ const Editor = () => {
           />
         </section>
         <section className="easel">
-          <div className="controls">
-            <p>
-              Controls:
-              <button onClick={refreshPage}>refresh</button>
-              ... start/stop ... speed
-            </p>
-          </div>
+          <Controls />
 
           <Canvas
             state={state}

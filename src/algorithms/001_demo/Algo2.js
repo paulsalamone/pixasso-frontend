@@ -1,25 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
-import Parameter from "./Parameter";
+import Parameter from "../../components/editorComponents/Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
 
 const Algo2 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
   const [_, set_] = useState({
-    //black
-    line1weight: 2,
-    line1angle: 0,
-    line1spacing: 3,
-
-    //grey
-    line2weight: 2,
-    line2angle: 5,
-    line2spacing: 3,
-
-    //white
-    line3weight: 1,
-    line3angle: 75,
-    line3spacing: 7,
+    squareSize: 50,
+    spacing: 15,
+    checkSize: 50,
+    hue: 0,
+    saturation: 20,
+    brightness: 50,
+    strokeWeight: -2,
+    strokeHue: 0,
+    strokeBrightness: 0,
+    randomColors: 0,
+    randomSize: 3,
+    columnize: 0,
+    shake: 3,
   });
 
   const handleParameter = ({ currentTarget: input }) => {
@@ -31,43 +30,45 @@ const Algo2 = (props) => {
 
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(project.width, project.height).parent(canvasParentRef);
-    p5.colorMode(p5.HSB, 100);
   };
 
-  // ALGO NAME: BLACK RAIN
   const draw = (p5) => {
-    p5.colorMode(p5.HSB, 100);
+    if (project.start) {
+      p5.background(project.hue, project.saturation, project.brightness);
+      p5.frameRate(project.rate);
 
-    p5.background(project.hue, project.saturation, project.brightness);
-    // p5.background("white");
-    p5.translate(-220, 0);
-    p5.frameRate(10);
+      p5.colorMode(p5.HSB);
+      p5.rectMode(p5.CENTER);
+      p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
+      p5.strokeWeight(_.strokeWeight);
 
-    //LINE 1
-    p5.strokeWeight(_.line1weight);
-    p5.stroke(0);
-    for (let i = 0; i < p5.width; i += _.line1spacing / 2) {
-      p5.line(
-        i * 10,
-        0,
-        i * 10 + _.line1angle / 2,
-        p5.height + p5.random(0, 25)
-      );
+      //GRID
+      for (let i = 0; i < 100; i += 1) {
+        for (let j = 0; j < 100; j += 1) {
+          if (i % 2 !== 0 || j % 2 !== 0) {
+            // NORMAL SQUARE
+
+            p5.fill(_.hue, _.saturation, _.brightness);
+            p5.translate(_.columnize / 10, 0);
+
+            p5.circle(
+              i * _.squareSize + p5.random(0, _.shake),
+              j * _.squareSize + p5.random(0, _.shake),
+              _.squareSize - _.spacing + p5.random(0, _.randomSize)
+            );
+          } else {
+            // DARK SQUARE
+            p5.fill(_.hue, _.saturation / 2, _.brightness - 50);
+            p5.translate(_.columnize / 10, 0);
+            p5.square(
+              i * _.squareSize + p5.random(0, _.shake),
+              j * _.squareSize + p5.random(0, _.shake),
+              _.checkSize - _.spacing + p5.random(0, _.randomSize)
+            );
+          }
+        }
+      }
     }
-
-    //LINE 2
-    p5.strokeWeight(_.line2weight);
-    p5.stroke(0);
-    for (let i = 0; i < p5.width; i += _.line2spacing / 10) {
-      p5.line(i * 20, 0, i * 20 + _.line2angle / 2, p5.height);
-    }
-    // //LINE 3
-    // p5.strokeWeight(_.line3weight);
-
-    // p5.stroke(0);
-    // for (let i = 0; i < p5.width; i += _.line3spacing / 10) {
-    //   p5.line(i * 15, 0, i * 15 + _.line3angle / 2, p5.height);
-    // }
   };
 
   return (
@@ -76,88 +77,113 @@ const Algo2 = (props) => {
         <div className="canvas-container">
           <Sketch setup={setup} draw={draw} />
         </div>
-        {/* PARAMETERS */}
         <div className="parameters">
           <div className="parameters-group">
-            <p>Line1:</p>
+            <p>Sizing:</p>
             <Parameter
-              name="line1weight"
-              id="Weight"
-              value={_.line1weight}
+              name="squareSize"
+              value={_.squareSize}
               min="1"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="spacing"
+              value={_.spacing}
+              min="10"
+              max="80"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="checkSize"
+              value={_.checkSize}
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
+          <div className="parameters-group">
+            <p>Color:</p>
+            <Parameter
+              name="hue"
+              value={_.hue}
+              min="0"
+              max="360"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="saturation"
+              value={_.saturation}
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="brightness"
+              value={_.brightness}
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
+          <div className="parameters-group">
+            <p>Border:</p>
+            <Parameter
+              name="strokeWeight"
+              value={_.strokeWeight}
+              min="-2"
+              max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+
+            <Parameter
+              name="strokeBrightness"
+              value={_.strokeBrightness}
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="strokeHue"
+              value={_.strokeHue}
+              min="0"
+              max="360"
+              step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
+          <div className="parameters-group">
+            <p>Effects:</p>
+
+            <Parameter
+              name="columnize"
+              value={_.columnize}
+              min="0"
               max="10"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="line1angle"
-              id="Angle"
-              value={_.line1angle}
+              name="randomSize"
+              value={_.randomSize}
               min="0"
-              max="400"
+              max="50"
+              step="0"
               handleParameter={handleParameter}
             />
+
             <Parameter
-              name="line1spacing"
-              value={_.line1spacing}
-              min="1"
+              name="shake"
+              value={_.shake}
+              min="0"
               max="40"
-              step="0"
-              handleParameter={handleParameter}
-            />
-          </div>
-          <div className="parameters-group">
-            <p>Line2:</p>
-            <Parameter
-              name="line2weight"
-              id="Weight"
-              value={_.line2weight}
-              min="1"
-              max="10"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="line2angle"
-              id="Angle"
-              value={_.line2angle}
-              min="0"
-              max="400"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="line2spacing"
-              value={_.line2spacing}
-              min="3"
-              max="20"
-              step="0"
-              handleParameter={handleParameter}
-            />
-          </div>
-          <div className="parameters-group">
-            <p>Line3:</p>
-            <Parameter
-              name="line3weight"
-              id="Weight"
-              value={_.line3weight}
-              min="0"
-              max="5"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="line3angle"
-              id="Angle"
-              value={_.line3angle}
-              min="0"
-              max="400"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="line3spacing"
-              value={_.line3spacing}
-              min="3"
-              max="20"
               step="0"
               handleParameter={handleParameter}
             />
