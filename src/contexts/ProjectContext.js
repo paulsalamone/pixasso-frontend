@@ -7,6 +7,7 @@ export const ProjectController = (props) => {
     name: "my-project",
     algo: "algo1",
     start: "true",
+    parameterStatus: "contrast(100%) saturate(100%) brightness(1)",
     rate: 10,
     width: 500,
     height: 500,

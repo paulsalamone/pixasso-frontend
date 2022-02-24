@@ -71,13 +71,22 @@ const Algo1 = (props) => {
     }
   };
 
+  let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
+
+  if (project.start) {
+    console.log("start");
+  } else {
+    console.log("stop");
+    parameterStatus = "contrast(50%) saturate(0%) brightness(1.2)";
+  }
+
   return (
     <>
       <div className="canvas-with-parameters">
         <div className="canvas-container">
           <Sketch setup={setup} draw={draw} />
         </div>
-        <div className="parameters">
+        <div className="parameters" style={{ filter: `${parameterStatus}` }}>
           <div className="parameters-group">
             <p>Sizing:</p>
             <Parameter
