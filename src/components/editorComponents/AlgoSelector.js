@@ -1,8 +1,19 @@
+import { ProjectContext } from "../../contexts/ProjectContext";
+import { useContext } from "react";
+
 const AlgoSelector = (props) => {
+  const [project, setProject] = useContext(ProjectContext);
+
+  const handleParameter = ({ currentTarget: input }) => {
+    setProject({ ...project, [input.name]: input.value });
+  };
+
+  console.log(project);
   return (
     <>
       <div className="BGcolor">
         <p>AlgoSelector:</p>
+        {/* <select onChange={handleParameter}> */}
         <select
           onChange={(e) =>
             props.dispatch({
