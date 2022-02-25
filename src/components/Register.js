@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
-import { useNavigate} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
 
 const Register = () => {
@@ -67,6 +67,13 @@ console.log(user)
         type="submit">
           Register
       </button>
+      <div>
+      <Link to="/Login">
+          already have a na account? Login..
+      </Link>
+
+      </div>
+      
       </form>
       
 
