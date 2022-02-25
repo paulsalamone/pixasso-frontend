@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       <footer>
-        ©2022 Pixasso - Created by Paul and Mimoon for WBS
+        ©2022 Pixasso - Created by Paul and Mimoona for WBS
         <br />
       </footer>
     </>
