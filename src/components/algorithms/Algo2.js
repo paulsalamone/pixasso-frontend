@@ -6,6 +6,13 @@ import StartStop from "../editorComponents/StartStop";
 const Algo2 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
 
+  const [saveImage, setSaveImage] = useState(false);
+
+  const handleSaveImage = (e) => {
+    console.log("handle save image");
+    setSaveImage(true);
+  };
+
   const [_, set_] = useState({
     squareSize: 34,
     spacing: 10,
@@ -42,6 +49,12 @@ const Algo2 = (props) => {
   };
 
   const draw = (p5) => {
+    if (saveImage) {
+      p5.save("output_canvas.png");
+      console.log("p5 save image triggered");
+      setSaveImage(false);
+    }
+
     if (project.start) {
       p5.background(_.BGhue, _.BGsaturation, _.BGbrightness);
       p5.frameRate(project.rate);
@@ -121,9 +134,12 @@ const Algo2 = (props) => {
         </div>
 
         <div className="canvas-container">
-          <Sketch setup={setup} draw={draw} />
+          <div className="artwork">
+            <Sketch setup={setup} draw={draw} />
+          </div>
+
           <div className="canvas-utilities">
-            <button>save to desktop</button>
+            <button onClick={handleSaveImage}>save to desktop</button>
             <StartStop />
           </div>
         </div>

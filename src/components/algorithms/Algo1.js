@@ -9,17 +9,16 @@ import saveAs from "file-saver";
 
 const Algo1 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
-  //const [image, setImage] = useState();
+
   const [saveImage, setSaveImage] = useState(false);
 
   const handleSaveImage = (e) => {
-    // e.preventDefault;
     console.log("handle save image");
     setSaveImage(true);
   };
 
   const [_, set_] = useState({
-    sizeRange: 35,
+    sizeRange: 15,
     scale: 2,
     strokeWeight: 1,
 

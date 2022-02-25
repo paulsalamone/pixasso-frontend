@@ -60,12 +60,30 @@ nav {
 nav a {
   color: var(--main2);
   text-decoration: none;
-  margin: 5px;
+  margin: 25px;
+  font-size: 0.9rem;
+  text-transform: lowercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-logo {
+  /* border: 2px solid red; */
+}
+
+.nav-logo:hover {
+  filter: blur(1px);
+}
+
+nav a:hover {
+  color: var(--highlight1);
 }
 
 nav div {
   display: flex;
   flex-direction: row;
+  align-items: center;
+
   /* border: 1px red solid; */
 }
 
@@ -115,9 +133,15 @@ nav select:hover {
 }
 
 footer {
-  background-color: var(--sub2);
-  color: var(--main2);
+  background-color: var(--sub1);
+  color: var(--neutral3);
   position: fixed;
   width: 100%;
   bottom: 0;
+  text-transform: lowercase;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 10px;
 }

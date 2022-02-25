@@ -3,7 +3,10 @@ import "../App.css";
 const Footer = () => {
   return (
     <>
-      <footer>footer</footer>
+      <footer>
+        ©2022 Pixasso - Created by Paul and Mimoon for WBS
+        <br />
+      </footer>
     </>
   );
 };
