@@ -1,1 +1,36 @@
 /* for home / splash page only */
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.big-logo {
+  width: 300px;
+}
+
+.yellow {
+  color: var(--highlight3);
+}
+
+.green {
+  color: var(--highlight1);
+}
+
+.hero-text {
+  margin: 60px;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  /* text-align: center; */
+}
+
+h1 {
+  font-weight: 200;
+}
+
+main {
+}

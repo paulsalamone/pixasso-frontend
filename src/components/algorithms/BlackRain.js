@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
-import Parameter from "./Parameter";
+import Parameter from "../../components/editorComponents/Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
 
 const Algo2 = (props) => {
@@ -61,18 +61,19 @@ const Algo2 = (props) => {
     for (let i = 0; i < p5.width; i += _.line2spacing / 10) {
       p5.line(i * 20, 0, i * 20 + _.line2angle / 2, p5.height);
     }
-    // //LINE 3
-    // p5.strokeWeight(_.line3weight);
+    //LINE 3
+    p5.strokeWeight(_.line3weight);
 
-    // p5.stroke(0);
-    // for (let i = 0; i < p5.width; i += _.line3spacing / 10) {
-    //   p5.line(i * 15, 0, i * 15 + _.line3angle / 2, p5.height);
-    // }
+    p5.stroke(0);
+    for (let i = 0; i < p5.width; i += _.line3spacing / 10) {
+      p5.line(i * 15, 0, i * 15 + _.line3angle / 2, p5.height);
+    }
   };
 
   return (
     <>
       <div className="canvas-with-parameters">
+        <h1>Black Rain (under construction</h1>
         <div className="canvas-container">
           <Sketch setup={setup} draw={draw} />
         </div>
