@@ -8,14 +8,15 @@ import Logout from "./components/Logout";
 import Editor from "./components/Editor";
 import UploadSketch from "./components/UploadSketch";
 import DownloadSketch from "./components/DownloadSketch";
+import UserProfile from "./components/UserProfile";
 
 const AppRouter = () => {
-  const user =localStorage.getItem("token")
-  if (user){
-    console.log("welcome")
-  }else{
-    console.log("you are not logged in")
-  }
+  // const user =localStorage.getItem("token")
+  // if (user){
+  //   console.log("welcome")
+  // }else{
+  //   console.log("you are not logged in")
+  // }
   return (
     <>
    <TopNav />
@@ -28,6 +29,7 @@ const AppRouter = () => {
           <Route path="/editor" element={<Editor />} />
           <Route path="/download" element={<DownloadSketch />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </div>
       
