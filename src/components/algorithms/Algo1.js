@@ -3,8 +3,20 @@ import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
 import StartStop from "../editorComponents/StartStop";
+import DownloadSketch from "../DownloadSketch";
+import domtoimage from "dom-to-image";
+import saveAs from "file-saver";
+
 const Algo1 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
+  //const [image, setImage] = useState();
+  const [saveImage, setSaveImage] = useState(false);
+
+  const handleSaveImage = (e) => {
+    // e.preventDefault;
+    console.log("handle save image");
+    setSaveImage(true);
+  };
 
   const [_, set_] = useState({
     sizeRange: 35,
@@ -47,10 +59,17 @@ const Algo1 = (props) => {
   const draw = (p5) => {
     // let value = p5.alpha(30);
     p5.frameRate(7);
+    // p5.noLoop();
+
+    if (saveImage) {
+      p5.save("output_canvas.png");
+      console.log("p5 save image triggered");
+      setSaveImage(false);
+    }
 
     if (project.start) {
       p5.colorMode(p5.HSB);
-
+      // p5.noLoop();
       p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 50);
       p5.colorMode(p5.RGB);
 
@@ -134,7 +153,6 @@ const Algo1 = (props) => {
       }
     }
   };
-
   const psycheCircle = (p5, x, y, jglX, jglXX, jglY, jglYY, i, sizeRange) => {
     return p5.circle(
       jglX + jglXX + x,
@@ -184,9 +202,11 @@ const Algo1 = (props) => {
         </div>
 
         <div className="canvas-container">
-          <Sketch setup={setup} draw={draw} />
+          <div className="artwork">
+            <Sketch className="x" setup={setup} draw={draw} />
+          </div>
           <div className="canvas-utilities">
-            <button>save to desktop</button>
+            <button onClick={handleSaveImage}>save to desktop</button>
             <StartStop />
           </div>
         </div>
