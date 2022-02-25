@@ -8,6 +8,10 @@
     sans-serif;
 }
 
+input {
+  color: black;
+  font-size: 1.2rem;
+}
 /* GLOBAL COLOR VARIABLES */
 :root {
   --main1: black;
@@ -87,6 +91,17 @@ nav div {
   /* border: 1px red solid; */
 }
 
+.button-home-big {
+  border: 1px solid var(--highlight2);
+  color: var(--highlight2);
+  border-radius: 10px;
+  padding: 12px 20px 15px 20px;
+  font-size: 1.4rem;
+}
+
+.button-home-big:hover {
+  border: 1px solid var(--highlight2);
+}
 .top-nav-left {
   display: flex;
   justify-content: space-between;
@@ -130,6 +145,24 @@ nav select:hover {
 
 .app-content {
   flex: 1;
+}
+
+.form-page,
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: ;
+}
+
+.form-page input {
+  margin: 10px;
+  padding: 10px;
+  font-size: 1.2rem;
+}
+
+.form-page img {
+  width: 155px;
 }
 
 footer {

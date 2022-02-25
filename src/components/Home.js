@@ -5,7 +5,11 @@ const Home = () => {
   return (
     <>
       <header>
-        <img src={BigLogo} className="big-logo" />
+        <img
+          src={BigLogo}
+          className="big-logo"
+          alt="generative art for everyone"
+        />
         <div className="hero-text">
           <h1>
             Welcome to <span className="yellow">Pixasso</span>, the{" "}
