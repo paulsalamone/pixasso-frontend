@@ -28,18 +28,6 @@ header {
   /* text-align: center; */
 }
 
-.button-home-big {
-  border: 1px solid var(--highlight2);
-  color: var(--highlight2);
-  border-radius: 10px;
-  padding: 12px 20px 15px 20px;
-  font-size: 1.4rem;
-}
-
-.button-home-big:hover {
-  border: 1px solid var(--highlight2);
-}
-
 h1 {
   font-weight: 200;
 }
