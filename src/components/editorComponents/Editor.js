@@ -3,6 +3,9 @@ import { AlgoContext } from "../../contexts/AlgoContext";
 import { useState, useEffect, useContext } from "react";
 import Algo1 from "../algorithms/Algo1";
 import Algo2 from "../algorithms/Algo2";
+import AlgoFrame from "../algorithms/AlgoFrame";
+
+import data from "../algorithms/parameterData.json";
 
 const Editor = () => {
   const [algo, setAlgo] = useContext(AlgoContext);
@@ -17,6 +20,10 @@ const Editor = () => {
       case "Algo2":
         setAlgoChoice(<Algo2 />);
         break;
+      case "Algo3":
+        //algo frame showing by default as delimited below:
+        setAlgoChoice(<AlgoFrame />);
+        break;
 
       default:
         console.log("error");
@@ -28,7 +35,10 @@ const Editor = () => {
       <main>
         <section className="easel">
           <div className="canvas-frame">
-            <div className="sketch">{algoChoice}</div>
+            {/* <div className="sketch">{algoChoice}</div> */}
+            <div className="sketch">
+              <AlgoFrame />
+            </div>
           </div>
         </section>
       </main>

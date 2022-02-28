@@ -1,8 +1,12 @@
 import { StartStopContext } from "../../contexts/StartStopContext";
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 const StartStop = () => {
   const [startStop, setStartStop] = useContext(StartStopContext);
+
+  useEffect(() => {
+    setStartStop({ ...startStop, start: true });
+  }, []);
 
   const startHandler = (e) => {
     e.preventDefault();
@@ -11,7 +15,7 @@ const StartStop = () => {
     } else {
       setStartStop({ ...startStop, start: true });
     }
-    console.log(startStop.start);
+    // console.log(startStop.start);
   };
 
   return (

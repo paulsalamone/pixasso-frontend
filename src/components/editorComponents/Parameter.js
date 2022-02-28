@@ -7,12 +7,13 @@ const Parameter = (props) => {
   let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
 
   if (startStop.start) {
-    console.log("start");
   } else {
-    console.log("stop");
     parameterStatus = "contrast(0%) saturate(0%) brightness(.8)";
   }
 
+  // const handleParameter = (e) => {
+  //   console.log(e);
+  // };
   return (
     <>
       <div className="parameter" style={{ filter: `${parameterStatus}` }}>

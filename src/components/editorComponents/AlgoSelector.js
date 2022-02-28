@@ -24,6 +24,9 @@ const AlgoSelector = (props) => {
           <option value="Algo2" selected={algo === "Algo2" ? "selected" : ""}>
             Circles vs. Squares
           </option>
+          <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
+            Algo 3 Test
+          </option>
           {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
             Sci-Fi Clouds
           </option> */}
