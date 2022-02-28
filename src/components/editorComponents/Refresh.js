@@ -1,28 +1,28 @@
-// import { RefreshContext } from "../../contexts/RefreshContext";
-// import { useState, useContext } from "react";
+import { RefreshContext } from "../../contexts/RefreshContext";
+import { useState, useContext } from "react";
+import StartStop from "./StartStop";
+import { StartStopContext } from "../../contexts/StartStopContext";
+const Refresh = () => {
+  const [refresh, setRefresh] = useContext(RefreshContext);
+  const [startStop, setStartStop] = useContext(StartStopContext);
+  const refreshHandler = (e) => {
+    setRefresh(true);
+    console.log("refresh triggered");
+    // console.log(refresh);
+  };
 
-// const Refresh = () => {
-//   const [refresh, setRefresh] = useContext(RefreshContext);
-//   const [_, set_] = useContext(Algo3Context);
+  let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
 
-//   const [backup, setBackup] = useState(_);
+  if (startStop.start) {
+  } else {
+    parameterStatus = "saturate(0%) brightness(.4)";
+  }
 
-//   useEffect(() => {
-//     set_(backup);
-//     setRefresh(false);
-//   }, [refresh]);
+  return (
+    <div style={{ filter: `${parameterStatus}` }}>
+      <button onClick={refreshHandler}>Reset sliders</button>
+    </div>
+  );
+};
 
-//   const refreshHandler = (e) => {
-//     setRefresh(true);
-//     console.log("refresh triggered");
-//   };
-
-//   return (
-//     <div>
-//       <p>Page:</p>
-//       <button onClick={refreshHandler}>refresh</button>
-//     </div>
-//   );
-// };
-
-// export default Refresh;
+export default Refresh;

@@ -2,8 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
-import Save from "../editorComponents/Save";
 import { SaveContext } from "../../contexts/SaveContext";
+import Save from "../editorComponents/Save";
+import { RefreshContext } from "../../contexts/RefreshContext";
+import Refresh from "../editorComponents/Refresh";
+
+//ALGO-SPECIFIC DEPENDENCIES:
 import { Algo3Context, Algo3Controller } from "./Algo3Context";
 import Algo3Parameter from "./Algo3Parameter";
 
@@ -12,17 +16,13 @@ const Algo3 = (props) => {
   const [saveImage, setSaveImage] = useContext(SaveContext);
   const [_, set_] = useContext(Algo3Context);
   const [backup, setBackup] = useState(_);
-  const [refresh, setRefresh] = useState(false);
+  const [refresh, setRefresh] = useContext(RefreshContext);
 
   useEffect(() => {
     set_(backup);
+    console.log(refresh);
     setRefresh(false);
   }, [refresh]);
-
-  const refreshHandler = (e) => {
-    setRefresh(true);
-    console.log("refresh triggered");
-  };
 
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500).parent(canvasParentRef);
@@ -174,7 +174,7 @@ const Algo3 = (props) => {
             <Sketch className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
-            <button onClick={refreshHandler}>Refresh</button>
+            <Refresh />
             <Save />
             <StartStop />
           </div>
