@@ -279,3 +279,26 @@ input {
   border: 1px solid grey;
   border-radius: 4px;
 }
+
+.form-page {
+  font-size: 0.8rem;
+  /* border: 1px solid white; */
+  display: flex;
+  color: white;
+  flex-direction: column;
+  /* background-color: var(--neutral3); */
+  width: 100%;
+}
+
+.form-page input {
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.custom-file-upload {
+  /* border: 1px solid #ccc; */
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  cursor: pointer;
+}

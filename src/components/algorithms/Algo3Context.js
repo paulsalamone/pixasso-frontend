@@ -5,7 +5,7 @@ export const Algo3Context = createContext();
 export const Algo3Controller = (props) => {
   const [_, set_] = useState({
     sizeRange: 15,
-    scale: 2,
+    scale: 1,
     strokeWeight: 1,
     jiggle: 0,
     jiggle2: 0,
