@@ -14,5 +14,21 @@
       "min": 0,
       "max": 100
     }
+  },
+  "Algo4": {
+    "A": {
+      "name": "BGhue",
+      "id": "Background Hue",
+      "value": 100,
+      "min": 0,
+      "max": 360
+    },
+    "B": {
+      "name": "BGsaturation",
+      "id": "background saturation",
+      "value": 80,
+      "min": 0,
+      "max": 100
+    }
   }
 }

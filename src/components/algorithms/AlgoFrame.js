@@ -6,7 +6,7 @@ import { SaveContext } from "../../contexts/SaveContext";
 import { AlgoContext } from "../../contexts/AlgoContext";
 import Save from "../editorComponents/Save";
 import StartStop from "../editorComponents/StartStop";
-import parameters from "../algorithms/parameterData.json";
+import allAlgoParameters from "../algorithms/parameterData.json";
 
 const AlgoFrame = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
@@ -14,27 +14,47 @@ const AlgoFrame = (props) => {
 
   const [saveImage, setSaveImage] = useContext(SaveContext);
   console.log(algo);
-  const [_, set_] = useState({
-    //   NOTE: set to state so MULTIPLE algos can use this page!
-    A: {
-      name: parameters.Algo3.A.name,
-      id: parameters.Algo3.A.id,
-      value: parameters.Algo3.A.value,
-      min: parameters.Algo3.A.min,
-      max: parameters.Algo3.A.max,
-    },
-    B: {
-      name: parameters.Algo3.B.name,
-      id: parameters.Algo3.B.id,
-      value: parameters.Algo3.B.value,
-      min: parameters.Algo3.B.min,
-      max: parameters.Algo3.B.max,
-    },
-  });
-  console.log("parameters state:");
-  console.log(_);
+  const [_, set_] = useState({});
 
-  const paramArray = Object.entries(parameters.Algo3);
+  // convert data into array
+  const allParametersArray = Object.entries(allAlgoParameters);
+
+  //find object that matches algo choice:
+
+  for (let i = 0; i < allParametersArray.length; i++) {
+    if (allParametersArray[i][0] === algo) {
+      console.log("match!" + algo);
+      set_({});
+      break;
+    }
+    console.log("sorry no match");
+  }
+  //   useEffect(()=>{
+  // 	  set(parameters {
+
+  // 	  })
+  //   })
+  //     //   NOTE: set to state so MULTIPLE algos can use this page!
+  //   A: {
+  //     name: parameters.Algo3.A.name,
+  //     id: parameters.Algo3.A.id,
+  //     value: parameters.Algo3.A.value,
+  //     min: parameters.Algo3.A.min,
+  //     max: parameters.Algo3.A.max,
+  //   },
+  //   B: {
+  //     name: parameters.Algo3.B.name,
+  //     id: parameters.Algo3.B.id,
+  //     value: parameters.Algo3.B.value,
+  //     min: parameters.Algo3.B.min,
+  //     max: parameters.Algo3.B.max,
+  //   },
+  //   });
+
+  //   console.log("parameters state:");
+  //   console.log(_);
+
+  //   const paramArray = Object.entries(parameters.Algo3);
   //   console.log("param array:");
   //   console.log(paramArray);
 
@@ -80,7 +100,7 @@ const AlgoFrame = (props) => {
           </div>
           <div className="parameters-group">
             <h4>parameterStatus:</h4>
-            {paramArray.map((e) => {
+            {/* {paramArray.map((e) => {
               //   console.log("map: ");
               //   console.log(e);
               //   console.log(e[1].name);
@@ -94,7 +114,7 @@ const AlgoFrame = (props) => {
                   handleParameter={handleParameter}
                 />
               );
-            })}
+            })} */}
             {/* <Parameter
                 name={}
                 value={}

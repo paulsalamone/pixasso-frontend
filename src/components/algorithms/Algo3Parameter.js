@@ -1,8 +1,16 @@
 import { StartStopContext } from "../../contexts/StartStopContext";
 import { useContext } from "react";
-
-const Parameter = (props) => {
+import { Algo3Context } from "../algorithms/Algo3Context";
+const Algo3Parameter = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
+  const [_, set_] = useContext(Algo3Context);
+
+  const handleParameter = ({ currentTarget: input }) => {
+    set_({
+      ..._,
+      [input.name]: input.value,
+    });
+  };
 
   let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
 
@@ -24,7 +32,7 @@ const Parameter = (props) => {
           value={props.value}
           min={props.min}
           max={props.max}
-          onChange={startStop.start ? props.handleParameter : null}
+          onChange={startStop.start ? handleParameter : null}
           className="slider"
         />
       </div>
@@ -32,4 +40,4 @@ const Parameter = (props) => {
   );
 };
 
-export default Parameter;
+export default Algo3Parameter;

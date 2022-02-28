@@ -3,12 +3,12 @@ import { useState, createContext } from "react";
 export const SaveContext = createContext();
 
 export const SaveController = (props) => {
-  const [save, setSave] = useState({
-    start: true,
+  const [saveImage, setSaveImage] = useState({
+    saveImage: false,
   });
 
   return (
-    <SaveContext.Provider value={[save, setSave]}>
+    <SaveContext.Provider value={[saveImage, setSaveImage]}>
       {props.children}
     </SaveContext.Provider>
   );
