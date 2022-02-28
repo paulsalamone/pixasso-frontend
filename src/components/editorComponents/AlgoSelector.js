@@ -1,4 +1,3 @@
-import { ProjectContext } from "../../contexts/ProjectContext";
 import { useContext } from "react";
 import { AlgoContext } from "../../contexts/AlgoContext";
 import Algo1 from "../algorithms/Algo1";
@@ -25,6 +24,15 @@ const AlgoSelector = (props) => {
           <option value="Algo2" selected={algo === "Algo2" ? "selected" : ""}>
             Circles vs. Squares
           </option>
+          <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
+            Crazy Painter
+          </option>
+          {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
+            Algo 3 Test
+          </option>
+          <option value="Algo4" selected={algo === "Algo4" ? "selected" : ""}>
+            Algo 4 Test
+          </option> */}
           {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
             Sci-Fi Clouds
           </option> */}

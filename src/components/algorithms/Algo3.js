@@ -1,55 +1,29 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
-import Parameter from "../editorComponents/Parameter";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
-import data from "../algorithms/parameterData.json";
+import Save from "../editorComponents/Save";
+import { SaveContext } from "../../contexts/SaveContext";
+import { Algo3Context, Algo3Controller } from "./Algo3Context";
+import Algo3Parameter from "./Algo3Parameter";
 
-const Algo1 = (props) => {
-  //controls if p5 animation is running or not:
+const Algo3 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
+  const [saveImage, setSaveImage] = useContext(SaveContext);
+  const [_, set_] = useContext(Algo3Context);
+  const [backup, setBackup] = useState(_);
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
-    setStartStop({ ...startStop, start: true });
-  }, []);
+    set_(backup);
+    setRefresh(false);
+  }, [refresh]);
 
-  // tells p5 if save button has been pressed
-  const [saveImage, setSaveImage] = useState(false);
-  const handleSaveImage = (e) => {
-    setSaveImage(true);
+  const refreshHandler = (e) => {
+    setRefresh(true);
+    console.log("refresh triggered");
   };
 
-  //sets state of all parameters
-  const [_, set_] = useState({
-    sizeRange: 15,
-    scale: 2,
-    strokeWeight: 1,
-
-    jiggle: 0,
-    jiggle2: 0,
-    strokeShade: 0,
-    strokeOpacity: 0,
-
-    red: 185,
-    green: 185,
-    blue: 185,
-
-    spread: 0,
-    K: 0,
-    L: 0,
-    BGhue: 100,
-    BGsaturation: 70,
-    BGbrightness: 0,
-  });
-
-  //handles all parameters:
-  const handleParameter = ({ currentTarget: input }) => {
-    set_({
-      ..._,
-      [input.name]: input.value,
-    });
-  };
-
-  // START P5 ALGO:
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500).parent(canvasParentRef);
   };
@@ -57,8 +31,8 @@ const Algo1 = (props) => {
   const draw = (p5) => {
     p5.frameRate(7);
 
-    if (saveImage) {
-      p5.save("output_canvas.png");
+    if (saveImage === true) {
+      p5.save("PIXASSO.png");
       console.log("p5 save image triggered");
       setSaveImage(false);
     }
@@ -159,40 +133,38 @@ const Algo1 = (props) => {
 
   return (
     <>
+      {/* <Algo3Controller> */}
       <div className="canvas-with-parameters">
         <div className="parameters-left">
           <div className="parameter-group">
             <div style={{ opacity: "0" }}>
-              <Parameter />
+              <Algo3Parameter />
             </div>
           </div>
           <div className="parameters-group">
             <h4>BackGround Color:</h4>
-            <Parameter
+            <Algo3Parameter
               name="BGhue"
               value={_.BGhue}
               id="Hue"
               min="1"
               max="360"
               step="0"
-              handleParameter={handleParameter}
             />
-            <Parameter
+            <Algo3Parameter
               name="BGsaturation"
               value={_.BGsaturation}
               id="Saturation"
               min="0"
               max="100"
-              handleParameter={handleParameter}
             />
-            <Parameter
+            <Algo3Parameter
               name="BGbrightness"
               value={_.BGbrightness}
               id="Brightness"
               min="0"
               max="100"
               step="0"
-              handleParameter={handleParameter}
             />
           </div>
         </div>
@@ -202,137 +174,127 @@ const Algo1 = (props) => {
             <Sketch className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
-            <button onClick={handleSaveImage}>save to desktop</button>
+            <button onClick={refreshHandler}>Refresh</button>
+            <Save />
             <StartStop />
           </div>
         </div>
         <div className="parameters-right">
           <div className="parameters-group">
             <h4>Sizing:</h4>
-            <Parameter
+            <Algo3Parameter
               name="sizeRange"
               value={_.sizeRange}
               id="Size Range"
               min="1"
               max="500"
               step="0"
-              handleParameter={handleParameter}
             />
 
-            <Parameter
+            <Algo3Parameter
               name="jiggle"
               value={_.jiggle}
               id="Jiggle"
               min="0"
               max="100"
               step="0"
-              handleParameter={handleParameter}
             />
-            <Parameter
+            <Algo3Parameter
               name="jiggle2"
               value={_.jiggle2}
               id="Scramble"
               min="0"
               max="200"
               step="0"
-              handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
             <h4>Color:</h4>
-            <Parameter
+            <Algo3Parameter
               name="red"
               value={_.red}
               id="Red"
               min="0"
               max="255"
               step="0"
-              handleParameter={handleParameter}
             />
-            <Parameter
+            <Algo3Parameter
               name="green"
               value={_.green}
               id="Green"
               min="0"
               max="255"
               step="0"
-              handleParameter={handleParameter}
             />
-            <Parameter
+            <Algo3Parameter
               name="blue"
               value={_.blue}
               id="Blue"
               min="0"
               max="255"
               step="0"
-              handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
             <h4>Border:</h4>
-            <Parameter
+            <Algo3Parameter
               name="strokeWeight"
               value={_.strokeWeight}
               id="Stroke Weight"
               min="0"
               max="60"
               step="0"
-              handleParameter={handleParameter}
             />
 
-            <Parameter
+            <Algo3Parameter
               name="strokeShade"
               value={_.strokeShade}
               id="Stroke Shade"
               min="0"
               max="255"
               // step="0"
-              handleParameter={handleParameter}
             />
-            <Parameter
+            <Algo3Parameter
               name="spread"
               value={_.spread}
               id="Spread"
               min="0"
               max="400"
               step="0"
-              handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
             <h4>Effects:</h4>
 
-            <Parameter
+            <Algo3Parameter
               name="scale"
               value={_.scale}
               id="Scale"
               min="1"
               max="6"
-              handleParameter={handleParameter}
             />
-            <Parameter
+            <Algo3Parameter
               name="randomSize"
               value={_.randomSize}
               id="Move Vertically"
               min="-200"
               max="200"
               step="0"
-              handleParameter={handleParameter}
             />
-            <Parameter
+            <Algo3Parameter
               name="shake"
               value={_.shake}
               id="Move Horizontally"
               min="-200"
               max="200"
               step="0"
-              handleParameter={handleParameter}
             />
           </div>
         </div>
       </div>
+      {/* </Algo3Controller> */}
     </>
   );
 };
 
-export default Algo1;
+export default Algo3;

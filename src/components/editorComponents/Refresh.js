@@ -1,22 +1,28 @@
-import { ProjectContext } from "../../contexts/ProjectContext";
-import { useState, useContext } from "react";
+// import { RefreshContext } from "../../contexts/RefreshContext";
+// import { useState, useContext } from "react";
 
-const Refresh = () => {
-  const [project, setProject] = useContext(ProjectContext);
+// const Refresh = () => {
+//   const [refresh, setRefresh] = useContext(RefreshContext);
+//   const [_, set_] = useContext(Algo3Context);
 
-  function refreshPage(e) {
-    // e.target.preventDefault();
-    window.location.reload(false);
-    setProject({ ...project, refresh: true });
-    console.log("Refresh: " + project.refresh);
-  }
+//   const [backup, setBackup] = useState(_);
 
-  return (
-    <div>
-      <p>Page:</p>
-      <button onClick={refreshPage}>refresh</button>
-    </div>
-  );
-};
+//   useEffect(() => {
+//     set_(backup);
+//     setRefresh(false);
+//   }, [refresh]);
 
-export default Refresh;
+//   const refreshHandler = (e) => {
+//     setRefresh(true);
+//     console.log("refresh triggered");
+//   };
+
+//   return (
+//     <div>
+//       <p>Page:</p>
+//       <button onClick={refreshHandler}>refresh</button>
+//     </div>
+//   );
+// };
+
+// export default Refresh;

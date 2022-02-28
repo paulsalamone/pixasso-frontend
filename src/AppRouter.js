@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
-import Editor from "./components/Editor";
+import Editor from "./components/editorComponents/Editor";
 import UploadSketch from "./components/UploadSketch";
 import DownloadSketch from "./components/DownloadSketch";
 import UserProfile from "./components/UserProfile";

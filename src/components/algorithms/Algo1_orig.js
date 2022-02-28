@@ -3,7 +3,6 @@ import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
-import data from "../algorithms/parameterData.json";
 
 const Algo1 = (props) => {
   //controls if p5 animation is running or not:
