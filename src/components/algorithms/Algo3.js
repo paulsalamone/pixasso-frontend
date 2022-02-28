@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
+import loadImage from "react-p5";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 import { SaveContext } from "../../contexts/SaveContext";
 import Save from "../editorComponents/Save";
 import { RefreshContext } from "../../contexts/RefreshContext";
 import Refresh from "../editorComponents/Refresh";
-
+import Upload from "../editorComponents/Upload";
 //ALGO-SPECIFIC DEPENDENCIES:
 import { Algo3Context, Algo3Controller } from "./Algo3Context";
 import Algo3Parameter from "./Algo3Parameter";
@@ -17,6 +18,7 @@ const Algo3 = (props) => {
   const [_, set_] = useContext(Algo3Context);
   const [backup, setBackup] = useState(_);
   const [refresh, setRefresh] = useContext(RefreshContext);
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     set_(backup);
@@ -30,7 +32,6 @@ const Algo3 = (props) => {
 
   const draw = (p5) => {
     p5.frameRate(7);
-
     if (saveImage === true) {
       p5.save("PIXASSO.png");
       console.log("p5 save image triggered");
@@ -40,6 +41,7 @@ const Algo3 = (props) => {
     if (startStop.start) {
       p5.colorMode(p5.HSB);
       p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 50);
+
       p5.colorMode(p5.RGB);
 
       p5.stroke(_.strokeShade, _.strokeShade, _.strokeShade, 50);
@@ -133,7 +135,6 @@ const Algo3 = (props) => {
 
   return (
     <>
-      {/* <Algo3Controller> */}
       <div className="canvas-with-parameters">
         <div className="parameters-left">
           <div className="parameter-group">
@@ -167,10 +168,25 @@ const Algo3 = (props) => {
               step="0"
             />
           </div>
+          <div className="parameter-group">
+            <div style={{ opacity: "0" }}>
+              <Algo3Parameter />
+            </div>
+          </div>
+          {/* <div className="parameters-group">
+            <h4>Upload Background:</h4>
+            <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
+          </div> */}
         </div>
 
+        {/* const [imageUrl, setImageUrl] = useState(""); */}
+
         <div className="canvas-container">
-          <div className="artwork">
+          <div
+            className="artwork"
+            // style={{ backgroundImage: `url(${imageUrl}`, height: "500px" }}
+          >
+            {/* <img src={imageUrl} /> */}
             <Sketch className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
@@ -292,7 +308,6 @@ const Algo3 = (props) => {
           </div>
         </div>
       </div>
-      {/* </Algo3Controller> */}
     </>
   );
 };
