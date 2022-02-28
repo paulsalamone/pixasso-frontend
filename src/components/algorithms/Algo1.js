@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
-import { ProjectContext } from "../../contexts/ProjectContext";
+import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
-import DownloadSketch from "../DownloadSketch";
-import domtoimage from "dom-to-image";
-import saveAs from "file-saver";
 
 const Algo1 = (props) => {
-  const [project, setProject] = useContext(ProjectContext);
+  const [startStop, setStartStop] = useContext(StartStopContext);
 
   const [saveImage, setSaveImage] = useState(false);
 
@@ -40,7 +37,7 @@ const Algo1 = (props) => {
   });
 
   useEffect(() => {
-    setProject({ ...project, start: true });
+    setStartStop({ ...startStop, start: true });
   }, []);
 
   const handleParameter = ({ currentTarget: input }) => {
@@ -52,7 +49,6 @@ const Algo1 = (props) => {
 
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500).parent(canvasParentRef);
-    // p5.createCanvas(project.width, project.height).parent(canvasParentRef);
   };
 
   const draw = (p5) => {
@@ -66,9 +62,8 @@ const Algo1 = (props) => {
       setSaveImage(false);
     }
 
-    if (project.start) {
+    if (startStop.start) {
       p5.colorMode(p5.HSB);
-      // p5.noLoop();
       p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 50);
       p5.colorMode(p5.RGB);
 

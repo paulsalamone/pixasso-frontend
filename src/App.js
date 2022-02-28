@@ -1,17 +1,17 @@
 import "./App.css";
 import AppRouter from "./AppRouter";
 
-import { ProjectController } from "./contexts/ProjectContext";
+import { StartStopController } from "./contexts/StartStopContext";
 import { AlgoController } from "./contexts/AlgoContext";
 
 function App() {
   return (
     <div className="App">
-      <ProjectController>
+      <StartStopController>
         <AlgoController>
           <AppRouter />
         </AlgoController>
-      </ProjectController>{" "}
+      </StartStopController>{" "}
     </div>
   );
 }

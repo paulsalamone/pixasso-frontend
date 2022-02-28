@@ -1,4 +1,3 @@
-import { ProjectContext } from "../../contexts/ProjectContext";
 import { useContext } from "react";
 import { AlgoContext } from "../../contexts/AlgoContext";
 import Algo1 from "../algorithms/Algo1";

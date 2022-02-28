@@ -1,17 +1,17 @@
-import { ProjectContext } from "../../contexts/ProjectContext";
+import { StartStopContext } from "../../contexts/StartStopContext";
 import { useState, useContext } from "react";
 
 const StartStop = () => {
-  const [project, setProject] = useContext(ProjectContext);
+  const [startStop, setStartStop] = useContext(StartStopContext);
 
   const startHandler = (e) => {
     e.preventDefault();
-    if (project.start) {
-      setProject({ ...project, start: false });
+    if (startStop.start) {
+      setStartStop({ ...startStop, start: false });
     } else {
-      setProject({ ...project, start: true });
+      setStartStop({ ...startStop, start: true });
     }
-    console.log(project.start);
+    console.log(startStop.start);
   };
 
   return (
