@@ -3,18 +3,25 @@ import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
 import StartStop from "../editorComponents/StartStop";
-import DownloadSketch from "../DownloadSketch";
+import UploadSketch from "../UploadSketch";
 import domtoimage from "dom-to-image";
 import saveAs from "file-saver";
+import axios from "axios";
 
 const Algo1 = (props) => {
   const [project, setProject] = useContext(ProjectContext);
+  //const [imageFile, setImageFile] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
 
   const [saveImage, setSaveImage] = useState(false);
+  let pngfile = "";
+  let canvas="";
 
   const handleSaveImage = (e) => {
-    console.log("handle save image");
+    console.log("download to desktop");
     setSaveImage(true);
+    //setImageFile(pngfile)
+    // console.log(pngfile)
   };
 
   const [_, set_] = useState({
@@ -51,8 +58,11 @@ const Algo1 = (props) => {
   };
 
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500).parent(canvasParentRef);
+    canvas = p5.createCanvas(500, 500).parent(canvasParentRef);
+    canvas.parent("artwork")
+      
     // p5.createCanvas(project.width, project.height).parent(canvasParentRef);
+    
   };
 
   const draw = (p5) => {
@@ -61,9 +71,12 @@ const Algo1 = (props) => {
     // p5.noLoop();
 
     if (saveImage) {
-      p5.save("output_canvas.png");
+     
+      p5.saveCanvas(canvas, "canvas.png");
       console.log("p5 save image triggered");
+      
       setSaveImage(false);
+      
     }
 
     if (project.start) {
@@ -159,6 +172,73 @@ const Algo1 = (props) => {
       p5.width - i * 20 - p5.random(0, sizeRange)
     );
   };
+  const uploadImage = async () => {
+    const image = document.getElementById("defaultCanvas0");
+
+
+    image.toBlob((blob) => {
+      const data = new FormData()
+      data.append('upload', blob)
+        data.append("upload_preset", "sketch");
+     data.append("cloud_name", "pixasso");
+      console.log(data)
+      fetch('/https://api.cloudinary.com/v1_1/pixasso/image/upload', {
+        method: 'POST',
+        body: data
+      })
+      
+    }, 'image/jpeg', 0.95);
+
+    // const myBlob = new Blob([image] , {type : "image/png"} )
+
+    // myBlob.name = "image.png";
+    // myBlob.lastModified = new Date();
+
+    // const myFile = new File([myBlob], "image.png", {
+    //   type: myBlob.type,
+    // });
+    // console.log(myFile)
+    
+
+
+    // const imageData =  new FormData();
+    // imageData.append("file", myFile);
+    // imageData.append("upload_preset", "sketch");
+    // imageData.append("cloud_name", "pixasso");
+    // console.log(imageData)
+    //  await fetch(" https://api.cloudinary.com/v1_1/pixasso/image/upload", {
+    //   method: "post",
+    //   body: imageData,
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((data) => {
+    //     setImageUrl(data.url);
+    //     console.log(data.url)
+    //     axios
+    //       .post("http://localhost:4000/api/sketch/upload", {
+    //         sketch_Url: imageUrl,
+    //       })
+    //       .then(console.log("image saved"));
+    //   })
+    //   .catch((error) => console.log(error));
+
+  }
+  
+
+
+  function savePng(){
+    const image = document.getElementById("artwork");
+    console.log("save to cloud");
+    uploadImage()
+    // domtoimage.toBlob(image).then(function (image) {
+    //   window.saveAs(image, "test.png");
+    // });
+  };
+
+
+
+
+ 
 
   return (
     <>
@@ -201,11 +281,12 @@ const Algo1 = (props) => {
         </div>
 
         <div className="canvas-container">
-          <div className="artwork">
+          <div className="artwork" id="artwork">
             <Sketch className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
-            <button onClick={handleSaveImage}>save to desktop</button>
+            <button onClick={handleSaveImage}>Download to Desktop</button>
+            <button onClick={uploadImage}>Save to Cloud</button>
             <StartStop />
           </div>
         </div>

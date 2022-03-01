@@ -3,15 +3,18 @@ import AppRouter from "./AppRouter";
 
 import { ProjectController } from "./contexts/ProjectContext";
 import { AlgoController } from "./contexts/AlgoContext";
+//import { UserController } from "./contexts/UserContext";
 
 function App() {
   return (
     <div className="App">
-      <ProjectController>
-        <AlgoController>
-          <AppRouter />
-        </AlgoController>
-      </ProjectController>{" "}
+     
+        <ProjectController>
+          <AlgoController>
+            <AppRouter />
+          </AlgoController>
+        </ProjectController>{" "}
+     
     </div>
   );
 }

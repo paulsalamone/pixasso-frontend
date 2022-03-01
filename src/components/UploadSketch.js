@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const UploadSketch = () => {
@@ -9,27 +9,36 @@ const UploadSketch = () => {
   //     sketch_Url = imageUrl
 
   // })
+
   const uploadImage = async () => {
+    //const image = document.getElementById(image);
+      console.log(image)
     const imageData = new FormData();
     imageData.append("file", image);
     imageData.append("upload_preset", "sketch");
     imageData.append("cloud_name", "pixasso");
+    console.log(imageData)
 
-    fetch(" https://api.cloudinary.com/v1_1/pixasso/image/upload", {
+    await fetch(" https://api.cloudinary.com/v1_1/pixasso/image/upload", {
       method: "post",
       body: imageData,
     })
       .then((resp) => resp.json())
       .then((data) => {
         setImageUrl(data.url);
+        console.log(data.url)
         axios
-          .post("http://localhost:5000/api/sketch/upload", {
+          .post("http://localhost:4000/api/sketch/upload", {
             sketch_Url: imageUrl,
           })
           .then(console.log("image saved"));
       })
       .catch((error) => console.log(error));
   };
+  useEffect(()=>{
+
+    uploadImage()
+  },[])
 
   return (
     <div className="form-page">

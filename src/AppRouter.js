@@ -33,6 +33,7 @@ const AppRouter = () => {
             <Route path="/editor" element={<Editor />} />
             <Route path="/download" element={<DownloadSketch />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </div>
 

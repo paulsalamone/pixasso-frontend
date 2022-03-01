@@ -30,11 +30,12 @@ const Nav = () => {
         </div>
 
         <div className="top-nav-right">
-          {/* <Link to="/download">Download</Link> */}
+          <Link to="/download">Download</Link>
           <Link to="/upload">Upload</Link>
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
-          <Link to="/login">Logout</Link>
+          <Link to="/logout">Logout</Link>
+          <Link to="/profile">Profile</Link>
         </div>
       </nav>
     </>

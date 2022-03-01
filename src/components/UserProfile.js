@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import jwt_decode from "jwt-decode";
 
 const UserProfile = () => {
     const [profilePic, setProfilePic] = useState("")
@@ -8,7 +9,8 @@ const UserProfile = () => {
         username: "",
         email: "",
         password:"",
-        profilePicUrl:""
+        profile_pic_Url:"",
+        biography: ""
     })
 
     const uploadPic = async() => {
@@ -25,28 +27,50 @@ const UserProfile = () => {
         .then(data => {
         setProfilePicUrl(data.url)
         console.log(profilePicUrl)
-        axios.post("http://localhost:4000/api/users/profile", {
-            profile_pic_url: profilePicUrl
+        .catch(err => console.log(err))
+        })  
+    }
+
+    const getProfile= () =>{
+        const token = localStorage.token;
+        console.log(token)
+        const decoded = jwt_decode(token);
+        console.log(decoded);
+        setUser({
+            id : decoded.user._id,
+            username: decoded.user.username,
+            email: decoded.user.email,
+            password: decoded.user.password,
+            biography:decoded.user.biography,
         })
+    }
+
+    useEffect(() => {
+        getProfile();
+      }, []);
+
+    console.log(user)
+
+    const handleChange = ({currentTarget: input}) => {
+        setUser({...user, [input.name]:input.value})
+      }
+
+
+      const handleSubmit= async()=>{
+        await axios
+        .post("http://localhost:4000/api/users/profile", user )     // profile_pic_url: profilePicUrl
+    
         .then(console.log("picture saved"))
         
-        })
         .catch ((error) => console.log(error))
-    } 
-    // const handleChange = (e) => {
-    //     setProfilePic(e.target.files[0];
-    //     uploadPic();
 
-    // }
-    // const handleChange = ({currentTarget: input}) => {
-    //     setUser({...user, [input.name]:input.value})
-    //   }
-
+      }
+      
 
     return (
         <>
         <div>
-            <h1>UserProfile</h1>
+            <h1>username</h1>
             <img 
                 src={profilePicUrl} 
                 alt="user picture"
@@ -61,15 +85,15 @@ const UserProfile = () => {
             <button onClick={uploadPic}>Upload</button>
         </div>
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <h1>Basic Info</h1>
                 <input
                     type= "text"
                     placeholder="Username"
                     name= "username"
                     value= {user.username} 
-                    required 
-                    // onChange= {handleChange}
+                    required
+                    onChange= {handleChange}
                 >
                 </input>
                 <input
@@ -78,7 +102,7 @@ const UserProfile = () => {
                     name= "email"
                     value= {user.email} 
                     required 
-                    // onChange= {handleChange}
+                    onChange= {handleChange}
                 >
                 </input>
                 <input
@@ -93,13 +117,14 @@ const UserProfile = () => {
                 <h1>Biography</h1>
                 <textarea
                     name= "biography"
+                    value= {user.biography}
                     placeholder="Your Story....."
                     rows="10" 
-                    cols="50">
+                    cols="50"
+                    onChange= {handleChange}>
                 </textarea>
                 <button
                     type="submit"
-                    onClick
                 >
                     Save Changes
                 </button>
