@@ -4,22 +4,12 @@ export const Algo3Context = createContext();
 
 export const Algo3Controller = (props) => {
   const [_, set_] = useState({
-    sizeRange: 15,
-    scale: 1,
-    strokeWeight: 1,
-    jiggle: 0,
-    jiggle2: 0,
-    strokeShade: 0,
-    strokeOpacity: 0,
-    red: 185,
-    green: 185,
-    blue: 185,
-    spread: 0,
-    K: 0,
-    L: 0,
-    BGhue: 100,
-    BGsaturation: 70,
-    BGbrightness: 80,
+    A: 40,
+    B: 15,
+    C: 4,
+    D: 3,
+    E: 1,
+    F: 0.5,
   });
 
   return (

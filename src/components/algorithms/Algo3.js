@@ -22,114 +22,106 @@ const Algo3 = (props) => {
 
   useEffect(() => {
     set_(backup);
-    console.log(refresh);
+    // console.log(refresh);
     setRefresh(false);
   }, [refresh]);
 
+  ////// P5 ///////
+
+  let x = 250;
+  let y = 250;
+  let r;
+  let g;
+  let b;
+
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500).parent(canvasParentRef);
+    // x = p5.width / 2;
+    // console.log("x: " + x);
+    // y = p5.height / 2;
+    // console.log("y: " + y);
+
+    r = p5.random(200, 255);
+    g = p5.random(200, 255);
+    b = p5.random(200, 255);
+
+    p5.background(0);
   };
 
-  const draw = (p5) => {
-    p5.frameRate(7);
+  // console.log(x, y, r, g, b);
+
+  function draw(p5) {
     if (saveImage === true) {
       p5.save("PIXASSO.png");
       console.log("p5 save image triggered");
       setSaveImage(false);
     }
-
+    p5.strokeWeight(_.F);
     if (startStop.start) {
-      p5.colorMode(p5.HSB);
-      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 50);
+      p5.background(0, 15);
+      p5.frameRate(7);
 
-      p5.colorMode(p5.RGB);
-
-      p5.stroke(_.strokeShade, _.strokeShade, _.strokeShade, 50);
-
-      p5.translate(p5.width / 2, p5.height / 2);
-      p5.scale(_.scale / 2);
-
-      let jglX = p5.random(-_.jiggle, _.jiggle);
-      let jglY = p5.random(-_.jiggle, _.jiggle);
-
-      p5.translate(_.shake, _.randomSize);
-      for (let i = 0; i < 30; i += 2) {
-        let jglXX = p5.random(-_.jiggle2, _.jiggle2);
-        let jglYY = p5.random(-_.jiggle2, _.jiggle2);
-
-        p5.strokeWeight(p5.random(_.strokeWeight / 4, _.strokeWeight));
-
-        p5.fill(
-          p5.random(_.red - 100, _.red),
-          p5.random(_.green - 100, _.green),
-          p5.random(_.blue - 100, _.blue),
-          50
-        );
-        psycheCircle(
-          p5,
-          _.spread,
-          _.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
-        psycheCircle(
-          p5,
-          -_.spread,
-          _.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
-        psycheCircle(
-          p5,
-          -_.spread,
-          -_.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
-        psycheCircle(
-          p5,
-          _.spread,
-          -_.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
-        psycheCircle(
-          p5,
-          _.spread / _.spread,
-          _.spread / _.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
+      for (let i = 0; i < 1000; i++) {
+        p5.fill("white");
+        p5.square(x, y, _.A);
+        x += p5.random(-_.D, _.D);
+        y += p5.random(-_.E, _.E);
+        x = p5.constrain(x, 0, 500);
+        y = p5.constrain(y, 0, 500);
+      }
+      for (let i = 0; i < 1000; i++) {
+        p5.fill("black");
+        p5.stroke("white");
+        p5.square(x - 20, y - 20, _.B);
+        p5.fill("white");
+        p5.stroke("black");
+        p5.square(x, y, _.B);
+        x += p5.random(-_.D, _.D);
+        y += p5.random(-_.E, _.E);
+        x = p5.constrain(x, 0, 500);
+        y = p5.constrain(y, 0, 500);
+      }
+      for (let i = 0; i < 2000; i++) {
+        p5.fill("white");
+        p5.square(x, y, p5.random(_.C, _.C + 5));
+        x += p5.random(-_.D, _.D);
+        y += p5.random(-_.E, _.E);
+        x = p5.constrain(x, 0, 500);
+        y = p5.constrain(y, 0, 500);
       }
     }
-  };
-  const psycheCircle = (p5, x, y, jglX, jglXX, jglY, jglYY, i, sizeRange) => {
-    return p5.circle(
-      jglX + jglXX + x,
-      jglY + jglYY + y,
-      p5.width - i * 20 - p5.random(0, sizeRange)
-    );
-  };
+    // x += p5.random(-5, 5);
+    // y += p5.random(-5, 5);
+
+    // for (let i = 0; i < 1000; i++) {
+    //   step(p5, 20, 255, 3);
+    // }
+  }
+
+  function step(p5, fat, red, vert) {
+    x += p5.random(-5, 5);
+    y += p5.random(-5, 5);
+
+    x = p5.constrain(x, 0, p5.width);
+    y = p5.constrain(y, 0, p5.height);
+
+    r += p5.random(0, 255);
+    g += p5.random(0, 255);
+    b += p5.random(0, 255);
+
+    r = p5.constrain(r, 220, 255);
+    // g = p5.constrain(g, 220, 255);
+    // b = p5.constrain(b, 220, 255);
+    // p5.noStroke();
+
+    p5.fill(r, 80, 20, 20);
+    // square(x, y, fat);
+    // p5.fill("red");
+    p5.circle(p5.random(400), p5.random(400), fat);
+
+    // p5.circle(x, y, fat);
+    // triangle(x, y, x + 10, y, (x + 10)/2, y - 10)
+  }
 
   // END P5 ALGO
 
@@ -197,58 +189,58 @@ const Algo3 = (props) => {
         </div>
         <div className="parameters-right">
           <div className="parameters-group">
-            <h4>Sizing:</h4>
+            <h4>Group 1:</h4>
             <Algo3Parameter
-              name="sizeRange"
-              value={_.sizeRange}
-              id="Size Range"
-              min="1"
-              max="500"
+              name="A"
+              value={_.A}
+              id="A"
+              min="10"
+              max="100"
               step="0"
             />
 
             <Algo3Parameter
-              name="jiggle"
-              value={_.jiggle}
-              id="Jiggle"
-              min="0"
-              max="100"
+              name="B"
+              value={_.B}
+              id="B"
+              min="5"
+              max="30"
               step="0"
             />
             <Algo3Parameter
-              name="jiggle2"
-              value={_.jiggle2}
-              id="Scramble"
+              name="C"
+              value={_.C}
+              id="C"
               min="0"
-              max="200"
-              step="0"
+              max="5"
+              step="0.5"
             />
           </div>
           <div className="parameters-group">
-            <h4>Color:</h4>
+            <h4>Group 3:</h4>
             <Algo3Parameter
-              name="red"
-              value={_.red}
-              id="Red"
+              name="D"
+              value={_.D}
+              id="D"
               min="0"
-              max="255"
+              max="20"
               step="0"
             />
             <Algo3Parameter
-              name="green"
-              value={_.green}
-              id="Green"
+              name="E"
+              value={_.E}
+              id="E"
               min="0"
-              max="255"
+              max="20"
               step="0"
             />
             <Algo3Parameter
-              name="blue"
-              value={_.blue}
-              id="Blue"
-              min="0"
-              max="255"
-              step="0"
+              name="F"
+              value={_.F}
+              id="F"
+              min="0.5"
+              max="2"
+              step=".05"
             />
           </div>
           <div className="parameters-group">
