@@ -5,6 +5,7 @@ import { StartStopController } from "./contexts/StartStopContext";
 import { AlgoController } from "./contexts/AlgoContext";
 import { SaveController } from "./contexts/SaveContext";
 import { RefreshController } from "./contexts/RefreshContext";
+import { BrushController } from "./contexts/BrushContext";
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         <AlgoController>
           <SaveController>
             <RefreshController>
-              <AppRouter />
+              <BrushController>
+                <AppRouter />
+              </BrushController>
             </RefreshController>
           </SaveController>
         </AlgoController>

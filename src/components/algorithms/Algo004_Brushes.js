@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
+import ParameterBrush from "../editorComponents/ParameterBrush";
+
 import Sketch from "react-p5";
 import loadImage from "react-p5";
 import Algo3Sketch from "./Algo3Sketch";
-import Algo3SketchB from "./Algo3SketchB";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 import { SaveContext } from "../../contexts/SaveContext";
@@ -11,7 +12,7 @@ import { RefreshContext } from "../../contexts/RefreshContext";
 import Refresh from "../editorComponents/Refresh";
 import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
-
+import { BrushContext } from "../../contexts/BrushContext";
 let r, g, b;
 let c1, c2;
 let hue, saturation, brightness;
@@ -21,36 +22,37 @@ const Algo4 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [saveImage, setSaveImage] = useContext(SaveContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
+  const [brushChoice, setBrushChoice] = useContext(BrushContext);
+  // const [brush, setBrush] = useState("default");
   const [_, set_] = useState({
-    BGhue: 47,
+    BGhue: 54,
     BGhueSettings: { name: "BGhue", id: "Hue", min: 0, max: 360 },
-    BGsaturation: 8,
+    BGsaturation: 6,
+    BGsaturationSettings: {
+      name: "BGsaturation",
+      id: "Saturation",
+      min: 0,
+      max: 20,
+    },
     BGbrightness: 95,
+    BGbrightnessSettings: {
+      name: "BGbrightness",
+      id: "Brightness",
+      min: 60,
+      max: 100,
+    },
 
     red: 185,
+    redSettings: { name: "red", id: "Red", min: 10, max: 235 },
     green: 185,
+    greenSettings: { name: "green", id: "Green", min: 10, max: 235 },
     blue: 185,
+    blueSettings: { name: "blue", id: "Blue", min: 10, max: 235 },
 
-    Asize: 128,
-    Ahoriz: 4,
-    Avert: 2,
-    Ared: 200,
-    Agreen: 152,
-    Ablue: 140,
-
-    Bsize: 50,
-    Bhoriz: 10,
-    Bvert: 2,
-    Bred: 242,
-    Bgreen: 200,
-    Bblue: 180,
-
-    Csize: 2,
-    Choriz: 9,
-    Cvert: 2,
-    Cred: 252,
-    Cgreen: 244,
-    Cblue: 220,
+    brushSize: 10,
+    brushSizeSettings: { name: "brushSize", id: "Brush Size", min: 1, max: 40 },
+    brushSize: 10,
+    brushSizeSettings: { name: "brushSize", id: "Brush Size", min: 1, max: 40 },
   });
   const [backup, setBackup] = useState(_);
   const [wipe, setWipe] = useState(false);
@@ -75,6 +77,9 @@ const Algo4 = (props) => {
     setRefresh(true);
   };
 
+  const handleBrushStatus = () => {
+    console.log("handle");
+  };
   let c1, c2;
 
   const setup = (p5, canvasParentRef) => {
@@ -113,28 +118,29 @@ const Algo4 = (props) => {
           <div className="parameters-group">
             <h4>BackGround Color:</h4>
             <Parameter
-              name="BGhue"
+              name={_.BGhueSettings.name}
               value={_.BGhue}
-              id="Hue"
-              min="1"
-              max="360"
+              id={_.BGhueSettings.id}
+              min={_.BGhueSettings.min}
+              max={_.BGhueSettings.max}
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="BGsaturation"
+              name={_.BGsaturationSettings.name}
               value={_.BGsaturation}
-              id="Saturation"
-              min="0"
-              max="20"
+              id={_.BGsaturationSettings.id}
+              min={_.BGsaturationSettings.min}
+              max={_.BGsaturationSettings.max}
+              step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="BGbrightness"
+              name={_.BGbrightnessSettings.name}
               value={_.BGbrightness}
-              id="Brightness"
-              min="60"
-              max="100"
+              id={_.BGbrightnessSettings.id}
+              min={_.BGbrightnessSettings.min}
+              max={_.BGbrightnessSettings.max}
               step="0"
               handleParameter={handleParameter}
             />
@@ -143,12 +149,7 @@ const Algo4 = (props) => {
 
         <div className="canvas-container">
           <div className="artwork">
-            {/* {!wipe ? (
-              <Algo3Sketch className="x" setup={setup} draw={draw} />
-            ) : (
-              <Algo3SketchB className="x" setup={setup} draw={draw} />
-            )} */}
-            <Sketch className="x" setup={setup} draw={draw} />
+            <Algo3Sketch wip e={wipe} className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
             <button onClick={handleWipe}>Wipe Screen</button>
@@ -157,122 +158,56 @@ const Algo4 = (props) => {
             <StartStop />
           </div>
         </div>
+
         <div className="parameters-right">
           <div className="parameters-group">
-            <h4>Big Clouds:</h4>
+            <h4>Choose Brush:</h4>
+            <div className="parameter">
+              <ParameterBrush name="snake" id="snake" value="snake" />
+              <ParameterBrush name="dragon" id="dragon" value="dragon" />
+              {/* <ParameterBrush />
+            <ParameterBrush /> */}
+            </div>
+          </div>
+          <div className="parameters-group">
+            <h4>Brush Settings:</h4>
             <Parameter
-              name="Asize"
-              value={_.Asize}
-              id="Size"
-              min="60"
-              max="180"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="Ahoriz"
-              value={_.Ahoriz}
-              id="Horizontal"
-              min="0"
-              max="10"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="Avert"
-              value={_.Avert}
-              id="Vertical"
-              min="0"
-              max="10"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <div className="parameter-spacer"></div>
-            <Parameter
-              name="Ared"
-              value={_.Ared}
-              id="Red"
-              min="120"
-              max="255"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="Agreen"
-              value={_.Agreen}
-              id="Green"
-              min="120"
-              max="255"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="Ablue"
-              value={_.Ablue}
-              id="blue"
-              min="120"
-              max="255"
+              name={_.brushSizeSettings.name}
+              value={_.brushSize}
+              id={_.brushSizeSettings.id}
+              min={_.brushSizeSettings.min}
+              max={_.brushSizeSettings.max}
               step="0"
               handleParameter={handleParameter}
             />
           </div>
 
           <div className="parameters-group">
-            <h4>Medium Clouds:</h4>
-
+            <h4>Color:</h4>
             <Parameter
-              name="Bsize"
-              value={_.Bsize}
-              id="Size"
-              min="10"
-              max="35"
+              name={_.redSettings.name}
+              value={_.red}
+              id={_.redSettings.id}
+              min={_.redSettings.min}
+              max={_.redSettings.max}
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="Bhoriz"
-              value={_.Bhoriz}
-              id="Horizontal"
-              min="0"
-              max="20"
+              name={_.greenSettings.name}
+              value={_.green}
+              id={_.greenSettings.id}
+              min={_.greenSettings.min}
+              max={_.greenSettings.max}
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="Bvert"
-              value={_.Bvert}
-              id="Vertical"
-              min="0"
-              max="20"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <div className="parameter-spacer"></div>
-
-            <Parameter
-              name="Bred"
-              value={_.Bred}
-              id="Red"
-              min="180"
-              max="255"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="Bgreen"
-              value={_.Bgreen}
-              id="Green"
-              min="180"
-              max="255"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="Bblue"
-              value={_.Bblue}
-              id="blue"
-              min="180"
-              max="255"
+              name={_.blueSettings.name}
+              value={_.blue}
+              id={_.blueSettings.id}
+              min={_.blueSettings.min}
+              max={_.blueSettings.max}
               step="0"
               handleParameter={handleParameter}
             />
