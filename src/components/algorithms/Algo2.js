@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
+import Refresh from "../editorComponents/Refresh";
+import Algo2Sketch from "./Algo2Sketch";
+import { RefreshContext } from "../../contexts/RefreshContext";
+
 import Parameter from "../editorComponents/Parameter";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 const Algo2 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
-
+  const [wipe, setWipe] = useState(false);
   const [saveImage, setSaveImage] = useState(false);
 
+  const [refresh, setRefresh] = useContext(RefreshContext);
   const handleSaveImage = (e) => {
     console.log("handle save image");
     setSaveImage(true);
@@ -31,6 +36,12 @@ const Algo2 = (props) => {
     BGsaturation: 50,
     BGbrightness: 70,
   });
+  const [backup, setBackup] = useState(_);
+
+  useEffect(() => {
+    set_(backup);
+    setRefresh(false);
+  }, [refresh]);
 
   useEffect(() => {
     setStartStop({ ...startStop, start: true });
@@ -43,6 +54,10 @@ const Algo2 = (props) => {
     });
   };
 
+  const handleWipe = () => {
+    console.log("wipe");
+    setWipe(true);
+  };
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500).parent(canvasParentRef);
   };
@@ -134,10 +149,13 @@ const Algo2 = (props) => {
 
         <div className="canvas-container">
           <div className="artwork">
+            {/* <Algo2Sketch setup={setup} draw={draw} /> */}
             <Sketch setup={setup} draw={draw} />
           </div>
 
           <div className="canvas-utilities">
+            <Refresh />
+
             <button onClick={handleSaveImage}>save to desktop</button>
             <StartStop />
           </div>
