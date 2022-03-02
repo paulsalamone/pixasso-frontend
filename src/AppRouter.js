@@ -19,25 +19,25 @@ const AppRouter = () => {
   }
   return (
     <>
-      <body>
-        <header>
-          <Nav />
-        </header>
+      {/* <body> */}
+      <header>
+        <Nav />
+      </header>
 
-        <div className="app-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/upload" element={<UploadSketch />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/editor" element={<Editor />} />
-            <Route path="/download" element={<DownloadSketch />} />
-            <Route path="/logout" element={<Logout />} />
-          </Routes>
-        </div>
+      <div className="app-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/upload" element={<UploadSketch />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/editor" element={<Editor />} />
+          <Route path="/download" element={<DownloadSketch />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </div>
 
-        <Footer />
-      </body>
+      <Footer />
+      {/* </body> */}
     </>
   );
 };

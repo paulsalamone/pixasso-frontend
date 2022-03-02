@@ -4,7 +4,7 @@ export const Algo3Context = createContext();
 
 export const Algo3Controller = (props) => {
   const [_, set_] = useState({
-    A: 40,
+    A: 100,
     B: 15,
     C: 4,
     D: 3,
