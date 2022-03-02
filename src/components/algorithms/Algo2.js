@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import Refresh from "../editorComponents/Refresh";
-import Algo2Sketch from "./Algo2Sketch";
 import { RefreshContext } from "../../contexts/RefreshContext";
 
 import Parameter from "../editorComponents/Parameter";

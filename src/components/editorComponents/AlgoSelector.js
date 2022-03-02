@@ -34,6 +34,12 @@ const AlgoSelector = (props) => {
           >
             Cloud Painter
           </option>
+          <option
+            value="Algo4"
+            defaultValue={algo === "Algo4" ? "defaultValue" : ""}
+          >
+            Brushes
+          </option>
           {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
             Algo 3 Test
           </option>
