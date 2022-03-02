@@ -6,8 +6,6 @@ import Algo2 from "../algorithms/Algo2";
 const AlgoSelector = (props) => {
   const [algo, setAlgo] = useContext(AlgoContext);
 
-  console.log(algo);
-
   return (
     <div className="algo-selector">
       <p>
@@ -18,14 +16,23 @@ const AlgoSelector = (props) => {
             console.log("selection made");
           }}
         >
-          <option value="Algo1" selected={algo === "Algo1" ? "selected" : ""}>
+          <option
+            value="Algo1"
+            defaultValue={algo === "Algo1" ? "defaultValue" : ""}
+          >
             Psychic Raindrops
           </option>
-          <option value="Algo2" selected={algo === "Algo2" ? "selected" : ""}>
+          <option
+            value="Algo2"
+            defaultValue={algo === "Algo2" ? "defaultValue" : ""}
+          >
             Circles vs. Squares
           </option>
-          <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
-            Crazy Painter
+          <option
+            value="Algo3"
+            defaultValue={algo === "Algo3" ? "defaultValue" : ""}
+          >
+            Cloud Painter
           </option>
           {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
             Algo 3 Test

@@ -173,15 +173,24 @@ input {
 .parameters-left {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* border: 1px solid red; */
-  /* display: flex;
-  flex-direction: column; */
+  margin-right: 50px;
+}
+
+.parameters-left-1column {
+  display: grid;
+  grid-template-columns: 1fr;
   margin-right: 50px;
 }
 
 .parameters-right {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-left: 50px;
+}
+
+.parameters-right-3column {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   /* border: 1px solid red; */
   margin-left: 50px;
 }
@@ -238,6 +247,12 @@ input {
 
 .parameter input {
   margin: 0px;
+}
+
+.parameter-spacer {
+  height: 30px;
+  width: 10px;
+  /* background-color: /grey; */
 }
 
 .start-stop {

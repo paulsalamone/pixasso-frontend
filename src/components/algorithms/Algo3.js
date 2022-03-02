@@ -8,185 +8,142 @@ import Save from "../editorComponents/Save";
 import { RefreshContext } from "../../contexts/RefreshContext";
 import Refresh from "../editorComponents/Refresh";
 import Upload from "../editorComponents/Upload";
-//ALGO-SPECIFIC DEPENDENCIES:
-import { Algo3Context, Algo3Controller } from "./Algo3Context";
-import Algo3Parameter from "./Algo3Parameter";
+import Parameter from "../editorComponents/Parameter";
+
+let r, g, b;
+let c1, c2;
+let hue, saturation, brightness;
+let gradStart, gradEnd;
 
 const Algo3 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [saveImage, setSaveImage] = useContext(SaveContext);
-  const [_, set_] = useContext(Algo3Context);
-  const [backup, setBackup] = useState(_);
   const [refresh, setRefresh] = useContext(RefreshContext);
+  const [_, set_] = useState({
+    Asize: 128,
+    Ahoriz: 4,
+    Avert: 1,
+    Ared: 200,
+    Agreen: 152,
+    Ablue: 140,
+
+    Bsize: 50,
+    Bhoriz: 10,
+    Bvert: 2,
+    Bred: 242,
+    Bgreen: 200,
+    Bblue: 180,
+
+    Csize: 2,
+    Choriz: 9,
+    Cvert: 2,
+    Cred: 252,
+    Cgreen: 244,
+    Cblue: 220,
+  });
+  const [backup, setBackup] = useState(_);
+
   const [imageUrl, setImageUrl] = useState("");
 
+  //when refresh is triggered, fills _ with backup state
   useEffect(() => {
     set_(backup);
-    console.log(refresh);
     setRefresh(false);
   }, [refresh]);
 
-  const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500).parent(canvasParentRef);
+  //handles all parameters:
+  const handleParameter = ({ currentTarget: input }) => {
+    set_({
+      ..._,
+      [input.name]: input.value,
+    });
   };
 
-  const draw = (p5) => {
+  let x = 400;
+  let y = 250;
+
+  const setup = (p5, canvasParentRef) => {
+    p5.createCanvas(800, 500).parent(canvasParentRef);
+    p5.background(40);
+    p5.noStroke();
+    r = 100;
+    g = 100;
+    b = 100;
+  };
+
+  function draw(p5) {
     p5.frameRate(7);
+
     if (saveImage === true) {
       p5.save("PIXASSO.png");
-      console.log("p5 save image triggered");
       setSaveImage(false);
     }
 
     if (startStop.start) {
-      p5.colorMode(p5.HSB);
-      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 50);
-
-      p5.colorMode(p5.RGB);
-
-      p5.stroke(_.strokeShade, _.strokeShade, _.strokeShade, 50);
-
-      p5.translate(p5.width / 2, p5.height / 2);
-      p5.scale(_.scale / 2);
-
-      let jglX = p5.random(-_.jiggle, _.jiggle);
-      let jglY = p5.random(-_.jiggle, _.jiggle);
-
-      p5.translate(_.shake, _.randomSize);
-      for (let i = 0; i < 30; i += 2) {
-        let jglXX = p5.random(-_.jiggle2, _.jiggle2);
-        let jglYY = p5.random(-_.jiggle2, _.jiggle2);
-
-        p5.strokeWeight(p5.random(_.strokeWeight / 4, _.strokeWeight));
-
-        p5.fill(
-          p5.random(_.red - 100, _.red),
-          p5.random(_.green - 100, _.green),
-          p5.random(_.blue - 100, _.blue),
-          50
-        );
-        psycheCircle(
-          p5,
-          _.spread,
-          _.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
-        psycheCircle(
-          p5,
-          -_.spread,
-          _.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
-        psycheCircle(
-          p5,
-          -_.spread,
-          -_.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
-        psycheCircle(
-          p5,
-          _.spread,
-          -_.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
-        psycheCircle(
-          p5,
-          _.spread / _.spread,
-          _.spread / _.spread,
-          jglX,
-          jglXX,
-          jglY,
-          jglYY,
-          i,
-          _.sizeRange
-        );
+      p5.background(0, 0, 0, 1);
+      // BIG CLOUDS
+      for (let i = 0; i < 2000; i++) {
+        step(p5, _.Asize, _.Ahoriz, _.Avert, _.Ared, _.Agreen, _.Ablue, 7);
+      }
+      // MEDIUM CLOUDS
+      for (let i = 0; i < 2000; i++) {
+        step(p5, _.Bsize, _.Bhoriz, _.Bvert, _.Bred, _.Bgreen, _.Bblue, 4);
+      }
+      // SMALL CLOUDS
+      for (let i = 0; i < 2000; i++) {
+        step(p5, _.Csize, _.Choriz, _.Cvert, _.Cred, _.Cgreen, _.Cblue, 6);
       }
     }
-  };
-  const psycheCircle = (p5, x, y, jglX, jglXX, jglY, jglYY, i, sizeRange) => {
-    return p5.circle(
-      jglX + jglXX + x,
-      jglY + jglYY + y,
-      p5.width - i * 20 - p5.random(0, sizeRange)
-    );
-  };
+  }
 
-  // END P5 ALGO
+  function step(p5, size, horiz, vert, red, green, blue, glow) {
+    if (startStop.start) {
+      x += p5.random(-horiz, horiz);
+      y += p5.random(-vert, vert);
+      x = p5.constrain(x, 0, p5.width);
+      y = p5.constrain(y, 0, p5.height);
+
+      r += p5.random(-1, 1);
+      g += p5.random(-1, 1);
+      b += p5.random(-1, 1);
+
+      r = p5.constrain(r, red - 20, red);
+      g = p5.constrain(g, green - 20, green);
+      b = p5.constrain(b, blue - 20, blue);
+
+      //shadow
+      p5.fill(0, 0, 0, 1);
+      p5.circle(x - 2, y + 2, size);
+
+      //highlight
+      p5.fill(255, 255, 255, 2);
+      p5.circle(x + 5, y - 5, size);
+
+      //glow
+      p5.fill(r, g, b, 1);
+      p5.circle(x + glow, y + glow, size);
+      p5.circle(x - glow, y + glow, size);
+      p5.circle(x + glow, y - glow, size);
+      p5.circle(x - glow, y - glow, size);
+
+      //cloud body
+      p5.fill(r, g, b, 90);
+      p5.circle(x, y, size);
+    }
+  }
 
   return (
     <>
       <div className="canvas-with-parameters">
-        <div className="parameters-left">
-          <div className="parameter-group">
-            <div style={{ opacity: "0" }}>
-              <Algo3Parameter />
-            </div>
-          </div>
+        {/* <div className="parameters-left-1column">
           <div className="parameters-group">
-            <h4>BackGround Color:</h4>
-            <Algo3Parameter
-              name="BGhue"
-              value={_.BGhue}
-              id="Hue"
-              min="1"
-              max="360"
-              step="0"
-            />
-            <Algo3Parameter
-              name="BGsaturation"
-              value={_.BGsaturation}
-              id="Saturation"
-              min="0"
-              max="100"
-            />
-            <Algo3Parameter
-              name="BGbrightness"
-              value={_.BGbrightness}
-              id="Brightness"
-              min="0"
-              max="100"
-              step="0"
-            />
+            <h4>Toggles:</h4>
+            <Parameter />
           </div>
-          <div className="parameter-group">
-            <div style={{ opacity: "0" }}>
-              <Algo3Parameter />
-            </div>
-          </div>
-          {/* <div className="parameters-group">
-            <h4>Upload Background:</h4>
-            <Upload imageUrl={imageUrl} setImageUrl={setImageUrl} />
-          </div> */}
-        </div>
-
-        {/* const [imageUrl, setImageUrl] = useState(""); */}
+        </div> */}
 
         <div className="canvas-container">
-          <div
-            className="artwork"
-            // style={{ backgroundImage: `url(${imageUrl}`, height: "500px" }}
-          >
-            {/* <img src={imageUrl} /> */}
+          <div className="artwork">
             <Sketch className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
@@ -195,115 +152,183 @@ const Algo3 = (props) => {
             <StartStop />
           </div>
         </div>
-        <div className="parameters-right">
+        <div className="parameters-right-3column">
           <div className="parameters-group">
-            <h4>Sizing:</h4>
-            <Algo3Parameter
-              name="sizeRange"
-              value={_.sizeRange}
-              id="Size Range"
-              min="1"
-              max="500"
+            <h4>Big Clouds:</h4>
+            <Parameter
+              name="Asize"
+              value={_.Asize}
+              id="Size"
+              min="60"
+              max="180"
               step="0"
+              handleParameter={handleParameter}
             />
-
-            <Algo3Parameter
-              name="jiggle"
-              value={_.jiggle}
-              id="Jiggle"
+            <Parameter
+              name="Ahoriz"
+              value={_.Ahoriz}
+              id="Horizontal"
               min="0"
-              max="100"
+              max="10"
               step="0"
+              handleParameter={handleParameter}
             />
-            <Algo3Parameter
-              name="jiggle2"
-              value={_.jiggle2}
-              id="Scramble"
+            <Parameter
+              name="Avert"
+              value={_.Avert}
+              id="Vertical"
               min="0"
-              max="200"
+              max="10"
               step="0"
+              handleParameter={handleParameter}
             />
-          </div>
-          <div className="parameters-group">
-            <h4>Color:</h4>
-            <Algo3Parameter
-              name="red"
-              value={_.red}
+            <div className="parameter-spacer"></div>
+            <Parameter
+              name="Ared"
+              value={_.Ared}
               id="Red"
-              min="0"
+              min="120"
               max="255"
               step="0"
+              handleParameter={handleParameter}
             />
-            <Algo3Parameter
-              name="green"
-              value={_.green}
+            <Parameter
+              name="Agreen"
+              value={_.Agreen}
               id="Green"
-              min="0"
+              min="120"
               max="255"
               step="0"
+              handleParameter={handleParameter}
             />
-            <Algo3Parameter
-              name="blue"
-              value={_.blue}
-              id="Blue"
-              min="0"
+            <Parameter
+              name="Ablue"
+              value={_.Ablue}
+              id="blue"
+              min="120"
               max="255"
               step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
+
+          <div className="parameters-group">
+            <h4>Medium Clouds:</h4>
+
+            <Parameter
+              name="Bsize"
+              value={_.Bsize}
+              id="Size"
+              min="10"
+              max="35"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Bhoriz"
+              value={_.Bhoriz}
+              id="Horizontal"
+              min="0"
+              max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Bvert"
+              value={_.Bvert}
+              id="Vertical"
+              min="0"
+              max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <div className="parameter-spacer"></div>
+
+            <Parameter
+              name="Bred"
+              value={_.Bred}
+              id="Red"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Bgreen"
+              value={_.Bgreen}
+              id="Green"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Bblue"
+              value={_.Bblue}
+              id="blue"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
-            <h4>Border:</h4>
-            <Algo3Parameter
-              name="strokeWeight"
-              value={_.strokeWeight}
-              id="Stroke Weight"
-              min="0"
-              max="60"
-              step="0"
-            />
-
-            <Algo3Parameter
-              name="strokeShade"
-              value={_.strokeShade}
-              id="Stroke Shade"
-              min="0"
-              max="255"
-              // step="0"
-            />
-            <Algo3Parameter
-              name="spread"
-              value={_.spread}
-              id="Spread"
-              min="0"
-              max="400"
-              step="0"
-            />
-          </div>
-          <div className="parameters-group">
-            <h4>Effects:</h4>
-
-            <Algo3Parameter
-              name="scale"
-              value={_.scale}
-              id="Scale"
+            <h4>Small Clouds:</h4>
+            <Parameter
+              name="Csize"
+              value={_.Csize}
+              id="Size"
               min="1"
-              max="6"
-            />
-            <Algo3Parameter
-              name="randomSize"
-              value={_.randomSize}
-              id="Move Vertically"
-              min="-200"
-              max="200"
+              max="5"
               step="0"
+              handleParameter={handleParameter}
             />
-            <Algo3Parameter
-              name="shake"
-              value={_.shake}
-              id="Move Horizontally"
-              min="-200"
-              max="200"
+            <Parameter
+              name="Choriz"
+              value={_.Choriz}
+              id="Horizontal"
+              min="0"
+              max="20"
               step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Cvert"
+              value={_.Cvert}
+              id="Vertical"
+              min="0"
+              max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <div className="parameter-spacer"></div>
+
+            <Parameter
+              name="Cred"
+              value={_.Cred}
+              id="Red"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Cgreen"
+              value={_.Cgreen}
+              id="Green"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Cblue"
+              value={_.Cblue}
+              id="blue"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
             />
           </div>
         </div>
