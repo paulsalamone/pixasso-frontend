@@ -5,6 +5,7 @@ import { StartStopContext } from "../../contexts/StartStopContext";
 const Refresh = () => {
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [startStop, setStartStop] = useContext(StartStopContext);
+
   const refreshHandler = (e) => {
     setRefresh(true);
     console.log("refresh triggered");
@@ -13,10 +14,10 @@ const Refresh = () => {
 
   let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
 
-  if (startStop.start) {
-  } else {
-    parameterStatus = "saturate(0%) brightness(.4)";
-  }
+  // if (startStop.start) {
+  // } else {
+  //   parameterStatus = "saturate(0%) brightness(.4)";
+  // }
 
   return (
     <div style={{ filter: `${parameterStatus}` }}>

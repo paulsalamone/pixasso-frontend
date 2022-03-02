@@ -4,10 +4,13 @@ import Parameter from "../editorComponents/Parameter";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 import data from "../algorithms/parameterData.json";
+import { RefreshContext } from "../../contexts/RefreshContext";
+import Refresh from "../editorComponents/Refresh";
 
 const Algo1 = (props) => {
   //controls if p5 animation is running or not:
   const [startStop, setStartStop] = useContext(StartStopContext);
+  const [refresh, setRefresh] = useContext(RefreshContext);
   useEffect(() => {
     setStartStop({ ...startStop, start: true });
   }, []);
@@ -36,10 +39,12 @@ const Algo1 = (props) => {
     spread: 0,
     K: 0,
     L: 0,
-    BGhue: 100,
-    BGsaturation: 70,
-    BGbrightness: 0,
+    BGhue: 270,
+    BGsaturation: 82,
+    BGbrightness: 20,
   });
+
+  const [backup, setBackup] = useState(_);
 
   //handles all parameters:
   const handleParameter = ({ currentTarget: input }) => {
@@ -48,6 +53,12 @@ const Algo1 = (props) => {
       [input.name]: input.value,
     });
   };
+
+  //when refresh is triggered, fills _ with backup state
+  useEffect(() => {
+    set_(backup);
+    setRefresh(false);
+  }, [refresh]);
 
   // START P5 ALGO:
   const setup = (p5, canvasParentRef) => {
@@ -202,6 +213,7 @@ const Algo1 = (props) => {
             <Sketch className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
+            <Refresh />
             <button onClick={handleSaveImage}>save to desktop</button>
             <StartStop />
           </div>

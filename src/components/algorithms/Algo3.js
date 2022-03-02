@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import loadImage from "react-p5";
+import Algo3Sketch from "./Algo3Sketch";
+import Algo3SketchB from "./Algo3SketchB";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 import { SaveContext } from "../../contexts/SaveContext";
@@ -22,7 +24,7 @@ const Algo3 = (props) => {
   const [_, set_] = useState({
     Asize: 128,
     Ahoriz: 4,
-    Avert: 1,
+    Avert: 2,
     Ared: 200,
     Agreen: 152,
     Ablue: 140,
@@ -42,7 +44,7 @@ const Algo3 = (props) => {
     Cblue: 220,
   });
   const [backup, setBackup] = useState(_);
-
+  const [wipe, setWipe] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
   //when refresh is triggered, fills _ with backup state
@@ -57,6 +59,11 @@ const Algo3 = (props) => {
       ..._,
       [input.name]: input.value,
     });
+  };
+
+  const handleWipe = () => {
+    setWipe(!wipe);
+    setRefresh(true);
   };
 
   let x = 400;
@@ -144,9 +151,16 @@ const Algo3 = (props) => {
 
         <div className="canvas-container">
           <div className="artwork">
-            <Sketch className="x" setup={setup} draw={draw} />
+            {/* <Sketch className="x" setup={setup} draw={draw} /> */}
+
+            {!wipe ? (
+              <Algo3Sketch className="x" setup={setup} draw={draw} />
+            ) : (
+              <Algo3SketchB className="x" setup={setup} draw={draw} />
+            )}
           </div>
           <div className="canvas-utilities">
+            <button onClick={handleWipe}>Wipe Screen</button>
             <Refresh />
             <Save />
             <StartStop />
