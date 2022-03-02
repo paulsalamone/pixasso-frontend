@@ -20,26 +20,26 @@ const Algo3 = (props) => {
   const [saveImage, setSaveImage] = useContext(SaveContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [_, set_] = useState({
-    Asize: 120,
-    Ahoriz: 3,
-    Avert: 2,
-    Ared: 255,
-    Agreen: 200,
-    Ablue: 200,
+    Asize: 128,
+    Ahoriz: 4,
+    Avert: 1,
+    Ared: 200,
+    Agreen: 152,
+    Ablue: 140,
 
     Bsize: 50,
-    Bhoriz: 8,
+    Bhoriz: 10,
     Bvert: 2,
-    Bred: 200,
-    Bgreen: 255,
-    Bblue: 200,
+    Bred: 242,
+    Bgreen: 200,
+    Bblue: 180,
 
-    Csize: 3,
-    Choriz: 2,
+    Csize: 2,
+    Choriz: 9,
     Cvert: 2,
-    Cred: 200,
-    Cgreen: 200,
-    Cblue: 255,
+    Cred: 252,
+    Cgreen: 244,
+    Cblue: 220,
   });
   const [backup, setBackup] = useState(_);
 
@@ -81,11 +81,17 @@ const Algo3 = (props) => {
 
     if (startStop.start) {
       p5.background(0, 0, 0, 1);
+      // BIG CLOUDS
       for (let i = 0; i < 2000; i++) {
         step(p5, _.Asize, _.Ahoriz, _.Avert, _.Ared, _.Agreen, _.Ablue, 7);
       }
+      // MEDIUM CLOUDS
       for (let i = 0; i < 2000; i++) {
         step(p5, _.Bsize, _.Bhoriz, _.Bvert, _.Bred, _.Bgreen, _.Bblue, 4);
+      }
+      // SMALL CLOUDS
+      for (let i = 0; i < 2000; i++) {
+        step(p5, _.Csize, _.Choriz, _.Cvert, _.Cred, _.Cgreen, _.Cblue, 6);
       }
     }
   }
@@ -101,15 +107,16 @@ const Algo3 = (props) => {
       g += p5.random(-1, 1);
       b += p5.random(-1, 1);
 
-      r = p5.constrain(r, red - 40, red);
-      g = p5.constrain(g, green - 40, green);
-      b = p5.constrain(b, blue - 40, blue);
+      r = p5.constrain(r, red - 20, red);
+      g = p5.constrain(g, green - 20, green);
+      b = p5.constrain(b, blue - 20, blue);
 
       //shadow
-      // p5.fill(0, 0, 0, 1);
-      // p5.circle(x - 5, y + 5, size);
+      p5.fill(0, 0, 0, 1);
+      p5.circle(x - 2, y + 2, size);
+
       //highlight
-      p5.fill(255, 255, 255, 1);
+      p5.fill(255, 255, 255, 2);
       p5.circle(x + 5, y - 5, size);
 
       //glow
@@ -120,7 +127,7 @@ const Algo3 = (props) => {
       p5.circle(x - glow, y - glow, size);
 
       //cloud body
-      p5.fill(r, g, b);
+      p5.fill(r, g, b, 90);
       p5.circle(x, y, size);
     }
   }
@@ -180,7 +187,7 @@ const Algo3 = (props) => {
               name="Ared"
               value={_.Ared}
               id="Red"
-              min="180"
+              min="120"
               max="255"
               step="0"
               handleParameter={handleParameter}
@@ -189,7 +196,7 @@ const Algo3 = (props) => {
               name="Agreen"
               value={_.Agreen}
               id="Green"
-              min="180"
+              min="120"
               max="255"
               step="0"
               handleParameter={handleParameter}
@@ -198,7 +205,7 @@ const Algo3 = (props) => {
               name="Ablue"
               value={_.Ablue}
               id="blue"
-              min="180"
+              min="120"
               max="255"
               step="0"
               handleParameter={handleParameter}
@@ -213,7 +220,7 @@ const Algo3 = (props) => {
               value={_.Bsize}
               id="Size"
               min="10"
-              max="40"
+              max="35"
               step="0"
               handleParameter={handleParameter}
             />
@@ -222,7 +229,7 @@ const Algo3 = (props) => {
               value={_.Bhoriz}
               id="Horizontal"
               min="0"
-              max="30"
+              max="20"
               step="0"
               handleParameter={handleParameter}
             />
@@ -231,7 +238,7 @@ const Algo3 = (props) => {
               value={_.Bvert}
               id="Vertical"
               min="0"
-              max="30"
+              max="20"
               step="0"
               handleParameter={handleParameter}
             />
@@ -268,11 +275,58 @@ const Algo3 = (props) => {
           <div className="parameters-group">
             <h4>Small Clouds:</h4>
             <Parameter
-              name="strokeWeight"
-              value={_.strokeWeight}
-              id="Stroke Weight"
+              name="Csize"
+              value={_.Csize}
+              id="Size"
               min="1"
-              max="7"
+              max="5"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Choriz"
+              value={_.Choriz}
+              id="Horizontal"
+              min="0"
+              max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Cvert"
+              value={_.Cvert}
+              id="Vertical"
+              min="0"
+              max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <div className="parameter-spacer"></div>
+
+            <Parameter
+              name="Cred"
+              value={_.Cred}
+              id="Red"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Cgreen"
+              value={_.Cgreen}
+              id="Green"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Cblue"
+              value={_.Cblue}
+              id="blue"
+              min="180"
+              max="255"
               step="0"
               handleParameter={handleParameter}
             />
