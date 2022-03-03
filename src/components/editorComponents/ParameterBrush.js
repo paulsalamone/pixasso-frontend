@@ -18,7 +18,7 @@ const ParameterBrush = (props) => {
   };
 
   if (brushChoice === props.value) {
-    console.log(`You chose ${brushChoice} / ${props.value}`);
+    // console.log(`You chose ${brushChoice} / ${props.value}`);
     brushToggle = "#aaaaaa";
   }
 
