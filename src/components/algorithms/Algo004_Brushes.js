@@ -13,10 +13,6 @@ import Refresh from "../editorComponents/Refresh";
 import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
 import { BrushContext } from "../../contexts/BrushContext";
-let r, g, b;
-let c1, c2;
-let hue, saturation, brightness;
-let gradStart, gradEnd;
 
 const Algo4 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
@@ -25,20 +21,20 @@ const Algo4 = (props) => {
   const [brushChoice, setBrushChoice] = useContext(BrushContext);
   // const [brush, setBrush] = useState("default");
   const [_, set_] = useState({
-    BGhue: 54,
+    BGhue: 180,
     BGhueSettings: { name: "BGhue", id: "Hue", min: 0, max: 360 },
-    BGsaturation: 6,
+    BGsaturation: 50,
     BGsaturationSettings: {
       name: "BGsaturation",
       id: "Saturation",
       min: 0,
-      max: 20,
+      max: 100,
     },
     BGbrightness: 95,
     BGbrightnessSettings: {
       name: "BGbrightness",
       id: "Brightness",
-      min: 60,
+      min: 0,
       max: 100,
     },
 
@@ -49,22 +45,23 @@ const Algo4 = (props) => {
     blue: 185,
     blueSettings: { name: "blue", id: "Blue", min: 10, max: 235 },
 
-    brushSize: 10,
-    brushSizeSettings: { name: "brushSize", id: "Brush Size", min: 1, max: 40 },
-    brushSize: 10,
-    brushSizeSettings: { name: "brushSize", id: "Brush Size", min: 1, max: 40 },
+    brushSize: 20,
+    brushSizeSettings: {
+      name: "brushSize",
+      id: "Brush Size",
+      min: 2,
+      max: 70,
+    },
   });
   const [backup, setBackup] = useState(_);
   const [wipe, setWipe] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
-  //when refresh is triggered, fills _ with backup state
   useEffect(() => {
     set_(backup);
     setRefresh(false);
   }, [refresh]);
 
-  //handles all parameters:
   const handleParameter = ({ currentTarget: input }) => {
     set_({
       ..._,
@@ -77,38 +74,133 @@ const Algo4 = (props) => {
     setRefresh(true);
   };
 
-  const handleBrushStatus = () => {
-    console.log("handle");
-  };
-  let c1, c2;
+  //HALO:
+  let r, angle, step;
 
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(800, 500).parent(canvasParentRef);
-    p5.background(0);
-    // c1 = p5.color(255);
-    // c2 = p5.color(0);
+    p5.background(255);
     p5.colorMode(p5.HSB, 360, 100, 100, 10);
+
+    // HALO:
+    r = 20;
+    angle = 0;
+    step = p5.TWO_PI / 20;
   };
 
   function draw(p5) {
-    p5.frameRate(7);
-    p5.colorMode(p5.HSB, 360, 100, 100, 10);
+    p5.frameRate(60);
 
     if (saveImage === true) {
       p5.save("PIXASSO.png");
       setSaveImage(false);
     }
 
+    // AGING LOOP
     if (startStop.start) {
-      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness);
-      //  GRADIENT CODE
-      // for (let y = 0; y < p5.height; y++) {
-      //   let n = p5.map(y, 0, p5.height, 0, 1);
-      //   let newc = p5.lerpColor(c1, c2, n);
-      //   p5.stroke(newc, 10);
-      //   p5.line(0, y, p5.width, y);
+      // p5.fill(220, 4);
+      //   p5.noFill();
+      //   p5.strokeWeight(0.5);
+      //   p5.stroke(30, 100, 100, 1);
+      //   p5.circle(p5.random(p5.width), p5.random(p5.height), p5.random(300));
+    }
+    // p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 1);
+    // p5.background(230, 0.5);
+
+    // halo(p5);
+    if (p5.mouseIsPressed) {
+      pen(p5);
+
+      // if (brushChoice === "default") {
+      //   p5.stroke(0);
+      //   p5.fill(_.red, _.green, _.blue);
+      //   p5.circle(p5.mouseX, p5.mouseY, _.brushSize);
+      //   p5.circle(p5.mouseX, p5.mouseY, _.brushSize - 5);
+      //   p5.circle(p5.mouseX, p5.mouseY, _.brushSize - 10);
+      //   p5.circle(p5.mouseX, p5.mouseY, _.brushSize - 15);
+      // }
+
+      if (brushChoice === "dragon") {
+        p5.stroke(0);
+        p5.strokeWeight(2);
+        p5.fill("black");
+        p5.circle(p5.mouseX, p5.mouseY, 30);
+        p5.fill("white");
+        p5.circle(p5.mouseX - 4, p5.mouseY - 4, 30);
+        p5.fill("black");
+        p5.circle(p5.mouseX + 12, p5.mouseY + 12, 20);
+        p5.fill("white");
+        p5.circle(p5.mouseX + 12 - 4, p5.mouseY + 12 - 4, 20);
+        p5.fill("black");
+        p5.circle(p5.mouseX - 9, p5.mouseY - 9, 8);
+        p5.fill("white");
+        p5.circle(p5.mouseX - 11, p5.mouseY - 11, 8);
+      }
+
       // }
     }
+
+    // }
+  }
+
+  function halo(p5) {
+    p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness);
+    p5.strokeWeight(_.brushSize);
+
+    p5.translate(p5.mouseX, p5.mouseY);
+    let x = r * p5.sin(angle);
+    let y = r * p5.cos(angle);
+    p5.fill(0, 0, 0);
+    p5.ellipse(x, y, 2);
+    // p5.line(p5.mouseX + 10, p5.mouseY - 10, p5.pmouseX, p5.pmouseY);
+
+    // p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
+    //increase angle by step size
+    angle = angle + step;
+  }
+
+  function pen(p5) {
+    // set the color and weight of the stroke
+
+    // p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness, 1);
+    // p5.strokeWeight(_.brushSize);
+    // p5.line(p5.mouseX + 10, p5.mouseY - 10, p5.pmouseX, p5.pmouseY);
+
+    // p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness, 2);
+    // p5.strokeWeight(_.brushSize);
+    // p5.line(p5.mouseX - 5, p5.mouseY + 5, p5.pmouseX, p5.pmouseY);
+
+    // p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness, 255);
+    // p5.strokeWeight(_.brushSize - 5);
+    // p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
+    p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness);
+    p5.strokeWeight(_.brushSize / 2);
+    p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
+    p5.line(p5.mouseX + 30, p5.mouseY + 30, p5.pmouseX + 30, p5.pmouseY + 30);
+
+    p5.stroke("black");
+    hairy(p5, 5, 10);
+    hairy(p5, 10, 10);
+    hairy(p5, 20, 20);
+  }
+
+  function hairy(p5, weight, rand) {
+    p5.strokeWeight(_.brushSize / weight);
+
+    p5.line(
+      p5.mouseX + p5.random(-rand, rand),
+      p5.mouseY + p5.random(-rand, rand),
+      p5.pmouseX + p5.random(-rand, rand),
+      p5.pmouseY + p5.random(-rand, rand)
+    );
+
+    p5.fill("red");
+    // p5.noStroke();
+    p5.square(
+      p5.mouseX + p5.random(-rand * 3, rand * 3),
+      p5.mouseY + p5.random(-rand * 3, rand * 3),
+      p5.random(_.brushSize / 8)
+    );
   }
 
   return (
@@ -149,13 +241,13 @@ const Algo4 = (props) => {
 
         <div className="canvas-container">
           <div className="artwork">
-            <Algo3Sketch wip e={wipe} className="x" setup={setup} draw={draw} />
+            <Algo3Sketch wipe={wipe} className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
             <button onClick={handleWipe}>Wipe Screen</button>
-            <Refresh />
+            {/* <Refresh /> */}
             <Save />
-            <StartStop />
+            {/* <StartStop /> */}
           </div>
         </div>
 
@@ -163,7 +255,7 @@ const Algo4 = (props) => {
           <div className="parameters-group">
             <h4>Choose Brush:</h4>
             <div className="parameter">
-              <ParameterBrush name="snake" id="snake" value="snake" />
+              <ParameterBrush name="default" id="default" value="default" />
               <ParameterBrush name="dragon" id="dragon" value="dragon" />
               {/* <ParameterBrush />
             <ParameterBrush /> */}

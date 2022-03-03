@@ -6,16 +6,21 @@ const ParameterBrush = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
 
   const [brushChoice, setBrushChoice] = useContext(BrushContext);
-  const [toggled, setToggled] = useState(false);
+  // const [toggled, setToggled] = useState(false);
 
   // if toggled is true, set a style
   // use useEffect to set toggle back to false if the brushcontext changes again
 
+  let brushToggle = "#333333";
+
   const brushHandler = (e) => {
     setBrushChoice(e.target.value);
-    setToggled();
   };
-  console.log(brushChoice);
+
+  if (brushChoice === props.value) {
+    console.log(`You chose ${brushChoice} / ${props.value}`);
+    brushToggle = "#aaaaaa";
+  }
 
   return (
     <>
@@ -26,7 +31,7 @@ const ParameterBrush = (props) => {
       <button
         className="parameter-radio-choice"
         onClick={brushHandler}
-        style={{ backgroundColor: `${brushStatus}` }}
+        style={{ backgroundColor: `${brushToggle}` }}
         value={props.value}
       >
         {props.id}

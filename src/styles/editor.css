@@ -263,6 +263,7 @@ input {
   padding: 5px;
   border: 1px dotted var(--neutral3);
   border-radius: 3px;
+  color: var(--main2);
 }
 
 .parameter-radio-choice:hover {
@@ -273,6 +274,7 @@ input {
 .parameter-radio-choice:active {
   background-color: var(--neutral3);
   color: var(--main1);
+  border: yellow;
 }
 
 .start-stop {
