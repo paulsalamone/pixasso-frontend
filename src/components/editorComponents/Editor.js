@@ -5,6 +5,7 @@ import Algo1 from "../algorithms/Algo1";
 import Algo2 from "../algorithms/Algo2";
 import Algo3 from "../algorithms/Algo3";
 import Algo4 from "../algorithms/Algo004_Brushes";
+import Algo5 from "../algorithms/Algo005_Moire";
 const Editor = () => {
   const [algo, setAlgo] = useContext(AlgoContext);
   const [algoChoice, setAlgoChoice] = useState(<Algo1 />);
@@ -24,7 +25,9 @@ const Editor = () => {
       case "Algo4":
         setAlgoChoice(<Algo4 />);
         break;
-
+      case "Algo5":
+        setAlgoChoice(<Algo5 />);
+        break;
       default:
         console.log("error");
     }
@@ -36,8 +39,8 @@ const Editor = () => {
         <section className="easel">
           <div className="canvas-frame">
             <div className="sketch">
-              {algoChoice}
-              {/* <Algo4 /> */}
+              <Algo5 />
+              {/* {algoChoice} */}
             </div>
           </div>
         </section>
