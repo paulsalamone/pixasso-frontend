@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { BackgroundContext } from "../../contexts/BackgroundContext";
 
 const Upload = (props) => {
   const [image, setImage] = useState("");
   //   const [imageUrl, setImageUrl] = useState("");
+  const [background, setBackground] = useContext(BackgroundContext);
 
   const uploadImage = async () => {
     const imageData = new FormData();
@@ -17,12 +19,15 @@ const Upload = (props) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        props.setImageUrl(data.url);
+        // props.setImageUrl(data.url);
+        setBackground(data.url);
+
         axios
-          .post("http://localhost:5000/api/sketch/upload", {
-            sketch_Url: props.imageUrl,
+          .post("http://localhost:4000/api/sketch/upload", {
+            // sketch_Url: props.imageUrl,
+            sketch_Url: background,
           })
-          .then(console.log("image saved"));
+          .then(console.log(`image saved`));
       })
       .catch((error) => console.log(error));
   };
@@ -42,7 +47,7 @@ const Upload = (props) => {
         <button onClick={uploadImage}>Upload</button>
         <div>
           {/* <p>Uploaded image will be displayed here</p> */}
-          <img src={props.imageUrl} />
+          <img src={background} />
         </div>
       </div>
     </>

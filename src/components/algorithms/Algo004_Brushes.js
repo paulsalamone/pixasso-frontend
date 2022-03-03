@@ -1,25 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
 import ParameterBrush from "../editorComponents/ParameterBrush";
-
+import StaticImage from "../../components/byc.jpg";
 import Sketch from "react-p5";
-import loadImage from "react-p5";
 import Algo3Sketch from "./Algo3Sketch";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 import { SaveContext } from "../../contexts/SaveContext";
 import Save from "../editorComponents/Save";
 import { RefreshContext } from "../../contexts/RefreshContext";
-import Refresh from "../editorComponents/Refresh";
 import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
 import { BrushContext } from "../../contexts/BrushContext";
-
+import { BackgroundContext } from "../../contexts/BackgroundContext";
 const Algo4 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [saveImage, setSaveImage] = useContext(SaveContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [brushChoice, setBrushChoice] = useContext(BrushContext);
-  // const [brush, setBrush] = useState("default");
+  const [background, setBackground] = useContext(BackgroundContext);
   const [_, set_] = useState({
     BGhue: 180,
     BGhueSettings: { name: "BGhue", id: "Hue", min: 0, max: 360 },
@@ -77,10 +75,28 @@ const Algo4 = (props) => {
   //HALO:
   let r, angle, step;
 
+  // let img;
+
+  // function preload() {
+  //   img = loadImage(StaticImage);
+  //   console.log(img);
+  // }
+
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(800, 500).parent(canvasParentRef);
     p5.background(255);
     p5.colorMode(p5.HSB, 360, 100, 100, 10);
+    // img = loadImage(StaticImage);
+    // BACKGROUND IMAGE
+    // p5.loadImage(StaticImage, (img) => {
+    //   p5.image(img, 0, 0);
+    // });
+    p5.loadImage(background, (img) => {
+      p5.image(img, 0, 0);
+      console.log("Background image:" + img);
+    });
+    // img = loadImage(StaticImage);
+    // console.log(img);
 
     // HALO:
     r = 20;
@@ -90,6 +106,8 @@ const Algo4 = (props) => {
 
   function draw(p5) {
     p5.frameRate(60);
+
+    // p5.image(img, 0, 0);
 
     if (saveImage === true) {
       p5.save("PIXASSO.png");
@@ -237,11 +255,24 @@ const Algo4 = (props) => {
               handleParameter={handleParameter}
             />
           </div>
+          <div>
+            <Upload />
+          </div>
         </div>
 
         <div className="canvas-container">
           <div className="artwork">
-            <Algo3Sketch wipe={wipe} className="x" setup={setup} draw={draw} />
+            {/* <img src={background} /> */}
+            {/* <img src={StaticImage} alt="static image"></img> */}
+            <Algo3Sketch
+              // preload={preload}
+              wipe={wipe}
+              className="x"
+              setup={setup}
+              draw={draw}
+            />
+
+            {/* <Sketch setup={setup} draw={draw} /> */}
           </div>
           <div className="canvas-utilities">
             <button onClick={handleWipe}>Wipe Screen</button>

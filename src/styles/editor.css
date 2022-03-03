@@ -157,6 +157,12 @@ input {
 }
 
 #defaultCanvas0 {
+  /* border: 17px solid black;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  margin-bottom: 10px; */
+}
+
+.artwork {
   border: 17px solid black;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   margin-bottom: 10px;
