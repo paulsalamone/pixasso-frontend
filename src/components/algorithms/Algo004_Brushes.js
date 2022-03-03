@@ -56,6 +56,10 @@ const Algo4 = (props) => {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
+    setStartStop({ ...startStop, start: true });
+  }, []);
+
+  useEffect(() => {
     set_(backup);
     setRefresh(false);
   }, [refresh]);
