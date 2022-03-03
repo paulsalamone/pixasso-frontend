@@ -19,7 +19,7 @@ const UploadSketch = () => {
     imageData.append("cloud_name", "pixasso");
     console.log(imageData)
 
-    await fetch(" https://api.cloudinary.com/v1_1/pixasso/image/upload", {
+    await fetch("https://api.cloudinary.com/v1_1/pixasso/image/upload", {
       method: "post",
       body: imageData,
     })

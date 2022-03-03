@@ -8,13 +8,11 @@ import { AlgoController } from "./contexts/AlgoContext";
 function App() {
   return (
     <div className="App">
-     
         <ProjectController>
           <AlgoController>
             <AppRouter />
           </AlgoController>
         </ProjectController>{" "}
-     
     </div>
   );
 }

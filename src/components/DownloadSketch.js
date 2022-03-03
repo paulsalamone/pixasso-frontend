@@ -2,7 +2,7 @@ import React from "react";
 import domtoimage from "dom-to-image";
 import saveAs from "file-saver";
 import { useState } from "react";
-import test from "./byc.jpg";
+//import test from "./byc.jpg";
 
 const DownloadSketch = () => {
   //const [image, setImage] = useState("hello world");

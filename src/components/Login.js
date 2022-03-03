@@ -1,9 +1,21 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from "../images/logoP-medium-color.png";
+//import {UserContext} from "../contexts/UserContext";
+
 
 const Login = () => {
+  //const[state, dispatch] = useContext(UserContext);
+  //const [user, setUser] = useContext(UserContext)
+  useEffect(()=>{
+    console.log(user)
+
+  },[])
+
+
+  let navigate = useNavigate();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -20,8 +32,9 @@ const Login = () => {
       const url = "http://localhost:4000/api/auth/login";
       const { data } = await axios.post(url, user);
       localStorage.setItem("token", data);
-      console.log()
-      window.location = "/";
+      // dispatch({type:"USER", payload: true})
+      navigate('/profile')
+      // window.location = "/";
       console.log("logged in");
     } catch (error) {
       if (error.response && error.resposne.status === 400) {
