@@ -204,14 +204,20 @@ input {
 .parameters-group {
   /* border: 1px red solid; */
   display: flex;
+  height: auto;
   flex-direction: column;
   align-items: center;
-  margin: 5px 0px 10px 0px;
+  margin: 5px;
+  box-shadow: 0 0 5px rgb(92, 92, 92);
+  border-radius: 10px;
+  padding: 8px;
 }
 
 .parameters-group h4 {
-  margin: 10px 0px 7px 0px;
-  font-size: 0.8rem;
+  margin: 7px 0px 7px 0px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--neutral3);
 }
 
 .parameters-group p {
@@ -219,10 +225,11 @@ input {
 }
 
 .parameter {
-  box-shadow: 0 0 5px rgb(92, 92, 92);
+  /* box-shadow: 0 0 5px rgb(92, 92, 92);
+  border-radius: 10px; */
+
   margin: 6px;
   padding: 0px 10px 15px 10px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -231,9 +238,10 @@ input {
 }
 
 .parameter:hover {
-  /* border: 1px solid rgb(150, 150, 150); */
-
-  box-shadow: 0 0 7px rgb(120, 120, 120);
+  /* border: 1px solid rgba(150, 150, 150, 20); */
+  /* background-color: var(--sub1); */
+  /* filter: blur(3px); */
+  /* box-shadow: 0 0 7px rgb(120, 120, 120); */
 }
 
 .parameter p {
@@ -255,6 +263,11 @@ input {
 
 .parameter input {
   margin: 0px;
+}
+
+.parameter input:hover {
+  background-color: 2px red solid;
+  filter: brightness(120%);
 }
 
 .parameter-spacer {

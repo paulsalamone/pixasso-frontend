@@ -206,6 +206,13 @@ const Algo1 = (props) => {
               handleParameter={handleParameter}
             />
           </div>
+          <div className="parameter-group">
+            <div style={{ opacity: "0" }}>
+              <Parameter />
+              <Parameter />
+              <Parameter />
+            </div>
+          </div>
         </div>
 
         <div className="canvas-container">
