@@ -46,6 +46,12 @@ const AlgoSelector = (props) => {
           >
             Moiré
           </option>
+          <option
+            value="Algo6"
+            defaultValue={algo === "Algo6" ? "defaultValue" : ""}
+          >
+            Escher
+          </option>
           {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
             Algo 3 Test
           </option>

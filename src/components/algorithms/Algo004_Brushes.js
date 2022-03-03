@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import ParameterBrush from "../editorComponents/ParameterBrush";
 import StaticImage from "../../components/byc.jpg";
 import Sketch from "react-p5";
-import Algo3Sketch from "./Algo3Sketch";
+import SketchHost from "./SketchHost";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 import { SaveContext } from "../../contexts/SaveContext";
@@ -268,7 +268,7 @@ const Algo4 = (props) => {
           <div className="artwork">
             {/* <img src={background} /> */}
             {/* <img src={StaticImage} alt="static image"></img> */}
-            <Algo3Sketch
+            <SketchHost
               // preload={preload}
               wipe={wipe}
               className="x"
