@@ -6,10 +6,10 @@ const Parameter = (props) => {
 
   let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
 
-  if (startStop.start) {
-  } else {
-    parameterStatus = "contrast(0%) saturate(0%) brightness(.8)";
-  }
+  // if (startStop.start) {
+  // } else {
+  //   parameterStatus = "contrast(0%) saturate(0%) brightness(.8)";
+  // }
 
   return (
     <>
@@ -24,7 +24,8 @@ const Parameter = (props) => {
           value={props.value}
           min={props.min}
           max={props.max}
-          onChange={startStop.start ? props.handleParameter : null}
+          onChange={props.handleParameter}
+          // onChange={startStop.start ? props.handleParameter : null}
           className="slider"
         />
       </div>

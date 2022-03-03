@@ -16,7 +16,7 @@ let c1, c2;
 let hue, saturation, brightness;
 let gradStart, gradEnd;
 
-const Algo3 = (props) => {
+const Algo6 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [saveImage, setSaveImage] = useContext(SaveContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
@@ -24,9 +24,9 @@ const Algo3 = (props) => {
     Asize: 128,
     Ahoriz: 4,
     Avert: 2,
-    Ared: 200,
-    Agreen: 152,
-    Ablue: 140,
+    Ared: 0,
+    Agreen: 1,
+    Ablue: 1,
 
     Bsize: 50,
     Bhoriz: 10,
@@ -86,18 +86,22 @@ const Algo3 = (props) => {
     }
 
     if (startStop.start) {
-      p5.background(0, 0, 0, 1);
+      p5.background(0, 0, 0, 10);
       // BIG CLOUDS
       for (let i = 0; i < 2000; i++) {
         step(p5, _.Asize, _.Ahoriz, _.Avert, _.Ared, _.Agreen, _.Ablue, 7);
       }
-      // MEDIUM CLOUDS
+      // // MEDIUM CLOUDS
       for (let i = 0; i < 2000; i++) {
         step(p5, _.Bsize, _.Bhoriz, _.Bvert, _.Bred, _.Bgreen, _.Bblue, 4);
       }
       // SMALL CLOUDS
       for (let i = 0; i < 2000; i++) {
         step(p5, _.Csize, _.Choriz, _.Cvert, _.Cred, _.Cgreen, _.Cblue, 6);
+      }
+      // SMALL CLOUDS
+      for (let i = 0; i < 2000; i++) {
+        step(p5, _.Csize, _.Choriz, _.Cvert, _.Cred, _.Cgreen, _.Cblue, 3);
       }
     }
   }
@@ -109,32 +113,24 @@ const Algo3 = (props) => {
       x = p5.constrain(x, 0, p5.width);
       y = p5.constrain(y, 0, p5.height);
 
-      r += p5.random(-1, 1);
-      g += p5.random(-1, 1);
-      b += p5.random(-1, 1);
+      //SHADOW
+      p5.noStroke();
+      p5.fill(0, 10);
+      p5.rect(x - 10, y + 10, size / _.Ablue, size / _.Agreen);
+      //HIGHLIGHT
+      p5.noStroke();
+      p5.fill(255, 50);
+      p5.rect(x + 3, y - 3, size / _.Ablue, size / _.Agreen);
+      //BLOCK
+      p5.strokeWeight(1);
+      p5.stroke(0);
+      p5.fill(255);
+      p5.rect(x, y, size / _.Ablue, size / _.Agreen);
+      // p5.noStroke();
 
-      r = p5.constrain(r, red - 20, red);
-      g = p5.constrain(g, green - 20, green);
-      b = p5.constrain(b, blue - 20, blue);
-
-      //shadow
-      p5.fill(0, 0, 0, 1);
-      p5.circle(x - 2, y + 2, size);
-
-      //highlight
-      p5.fill(255, 255, 255, 2);
-      p5.circle(x + 5, y - 5, size);
-
-      //glow
-      p5.fill(r, g, b, 1);
-      p5.circle(x + glow, y + glow, size);
-      p5.circle(x - glow, y + glow, size);
-      p5.circle(x + glow, y - glow, size);
-      p5.circle(x - glow, y - glow, size);
-
-      //cloud body
-      p5.fill(r, g, b, 90);
-      p5.circle(x, y, size);
+      //SLANTED
+      // p5.fill(255, 0, 0, 10);
+      // p5.quad(x, y, x + 100, y, x + 150, y + 100, x + 50, y + 100);
     }
   }
 
@@ -201,8 +197,8 @@ const Algo3 = (props) => {
               name="Ared"
               value={_.Ared}
               id="Red"
-              min="120"
-              max="255"
+              min="0"
+              max="100"
               step="0"
               handleParameter={handleParameter}
             />
@@ -210,8 +206,8 @@ const Algo3 = (props) => {
               name="Agreen"
               value={_.Agreen}
               id="Green"
-              min="120"
-              max="255"
+              min="1"
+              max="30"
               step="0"
               handleParameter={handleParameter}
             />
@@ -219,8 +215,8 @@ const Algo3 = (props) => {
               name="Ablue"
               value={_.Ablue}
               id="blue"
-              min="120"
-              max="255"
+              min="1"
+              max="30"
               step="0"
               handleParameter={handleParameter}
             />
@@ -351,4 +347,4 @@ const Algo3 = (props) => {
   );
 };
 
-export default Algo3;
+export default Algo6;
