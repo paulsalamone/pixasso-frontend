@@ -200,6 +200,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 5px 0px 10px 0px;
 }
 
 .parameters-group h4 {
@@ -219,6 +220,7 @@ input {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 80%;
   /* transition: 1s; */
 }
 
@@ -253,6 +255,26 @@ input {
   height: 30px;
   width: 10px;
   /* background-color: /grey; */
+}
+
+.parameter-radio-choice {
+  font-size: 0.8rem;
+  margin: 15px 2px 2px 5px;
+  padding: 5px;
+  border: 1px dotted var(--neutral3);
+  border-radius: 3px;
+  color: var(--main2);
+}
+
+.parameter-radio-choice:hover {
+  background-color: var(--sub1);
+  cursor: pointer;
+}
+
+.parameter-radio-choice:active {
+  background-color: var(--neutral3);
+  color: var(--main1);
+  border: yellow;
 }
 
 .start-stop {

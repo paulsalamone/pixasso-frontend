@@ -4,11 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import Algo1 from "../algorithms/Algo1";
 import Algo2 from "../algorithms/Algo2";
 import Algo3 from "../algorithms/Algo3";
-
-import AlgoFrame from "../algorithms/AlgoFrame";
-
-import data from "../algorithms/parameterData.json";
-
+import Algo4 from "../algorithms/Algo004_Brushes";
 const Editor = () => {
   const [algo, setAlgo] = useContext(AlgoContext);
   const [algoChoice, setAlgoChoice] = useState(<Algo1 />);
@@ -23,8 +19,10 @@ const Editor = () => {
         setAlgoChoice(<Algo2 />);
         break;
       case "Algo3":
-        //algo frame showing by default as delimited below:
         setAlgoChoice(<Algo3 />);
+        break;
+      case "Algo4":
+        setAlgoChoice(<Algo4 />);
         break;
 
       default:
@@ -38,12 +36,9 @@ const Editor = () => {
         <section className="easel">
           <div className="canvas-frame">
             <div className="sketch">
-              {algoChoice}
-              {/* <AlgoFrame /> */}
-              {/* <Algo3 /> */}
+              {/* {algoChoice} */}
+              <Algo4 />
             </div>
-            {/* <div className="sketch">
-            </div> */}
           </div>
         </section>
       </main>
