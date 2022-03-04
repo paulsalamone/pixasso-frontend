@@ -13,6 +13,15 @@ const Nav = () => {
   console.log(user.user.username);
   //setUser({username:userInfo.username})
   //console.log(user.username)
+
+  const handleClick = (e)=>{
+    e.preventDefault()
+    localStorage.removeItem("token")
+    //navigate("/")
+    console.log("bye bye")
+
+}
+
   
   return (
     <>
@@ -45,7 +54,7 @@ const Nav = () => {
           <Link to="/update">Update</Link>
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
-          <Link to="/">Logout</Link>
+          <Link to="/" onClick={handleClick}>Logout</Link>
           {user && user ?
           (<Link to="/profile">{user.user.username}</Link>)
           :(  
