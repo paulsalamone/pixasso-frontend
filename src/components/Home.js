@@ -2,6 +2,7 @@ import BigLogo from "../images/logo-large-home-tagline.png";
 import "../styles/home.css";
 import { Link } from "react-router-dom";
 const Home = () => {
+ 
   return (
     <>
       <header>

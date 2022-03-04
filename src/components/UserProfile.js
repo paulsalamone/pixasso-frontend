@@ -1,111 +1,36 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react'
+import Community from "../components/Community";
+import jwt_decode from "jwt-decode";
+
 
 const UserProfile = () => {
-    const [profilePic, setProfilePic] = useState("")
-    const [profilePicUrl, setProfilePicUrl] = useState("")
-    const [user, setUser] = useState({
-        username: "",
-        email: "",
-        password:"",
-        profilePicUrl:""
-    })
-
-    const uploadPic = async() => {
-        const picData = new FormData()
-        picData.append("file",profilePic)
-        picData.append("upload_preset", "profilepic")
-        picData.append("cloud_name","pixasso")
-
-        fetch(" https://api.cloudinary.com/v1_1/pixasso/image/upload",{
-            method:"post",
-            body: picData
-        })
-        .then(resp => resp.json())
-        .then(data => {
-        setProfilePicUrl(data.url)
-        console.log(profilePicUrl)
-        axios.post("http://localhost:4000/api/users/profile", {
-            profile_pic_url: profilePicUrl
-        })
-        .then(console.log("picture saved"))
-        
-        })
-        .catch ((error) => console.log(error))
-    } 
-    // const handleChange = (e) => {
-    //     setProfilePic(e.target.files[0];
-    //     uploadPic();
-
-    // }
-    // const handleChange = ({currentTarget: input}) => {
-    //     setUser({...user, [input.name]:input.value})
-    //   }
-
-
+    const token = localStorage.getItem("token")
+    const user = jwt_decode(token);
+    console.log(user.user.username);
+    
     return (
-        <>
-        <div>
-            <h1>UserProfile</h1>
-            <img 
-                src={profilePicUrl} 
-                alt="user picture"
-                height= "300px"
-                width= "300px"
-                />
-            <input 
-                type="file"
-                onChange= {(e) => setProfilePic(e.target.files[0])}
-            >
-            </input>
-            <button onClick={uploadPic}>Upload</button>
+        <div className="profile">
+            <div>
+                <h1>
+                   {user.user.username}
+                </h1>
+                <img src=""/>
+            </div>
+            <div>
+                <h1>
+                    Unpublished Sketches
+                </h1>
+                <img src="https://res.cloudinary.com/pixasso/image/upload/v1646306373/fc2o0dnlga7lzjubtnka.jpg"/>
+                <button onClick={<Community/>} >publish</button>
+            </div>
+            <div>
+                <h1>
+                    Published Sketches
+                </h1>
+                <img src="https://res.cloudinary.com/pixasso/image/upload/v1646300481/ae6cct2tky57obshjhgx.jpg"/>
+                <button>unpublish</button>
+            </div>
         </div>
-        <div>
-            <form>
-                <h1>Basic Info</h1>
-                <input
-                    type= "text"
-                    placeholder="Username"
-                    name= "username"
-                    value= {user.username} 
-                    required 
-                    // onChange= {handleChange}
-                >
-                </input>
-                <input
-                    type= "email"
-                    placeholder="Email"
-                    name= "email"
-                    value= {user.email} 
-                    required 
-                    // onChange= {handleChange}
-                >
-                </input>
-                <input
-                    type= "password"
-                    placeholder="Password"
-                    name= "password"
-                    value= {user.password} 
-                    required 
-                    // onChange= {handleChange}
-                >
-                </input>
-                <h1>Biography</h1>
-                <textarea
-                    name= "biography"
-                    placeholder="Your Story....."
-                    rows="10" 
-                    cols="50">
-                </textarea>
-                <button
-                    type="submit"
-                    onClick
-                >
-                    Save Changes
-                </button>
-            </form>
-        </div>
-        </>
     )
 }
 

@@ -165,3 +165,8 @@ footer {
   text-align: center;
   padding: 10px;
 }
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
