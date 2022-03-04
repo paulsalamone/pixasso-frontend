@@ -11,7 +11,7 @@ const Nav = () => {
   let navigate= useNavigate()
   useEffect(()=>{
     getUser()
-  },[])
+  },[user])
  
   const getUser =() =>{
     const token = localStorage.getItem("token");
@@ -25,6 +25,7 @@ const Nav = () => {
     }
       
     }
+
   
   const handleClick = (e)=>{
     e.preventDefault()
