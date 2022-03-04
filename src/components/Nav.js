@@ -7,13 +7,14 @@ import jwt_decode from "jwt-decode";
 
 const Nav = () => {
   //const[state, dispatch] = useContext(UserContext);
-  
-  const token = localStorage.getItem("token");
-  const user = jwt_decode(token);
-  console.log(user.user.username);
+
+  // const token = localStorage.getItem("token");
+  // const user = jwt_decode(token);
+  // console.log(user.user.username);
+
   //setUser({username:userInfo.username})
   //console.log(user.username)
-  
+
   return (
     <>
       <nav>
@@ -45,16 +46,14 @@ const Nav = () => {
           <Link to="/update">Update</Link>
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
-          <Link to="/">Logout</Link>
-          {user && user ?
-          (<Link to="/profile">{user.user.username}</Link>)
-          :(  
-          <Link to="/profile">Profile</Link>
-          )}
-          
-          </div>
+          <Link to="/register">Logout</Link>
+          {/* {user && user ? (
+            <Link to="/profile">{user.user.username}</Link>
+          ) : (
+            <Link to="/profile">Profile</Link>
+          )} */}
+        </div>
 
-        
         {/* {user ? (
           <div className="top-nav-right">
           <Link to="/download">Download</Link>
@@ -74,7 +73,6 @@ const Nav = () => {
           <Link to="/profile">Profile</Link>
         </div>
         )} */}
-        
       </nav>
     </>
   );

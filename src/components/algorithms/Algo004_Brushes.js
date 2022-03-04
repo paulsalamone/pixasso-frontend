@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import ParameterBrush from "../editorComponents/ParameterBrush";
-import StaticImage from "../../components/byc.jpg";
 import Sketch from "react-p5";
 import SketchHost from "./SketchHost";
 import { StartStopContext } from "../../contexts/StartStopContext";
@@ -12,12 +11,16 @@ import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
 import { BrushContext } from "../../contexts/BrushContext";
 import { BackgroundContext } from "../../contexts/BackgroundContext";
+import { HexColorPicker } from "react-colorful";
+
 const Algo4 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [saveImage, setSaveImage] = useContext(SaveContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [brushChoice, setBrushChoice] = useContext(BrushContext);
   const [background, setBackground] = useContext(BackgroundContext);
+  const [color, setColor] = useState("#aabbcc");
+
   const [_, set_] = useState({
     BGhue: 180,
     BGhueSettings: { name: "BGhue", id: "Hue", min: 0, max: 360 },
@@ -79,30 +82,16 @@ const Algo4 = (props) => {
   //HALO:
   let r, angle, step;
 
-  // let img;
-
-  // function preload() {
-  //   img = loadImage(StaticImage);
-  //   console.log(img);
-  // }
-
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(800, 500).parent(canvasParentRef);
     p5.background(255);
     p5.colorMode(p5.HSB, 360, 100, 100, 10);
-    // img = loadImage(StaticImage);
-    // BACKGROUND IMAGE
-    // p5.loadImage(StaticImage, (img) => {
-    //   p5.image(img, 0, 0);
-    // });
+
     p5.loadImage(background, (img) => {
       p5.image(img, 0, 0);
       console.log("Background image:" + img);
     });
-    // img = loadImage(StaticImage);
-    // console.log(img);
 
-    // HALO:
     r = 20;
     angle = 0;
     step = p5.TWO_PI / 20;
@@ -111,94 +100,34 @@ const Algo4 = (props) => {
   function draw(p5) {
     p5.frameRate(60);
 
-    // p5.image(img, 0, 0);
-
     if (saveImage === true) {
       p5.save("PIXASSO.png");
       setSaveImage(false);
     }
 
-    // AGING LOOP
-    if (startStop.start) {
-      // p5.fill(220, 4);
-      //   p5.noFill();
-      //   p5.strokeWeight(0.5);
-      //   p5.stroke(30, 100, 100, 1);
-      //   p5.circle(p5.random(p5.width), p5.random(p5.height), p5.random(300));
-    }
-    // p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 1);
-    // p5.background(230, 0.5);
-
-    // halo(p5);
     if (p5.mouseIsPressed) {
-      pen(p5);
-
-      // if (brushChoice === "default") {
-      //   p5.stroke(0);
-      //   p5.fill(_.red, _.green, _.blue);
-      //   p5.circle(p5.mouseX, p5.mouseY, _.brushSize);
-      //   p5.circle(p5.mouseX, p5.mouseY, _.brushSize - 5);
-      //   p5.circle(p5.mouseX, p5.mouseY, _.brushSize - 10);
-      //   p5.circle(p5.mouseX, p5.mouseY, _.brushSize - 15);
-      // }
-
-      if (brushChoice === "dragon") {
-        p5.stroke(0);
-        p5.strokeWeight(2);
-        p5.fill("black");
-        p5.circle(p5.mouseX, p5.mouseY, 30);
-        p5.fill("white");
-        p5.circle(p5.mouseX - 4, p5.mouseY - 4, 30);
-        p5.fill("black");
-        p5.circle(p5.mouseX + 12, p5.mouseY + 12, 20);
-        p5.fill("white");
-        p5.circle(p5.mouseX + 12 - 4, p5.mouseY + 12 - 4, 20);
-        p5.fill("black");
-        p5.circle(p5.mouseX - 9, p5.mouseY - 9, 8);
-        p5.fill("white");
-        p5.circle(p5.mouseX - 11, p5.mouseY - 11, 8);
+      if (brushChoice === "default") {
+        p5.stroke(color);
+        p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
       }
 
-      // }
+      if (brushChoice === "pixel") {
+        pixelBrush(p5, 20);
+        pixelBrush(p5, 1);
+      }
+
+      if (brushChoice === "hairy") {
+        // pen(p5);
+        hairyBrush(p5);
+      }
     }
-
-    // }
   }
 
-  function halo(p5) {
-    p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness);
-    p5.strokeWeight(_.brushSize);
-
-    p5.translate(p5.mouseX, p5.mouseY);
-    let x = r * p5.sin(angle);
-    let y = r * p5.cos(angle);
-    p5.fill(0, 0, 0);
-    p5.ellipse(x, y, 2);
-    // p5.line(p5.mouseX + 10, p5.mouseY - 10, p5.pmouseX, p5.pmouseY);
-
-    // p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
-    //increase angle by step size
-    angle = angle + step;
-  }
-
-  function pen(p5) {
-    // set the color and weight of the stroke
-
-    // p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness, 1);
-    // p5.strokeWeight(_.brushSize);
-    // p5.line(p5.mouseX + 10, p5.mouseY - 10, p5.pmouseX, p5.pmouseY);
-
-    // p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness, 2);
-    // p5.strokeWeight(_.brushSize);
-    // p5.line(p5.mouseX - 5, p5.mouseY + 5, p5.pmouseX, p5.pmouseY);
-
-    // p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness, 255);
-    // p5.strokeWeight(_.brushSize - 5);
-    // p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
+  function hairyBrush(p5) {
     p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness);
     p5.strokeWeight(_.brushSize / 2);
     p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
-    p5.line(p5.mouseX + 30, p5.mouseY + 30, p5.pmouseX + 30, p5.pmouseY + 30);
+    // p5.line(p5.mouseX + 30, p5.mouseY + 30, p5.pmouseX + 30, p5.pmouseY + 30);
 
     p5.stroke("black");
     hairy(p5, 5, 10);
@@ -216,8 +145,11 @@ const Algo4 = (props) => {
       p5.pmouseY + p5.random(-rand, rand)
     );
 
-    p5.fill("red");
+    // p5.fill("red");
     // p5.noStroke();
+  }
+
+  function pixelBrush(p5, rand) {
     p5.square(
       p5.mouseX + p5.random(-rand * 3, rand * 3),
       p5.mouseY + p5.random(-rand * 3, rand * 3),
@@ -229,7 +161,7 @@ const Algo4 = (props) => {
     <>
       <div className="canvas-with-parameters">
         <div className="parameters-left-1column">
-          <div className="parameters-group">
+          {/* <div className="parameters-group">
             <h4>BackGround Color:</h4>
             <Parameter
               name={_.BGhueSettings.name}
@@ -258,6 +190,14 @@ const Algo4 = (props) => {
               step="0"
               handleParameter={handleParameter}
             />
+          </div> */}
+          <div className="parameters-group">
+            <h4>Choose Brush:</h4>
+            <div className="parameter">
+              <ParameterBrush name="default" id="default" value="default" />
+              <ParameterBrush name="pixel" id="pixel" value="pixel" />
+              <ParameterBrush name="hairy" id="hairy" value="hairy" />
+            </div>
           </div>
           <div>
             <Upload />
@@ -286,55 +226,25 @@ const Algo4 = (props) => {
           </div>
         </div>
 
-        <div className="parameters-right">
-          <div className="parameters-group">
-            <h4>Choose Brush:</h4>
-            <div className="parameter">
-              <ParameterBrush name="default" id="default" value="default" />
-              <ParameterBrush name="dragon" id="dragon" value="dragon" />
-              {/* <ParameterBrush />
-            <ParameterBrush /> */}
-            </div>
-          </div>
+        <div className="parameters-right-1col">
+          <HexColorPicker color={color} onChange={setColor} />
+          {console.log(color)}
+
           <div className="parameters-group">
             <h4>Brush Settings:</h4>
             <Parameter
               name={_.brushSizeSettings.name}
-              value={_.brushSize}
+              value={_.brushSizeSettings.value}
               id={_.brushSizeSettings.id}
               min={_.brushSizeSettings.min}
               max={_.brushSizeSettings.max}
               step="0"
               handleParameter={handleParameter}
             />
-          </div>
-
-          <div className="parameters-group">
-            <h4>Color:</h4>
             <Parameter
-              name={_.redSettings.name}
-              value={_.red}
-              id={_.redSettings.id}
-              min={_.redSettings.min}
-              max={_.redSettings.max}
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name={_.greenSettings.name}
-              value={_.green}
-              id={_.greenSettings.id}
-              min={_.greenSettings.min}
-              max={_.greenSettings.max}
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name={_.blueSettings.name}
-              value={_.blue}
-              id={_.blueSettings.id}
-              min={_.blueSettings.min}
-              max={_.blueSettings.max}
+              name="transparency"
+              id="Transparency"
+              value="0"
               step="0"
               handleParameter={handleParameter}
             />

@@ -44,8 +44,8 @@ const Editor = () => {
         <section className="easel">
           <div className="canvas-frame">
             <div className="sketch">
-              {/* <Algo6 /> */}
-              {algoChoice}
+              <Algo4 />
+              {/* {algoChoice} */}
             </div>
           </div>
         </section>
