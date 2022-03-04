@@ -34,20 +34,22 @@ const Upload = (props) => {
 
   return (
     <>
-      {/* <p>Upload BG image:</p> */}
-      <div className="form-page">
-        <label class="custom-file-upload">
-          <input
-            className="choose-file"
-            type="file"
-            onChange={(e) => setImage(e.target.files[0])}
-          ></input>
-        </label>
+      <div className="parameters-group">
+        <h4>Background:</h4>
+        <div className="form-page">
+          <label class="custom-file-upload">
+            <input
+              className="choose-file"
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+            ></input>
+          </label>
 
-        <button onClick={uploadImage}>Upload</button>
-        <div>
-          {/* <p>Uploaded image will be displayed here</p> */}
-          <img src={background} />
+          <button onClick={uploadImage}>Upload</button>
+          <div>
+            {/* <p>Uploaded image will be displayed here</p> */}
+            <img src={background} />
+          </div>
         </div>
       </div>
     </>
