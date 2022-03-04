@@ -34,6 +34,7 @@ const Nav = () => {
     console.log("bye bye")
 }
 
+
   return (
     <>
       <nav>
@@ -57,22 +58,9 @@ const Nav = () => {
           </Routes>
 
           {/* <StartStop /> */}
-        </div>
-        {/* working navbar */}
-        {/* <div className="top-nav-right">
-          <Link to="/community">Community</Link>
-          <Link to="/update">Update</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/"><a onClick={handleClick}>Logout</a></Link>
-          {user ?
-          (<Link to="/profile">{user}</Link>)
-          :(  
-          <Link to="/profile">Profile</Link>
-          )}
-          </div> */}
+        
 
-        {user && user ? (
+        {/* {user ? (
           <div className="top-nav-right">
           <Link to="/community">Community</Link>
           <Link to="/update">Update Profile</Link>
@@ -84,8 +72,9 @@ const Nav = () => {
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
         </div>
+
         )}
-        
+
       </nav>
     </>
   );

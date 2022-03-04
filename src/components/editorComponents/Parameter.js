@@ -1,17 +1,15 @@
-import { ProjectContext } from "../../contexts/ProjectContext";
+import { StartStopContext } from "../../contexts/StartStopContext";
 import { useContext } from "react";
 
 const Parameter = (props) => {
-  const [project, setProject] = useContext(ProjectContext);
+  const [startStop, setStartStop] = useContext(StartStopContext);
 
   let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
 
-  if (project.start) {
-    console.log("start");
-  } else {
-    console.log("stop");
-    parameterStatus = "contrast(0%) saturate(0%) brightness(.8)";
-  }
+  // if (startStop.start) {
+  // } else {
+  //   parameterStatus = "contrast(0%) saturate(0%) brightness(.8)";
+  // }
 
   return (
     <>
@@ -26,11 +24,11 @@ const Parameter = (props) => {
           value={props.value}
           min={props.min}
           max={props.max}
-          onChange={project.start ? props.handleParameter : null}
+          onChange={props.handleParameter}
+          // onChange={startStop.start ? props.handleParameter : null}
           className="slider"
         />
       </div>
-      {/* <p>{props.value}</p> */}
     </>
   );
 };

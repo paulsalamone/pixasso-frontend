@@ -1,21 +1,37 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
-import { ProjectContext } from "../../contexts/ProjectContext";
+import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
+
 //import UploadSketch from "../UploadSketch";
 //import domtoimage from "dom-to-image";
 //import saveAs from "file-saver";
 import axios from "axios";
+import data from "../algorithms/parameterData.json";
+import { RefreshContext } from "../../contexts/RefreshContext";
+import Refresh from "../editorComponents/Refresh";
 
 const Algo1 = (props) => {
-  const [project, setProject] = useContext(ProjectContext);
+  //controls if p5 animation is running or not:
+  const [startStop, setStartStop] = useContext(StartStopContext);
+  const [refresh, setRefresh] = useContext(RefreshContext);
   //const [imageFile, setImageFile] = useState("")
-  const [imageUrl, setImageUrl] = useState("")
+  const [imageUrl, setImageUrl] = useState("");
   const [saveImage, setSaveImage] = useState(false);
   // let pngfile = "";
-  let canvas="";
+  let canvas = "";
 
+  useEffect(() => {
+    setStartStop({ ...startStop, start: true });
+  }, []);
+
+  // tells p5 if save button has been pressed
+  const handleSaveImage = (e) => {
+    setSaveImage(true);
+  };
+
+  //sets state of all parameters
   const [_, set_] = useState({
     sizeRange: 15,
     scale: 2,
@@ -33,15 +49,14 @@ const Algo1 = (props) => {
     spread: 0,
     K: 0,
     L: 0,
-    BGhue: 100,
-    BGsaturation: 70,
-    BGbrightness: 0,
+    BGhue: 270,
+    BGsaturation: 82,
+    BGbrightness: 20,
   });
 
-  useEffect(() => {
-    setProject({ ...project, start: true });
-  }, []);
+  const [backup, setBackup] = useState(_);
 
+  //handles all parameters:
   const handleParameter = ({ currentTarget: input }) => {
     set_({
       ..._,
@@ -49,33 +64,31 @@ const Algo1 = (props) => {
     });
   };
 
-  const handleSaveImage = (e) => {
-    console.log("download to desktop");
-    setSaveImage(true);
-  };
+  //when refresh is triggered, fills _ with backup state
+  useEffect(() => {
+    set_(backup);
+    setRefresh(false);
+  }, [refresh]);
+
+  // START P5 ALGO:
 
   const setup = (p5, canvasParentRef) => {
     canvas = p5.createCanvas(500, 500).parent(canvasParentRef);
-    canvas.parent("artwork")
+    canvas.parent("artwork");
     // p5.createCanvas(project.width, project.height).parent(canvasParentRef);
-    
   };
 
   const draw = (p5) => {
-    // let value = p5.alpha(30);
     p5.frameRate(7);
-    // p5.noLoop();
 
     if (saveImage) {
       p5.saveCanvas(canvas, "canvas.png");
       console.log("p5 save image triggered");
       setSaveImage(false);
-      
     }
 
-    if (project.start) {
+    if (startStop.start) {
       p5.colorMode(p5.HSB);
-      // p5.noLoop();
       p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 50);
       p5.colorMode(p5.RGB);
 
@@ -100,7 +113,6 @@ const Algo1 = (props) => {
           p5.random(_.blue - 100, _.blue),
           50
         );
-        // p5.erase();
         psycheCircle(
           p5,
           _.spread,
@@ -168,32 +180,37 @@ const Algo1 = (props) => {
   };
   const uploadImage = async () => {
     const image = document.getElementById("defaultCanvas0");
-    image.toBlob((blob) => {
-      const data = new FormData()
-      data.append('file', blob)
-      data.append("upload_preset", "sketch");
-      data.append("cloud_name", "pixasso");
-      //console.log(data)
-      fetch('https://api.cloudinary.com/v1_1/pixasso/image/upload', {
-        method: 'POST',
-        body: data
-      })
-      .then(res=> res.json())
-      .then(data =>{
-        console.log(data.url)
-        setImageUrl(data.url)
-        axios
-          .post("http://localhost:4000/api/sketch/upload", {
+    image.toBlob(
+      (blob) => {
+        const data = new FormData();
+        data.append("file", blob);
+        data.append("upload_preset", "sketch");
+        data.append("cloud_name", "pixasso");
+        //console.log(data)
+        fetch("https://api.cloudinary.com/v1_1/pixasso/image/upload", {
+          method: "POST",
+          body: data,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data.url);
+            setImageUrl(data.url);
+            axios
+              .post("http://localhost:4000/api/sketch/upload", {
                 sketch_url: imageUrl,
-                })
-        .then(res =>console.log(res))
-        .then(console.log("url saved"))
-      }) .catch(err=> console.log(err))
+              })
+              .then((res) => console.log(res))
+              .then(console.log("url saved"));
+          })
+          .catch((err) => console.log(err));
 
-      // postData();
-    }, 'image/jpeg', 0.95);
-  }
-  
+        // postData();
+      },
+      "image/jpeg",
+      0.95
+    );
+  };
+
   return (
     <>
       <div className="canvas-with-parameters">
@@ -232,6 +249,13 @@ const Algo1 = (props) => {
               handleParameter={handleParameter}
             />
           </div>
+          <div className="parameter-group">
+            <div style={{ opacity: "0" }}>
+              <Parameter />
+              <Parameter />
+              <Parameter />
+            </div>
+          </div>
         </div>
 
         <div className="canvas-container">
@@ -241,6 +265,8 @@ const Algo1 = (props) => {
           <div className="canvas-utilities">
             <button onClick={handleSaveImage}>Download to Desktop</button>
             <button onClick={uploadImage}>Save to Cloud</button>
+            <Refresh />
+
             <StartStop />
           </div>
         </div>

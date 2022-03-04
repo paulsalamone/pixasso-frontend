@@ -6,10 +6,11 @@ import { RefreshContext } from "../../contexts/RefreshContext";
 import Parameter from "../editorComponents/Parameter";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
-const Algo2 = (props) => {
+const Algo5 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [wipe, setWipe] = useState(false);
   const [saveImage, setSaveImage] = useState(false);
+  const [iterate, setIterate] = useState(0);
 
   const [refresh, setRefresh] = useContext(RefreshContext);
   const handleSaveImage = (e) => {
@@ -18,22 +19,23 @@ const Algo2 = (props) => {
   };
 
   const [_, set_] = useState({
-    squareSize: 34,
-    spacing: 10,
-    checkSize: 34,
-    hue: 0,
-    saturation: 60,
-    brightness: 80,
-    strokeWeight: 0,
-    strokeHue: 0,
-    strokeBrightness: 0,
-    randomColors: 0,
-    randomSize: 3,
-    columnize: 0,
-    shake: 3,
-    BGhue: 100,
-    BGsaturation: 50,
-    BGbrightness: 70,
+    //black
+    line1weight: 7,
+    line1angle: 20,
+    line1spacing: 10,
+
+    //grey
+    line2weight: 2,
+    line2angle: 5,
+    line2spacing: 3,
+
+    //white
+    line3weight: 2,
+    line3angle: 75,
+    line3spacing: 7,
+    BGhue: 0,
+    BGsaturation: 100,
+    BGbrightness: 100,
   });
   const [backup, setBackup] = useState(_);
 
@@ -52,14 +54,18 @@ const Algo2 = (props) => {
       [input.name]: input.value,
     });
   };
-
-  const handleWipe = () => {
-    console.log("wipe");
-    setWipe(true);
-  };
+  let it = 0;
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500).parent(canvasParentRef);
+    p5.createCanvas(800, 500).parent(canvasParentRef);
+    p5.background(255);
+    p5.colorMode(p5.HSB, 360, 100, 100, 100);
   };
+
+  // *****************************
+  // WHITE STRIPES ALGO NOTES:
+  // -make "universal" sliders
+  // -control: weight, spread, x and y of both, transparency, color, randomisation
+  //make the circle a function!
 
   const draw = (p5) => {
     if (saveImage) {
@@ -67,42 +73,104 @@ const Algo2 = (props) => {
       console.log("p5 save image triggered");
       setSaveImage(false);
     }
+    p5.noFill();
+
+    p5.frameRate(10);
 
     if (startStop.start) {
-      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness);
-      p5.frameRate(startStop.rate);
+      //LINE 1
 
-      p5.colorMode(p5.HSB);
-      p5.rectMode(p5.CENTER);
-      p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
-      p5.strokeWeight(_.strokeWeight);
+      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 90);
+      // p5.translate(-220, 0);
+      //   p5.strokeWeight(4);
+      // p5.stroke(200, 100, 100);
+      // p5.strokeWeight(1);
+      // for (let i = 0; i < 50; i += 2) {
+      //   p5.circle(100, 100, i * 10);
+      // }
 
-      //GRID
-      for (let i = 0; i < 100; i += 1) {
-        for (let j = 0; j < 100; j += 1) {
-          if (i % 2 !== 0 || j % 2 !== 0) {
-            // NORMAL SQUARE
+      for (let i = 0; i < 100; i += 2) {
+        p5.strokeWeight(_.line1spacing);
+        p5.stroke("blue");
 
-            p5.fill(_.hue, _.saturation, _.brightness);
-            p5.translate(_.columnize / 10, 0);
+        p5.circle(
+          0 + p5.random(0, 5),
+          _.line1angle + p5.random(0, 5),
+          i * _.line1weight
+        );
 
-            p5.circle(
-              i * _.squareSize + p5.random(0, _.shake),
-              j * _.squareSize + p5.random(0, _.shake),
-              _.squareSize - _.spacing + p5.random(0, _.randomSize)
-            );
-          } else {
-            // DARK SQUARE
-            p5.fill(_.hue, _.saturation / 2, _.brightness - 50);
-            p5.translate(_.columnize / 10, 0);
-            p5.square(
-              i * _.squareSize + p5.random(0, _.shake),
-              j * _.squareSize + p5.random(0, _.shake),
-              _.checkSize - _.spacing + p5.random(0, _.randomSize)
-            );
-          }
-        }
+        p5.circle(
+          800 + p5.random(0, 3),
+          250 + p5.random(0, 3),
+          i * _.line1weight
+        );
+        p5.stroke(255);
+
+        p5.circle(
+          0 + p5.random(0, 3),
+          _.line1angle + p5.random(0, 3),
+          i * _.line1weight
+        );
+
+        p5.circle(
+          800 + p5.random(0, 3),
+          250 + p5.random(0, 3),
+          i * _.line1weight
+        );
+        p5.stroke("#00FF55");
+
+        p5.circle(
+          0 + p5.random(0, 3),
+          _.line1angle + p5.random(0, 3),
+          i * _.line1weight
+        );
+
+        p5.circle(
+          800 + p5.random(0, 3),
+          250 + p5.random(0, 3),
+          i * _.line1weight
+        );
+        p5.stroke(0, 50);
+
+        p5.circle(
+          0 + p5.random(0, 3),
+          400 + p5.random(0, 3),
+          i * _.line1weight
+        );
+
+        p5.circle(
+          800 + p5.random(0, 3),
+          -_.line1angle + p5.random(0, 3),
+          i * _.line1weight
+        );
       }
+
+      setIterate(iterate + 1);
+
+      // //LINE 2
+      // p5.strokeWeight(_.line2weight);
+      // // p5.stroke(300, 100, 100);
+      // p5.stroke(0);
+      // for (let i = 0; i < p5.width; i += _.line2spacing / 10) {
+      //   p5.line(i * 20, 0, i * 20 + _.line2angle / 2, p5.height);
+      // }
+      // // //LINE 3
+      // p5.strokeWeight(_.line3weight);
+      // p5.strokeWeight(2);
+      // // p5.stroke(55);
+      // p5.noFill();
+
+      //RINGS
+      // for (let k = 0; k < 100; k++) {
+      //   p5.circle(200, 200, k * 20);
+      // }
+      // for (let k = 0; k < 100; k++) {
+      //   p5.circle(350, 20, k * 20);
+      // }
+
+      // for (let i = 0; i < p5.width; i += _.line3spacing / 10) {
+      //   p5.line(i * 15, 0, i * 15 + _.line3angle / 2, p5.height);
+      // }
     }
   };
 
@@ -144,11 +212,17 @@ const Algo2 = (props) => {
               handleParameter={handleParameter}
             />
           </div>
+          <div className="parameter-group">
+            <div style={{ opacity: "0" }}>
+              <Parameter />
+              <Parameter />
+              <Parameter />
+            </div>
+          </div>
         </div>
 
         <div className="canvas-container">
           <div className="artwork">
-            {/* <Algo2Sketch setup={setup} draw={draw} /> */}
             <Sketch setup={setup} draw={draw} />
           </div>
 
@@ -161,60 +235,57 @@ const Algo2 = (props) => {
         </div>
         <div className="parameters-right">
           <div className="parameters-group">
-            <h4>Sizing:</h4>
+            <h4>Line1:</h4>
             <Parameter
-              name="squareSize"
-              value={_.squareSize}
-              id="Circle Size"
-              min="1"
-              max="100"
+              name="line1weight"
+              id="Weight"
+              value={_.line1weight}
+              min="5"
+              max="30"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="spacing"
-              value={_.spacing}
-              id="Spacing"
-              min="10"
-              max="80"
+              name="line1angle"
+              id="Angle"
+              value={_.line1angle}
+              min="0"
+              max="60"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="checkSize"
-              value={_.checkSize}
-              id="Square Size"
-              min="0"
-              max="100"
+              name="line1spacing"
+              value={_.line1spacing}
+              min="1"
+              max="40"
               step="0"
               handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
-            <h4>Color:</h4>
+            <h4>Line2:</h4>
             <Parameter
-              name="hue"
-              value={_.hue}
-              id="Hue"
-              min="0"
-              max="360"
+              name="line2weight"
+              id="Weight"
+              value={_.line2weight}
+              min="1"
+              max="10"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="saturation"
-              value={_.saturation}
-              id="Saturation"
+              name="line2angle"
+              id="Angle"
+              value={_.line2angle}
               min="0"
-              max="100"
-              step="0"
+              max="400"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="brightness"
-              value={_.brightness}
-              id="Brightness"
-              min="0"
-              max="100"
+              name="line2spacing"
+              value={_.line2spacing}
+              min="3"
+              max="20"
               step="0"
               handleParameter={handleParameter}
             />
@@ -287,4 +358,4 @@ const Algo2 = (props) => {
   );
 };
 
-export default Algo2;
+export default Algo5;

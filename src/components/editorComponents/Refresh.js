@@ -1,20 +1,27 @@
-import { ProjectContext } from "../../contexts/ProjectContext";
+import { RefreshContext } from "../../contexts/RefreshContext";
 import { useState, useContext } from "react";
-
+import StartStop from "./StartStop";
+import { StartStopContext } from "../../contexts/StartStopContext";
 const Refresh = () => {
-  const [project, setProject] = useContext(ProjectContext);
+  const [refresh, setRefresh] = useContext(RefreshContext);
+  const [startStop, setStartStop] = useContext(StartStopContext);
 
-  function refreshPage(e) {
-    // e.target.preventDefault();
-    window.location.reload(false);
-    setProject({ ...project, refresh: true });
-    console.log("Refresh: " + project.refresh);
-  }
+  const refreshHandler = (e) => {
+    setRefresh(true);
+    console.log("refresh triggered");
+    // console.log(refresh);
+  };
+
+  let parameterStatus = "contrast(100%) saturate(100%) brightness(1)";
+
+  // if (startStop.start) {
+  // } else {
+  //   parameterStatus = "saturate(0%) brightness(.4)";
+  // }
 
   return (
-    <div>
-      <p>Page:</p>
-      <button onClick={refreshPage}>refresh</button>
+    <div style={{ filter: `${parameterStatus}` }}>
+      <button onClick={refreshHandler}>Reset sliders</button>
     </div>
   );
 };

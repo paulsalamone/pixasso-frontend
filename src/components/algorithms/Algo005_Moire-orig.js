@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
-import Parameter from "../../components/editorComponents/Parameter";
+import Parameter from "../editorComponents/Parameter";
 import { ProjectContext } from "../../contexts/ProjectContext";
 
 const Algo2 = (props) => {
