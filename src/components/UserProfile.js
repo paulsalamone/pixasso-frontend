@@ -7,6 +7,9 @@ const UserProfile = () => {
     const token = localStorage.getItem("token")
     const user = jwt_decode(token);
     console.log(user.user.username);
+
+   
+
     
     return (
         <div className="profile">

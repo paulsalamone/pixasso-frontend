@@ -4,7 +4,9 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
+
+import Editor from "./components/Editor";
+
 import Community from "./components/Community";
 import Editor from "./components/editorComponents/Editor";
 import UploadSketch from "./components/UploadSketch";
@@ -35,7 +37,6 @@ const AppRouter = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/editor" element={<Editor />} />
             {/* <Route path="/download" element={<DownloadSketch />} /> */}
-            <Route path="/" element={<Logout />} />
             <Route path="/update" element={<UpdateProfile />} />
             <Route path="/profile" element={<UserProfile />} />
           </Routes>

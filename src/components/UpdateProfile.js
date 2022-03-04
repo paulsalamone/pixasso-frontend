@@ -3,10 +3,12 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import defaultPic from "../images/profilepic.jpg";
 //import {UserContext} from "../contexts/UserContext";
+import {useParams} from 'react-router-dom'
 
 const UserProfile = () => {
     const [profilePic, setProfilePic] = useState("")
     const [profilePicUrl, setProfilePicUrl] = useState(defaultPic)
+    const {userid} = useParams()
     // const [user, setUser] = useContext(UserContext)
     const [user, setUser] = useState({
         username: "",
@@ -62,7 +64,7 @@ const UserProfile = () => {
 
       const handleSubmit= async()=>{
         await axios
-        .post(`http://localhost:4000/api/users/${user.id}`, user )     // profile_pic_url: profilePicUrl
+        .post(`http://localhost:4000/api/users/${userid}`, user )     // profile_pic_url: profilePicUrl
     
         .then(console.log("picture saved"))
         
