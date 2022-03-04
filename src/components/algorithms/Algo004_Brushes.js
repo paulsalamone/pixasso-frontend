@@ -12,6 +12,7 @@ import Parameter from "../editorComponents/Parameter";
 import { BrushContext } from "../../contexts/BrushContext";
 import { BackgroundContext } from "../../contexts/BackgroundContext";
 import { HexColorPicker } from "react-colorful";
+import { ChromePicker } from "react-color";
 
 const Algo4 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
@@ -46,12 +47,12 @@ const Algo4 = (props) => {
     blue: 185,
     blueSettings: { name: "blue", id: "Blue", min: 10, max: 235 },
 
-    brushSize: 20,
+    brushSize: 15,
     brushSizeSettings: {
       name: "brushSize",
       id: "Brush Size",
-      min: 2,
-      max: 70,
+      min: 1,
+      max: 30,
     },
   });
   const [backup, setBackup] = useState(_);
@@ -108,6 +109,7 @@ const Algo4 = (props) => {
     if (p5.mouseIsPressed) {
       if (brushChoice === "default") {
         p5.stroke(color);
+        p5.strokeWeight(_.brushSize);
         p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
       }
 
@@ -150,11 +152,22 @@ const Algo4 = (props) => {
   }
 
   function pixelBrush(p5, rand) {
+    p5.fill(color, 2);
+    p5.noStroke();
+    p5.square(p5.mouseX, p5.mouseY, _.brushSize);
+    let spray = _.brushSize * 3;
+    p5.fill(color);
+
     p5.square(
-      p5.mouseX + p5.random(-rand * 3, rand * 3),
-      p5.mouseY + p5.random(-rand * 3, rand * 3),
-      p5.random(_.brushSize / 8)
+      p5.mouseX + p5.random(-spray, spray),
+      p5.mouseY + p5.random(-spray, spray),
+      _.brushSize / 4
     );
+    // p5.square(
+    //   p5.mouseX + p5.random(-rand * 3, rand * 3),
+    //   p5.mouseY + p5.random(-rand * 3, rand * 3),
+    //   p5.random(_.brushSize / 8)
+    // );
   }
 
   return (
@@ -229,7 +242,7 @@ const Algo4 = (props) => {
         <div className="parameters-right-1col">
           <HexColorPicker color={color} onChange={setColor} />
           {console.log(color)}
-
+          {/* <ChromePicker /> */}
           <div className="parameters-group">
             <h4>Brush Settings:</h4>
             <Parameter
@@ -241,13 +254,13 @@ const Algo4 = (props) => {
               step="0"
               handleParameter={handleParameter}
             />
-            <Parameter
+            {/* <Parameter
               name="transparency"
               id="Transparency"
               value="0"
               step="0"
               handleParameter={handleParameter}
-            />
+            /> */}
           </div>
         </div>
       </div>
