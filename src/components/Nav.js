@@ -65,9 +65,7 @@ const Nav = () => {
 
         {user && user ? (
           <div className="top-nav-right">
-            <Link to="/profile">Welcome, {user}</Link>
-
-            {/* <Link to="/community">Community</Link> */}
+            <Link to="/profile">{user}</Link>
 
             <Link to="/update">Settings</Link>
 

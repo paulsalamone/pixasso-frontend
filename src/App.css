@@ -4,8 +4,8 @@
 * {
   /* border: 1px dotted rgba(169, 169, 169, 0.303); */
 
-  font-family: "Open Sans", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-    sans-serif;
+  font-family: "Open Sans", "Gill Sans", "Gill Sans MT",
+    Calibvar(--neutral3) navri, "Trebuchet MS", sans-serif;
 }
 
 input {
@@ -47,7 +47,7 @@ body {
 nav {
   /* background-color: var(--sub2); */
   background-color: var(--main1);
-  height: 65px;
+  height: 35px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -132,7 +132,11 @@ nav select:hover {
 }
 
 .app-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex: 1;
+  height: 100%;
 }
 
 .form-page,

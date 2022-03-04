@@ -7,6 +7,7 @@ import Algo3 from "../algorithms/Algo3";
 import Algo4 from "../algorithms/Algo004_Brushes";
 import Algo5 from "../algorithms/Algo005_Moire";
 import Algo6 from "../algorithms/Algo006_Escher";
+import AlgoSelector from "./AlgoSelector";
 
 const Editor = () => {
   const [algo, setAlgo] = useContext(AlgoContext);
@@ -42,6 +43,8 @@ const Editor = () => {
     <>
       <main>
         <section className="easel">
+          <AlgoSelector />
+
           <div className="canvas-frame">
             <div className="sketch">
               {/* <Algo4 /> */}

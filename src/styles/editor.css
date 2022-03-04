@@ -10,9 +10,10 @@ main {
 
   display: flex;
   flex-direction: row;
-  height: 93vh;
+  align-items: flex-start;
+  /* height: 90vh; */
   width: 100%;
-  padding: 5px;
+  /* padding: 5px; */
   /* border: 1px solid red; */
   color: var(--main1);
 }
@@ -78,7 +79,11 @@ input {
 
 .easel {
   width: 100%;
-  margin-top: 25px;
+  height: auto;
+  /* margin-top: 25px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .controls {
   /* border: 2px solid rgb(172, 172, 172); */
@@ -100,6 +105,38 @@ input {
 
 .algo-selector {
   display: flex;
+  flex-direction: row;
+  padding: 0px;
+  /* margin-bottom: 10px; */
+  position: relative;
+  top: -20px;
+  /* height: 300px; */
+  /* border: 1px red solid; */
+  /* height: auto; */
+}
+
+.algo-selector p {
+  font-size: 1rem;
+  margin-right: 10px;
+  color: var(--neutral2);
+}
+
+.algo-selector select {
+  background-color: var(--main1);
+  border: var(--neutral3) 1px solid;
+  padding: 5px 12px;
+  margin: 0px;
+  color: var(--neutral2);
+  font-size: 1.2rem;
+  position: relative;
+  border-radius: 7px;
+  /* left: 700px; */
+  /* top: -120px; */
+}
+
+.algo-selector select:hover {
+  color: var(--main2);
+  box-shadow: 0 0 10px var(--neutral2);
 }
 
 .canvas-with-parameters {
@@ -164,7 +201,7 @@ input {
 
 .artwork {
   border: 17px solid black;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
   margin-bottom: 10px;
 }
 
@@ -274,7 +311,7 @@ input {
 
 .parameter input:hover {
   background-color: 2px red solid;
-  filter: brightness(120%);
+  filter: brightness(140%);
 }
 
 .parameter-spacer {

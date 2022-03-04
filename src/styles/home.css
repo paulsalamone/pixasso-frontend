@@ -1,9 +1,12 @@
 /* for home / splash page only */
 
-header {
+.hero-div {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  /* align-items: center; */
+  height: 100%;
+  margin-top: 100px;
 }
 
 .big-logo {
