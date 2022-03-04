@@ -9,7 +9,7 @@ const AlgoSelector = (props) => {
   return (
     <div className="algo-selector">
       <p>
-        Algorithm:
+        {/* Algorithm: */}
         <select
           onChange={(e) => {
             setAlgo(e.target.value);
@@ -35,23 +35,24 @@ const AlgoSelector = (props) => {
             Cloud Painter
           </option>
           <option
-            value="Algo4"
-            defaultValue={algo === "Algo4" ? "defaultValue" : ""}
-          >
-            Brushes
-          </option>
-          <option
-            value="Algo5"
-            defaultValue={algo === "Algo5" ? "defaultValue" : ""}
-          >
-            Moiré
-          </option>
-          <option
             value="Algo6"
             defaultValue={algo === "Algo6" ? "defaultValue" : ""}
           >
             Escher
           </option>
+          {/* <option
+            value="Algo5"
+            defaultValue={algo === "Algo5" ? "defaultValue" : ""}
+          >
+            Moiré
+          </option> */}
+          <option
+            value="Algo4"
+            defaultValue={algo === "Algo4" ? "defaultValue" : ""}
+          >
+            Brushes
+          </option>
+
           {/* <option value="Algo3" selected={algo === "Algo3" ? "selected" : ""}>
             Algo 3 Test
           </option>
