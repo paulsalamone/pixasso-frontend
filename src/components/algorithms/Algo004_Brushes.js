@@ -98,14 +98,13 @@ const Algo4 = (props) => {
     step = p5.TWO_PI / 20;
   };
 
+  console.log(brushChoice);
   function draw(p5) {
     p5.frameRate(60);
-
     if (saveImage === true) {
       p5.save("PIXASSO.png");
       setSaveImage(false);
     }
-
     if (p5.mouseIsPressed) {
       if (brushChoice === "default") {
         p5.stroke(color);
@@ -114,13 +113,56 @@ const Algo4 = (props) => {
       }
 
       if (brushChoice === "pixel") {
-        pixelBrush(p5, 20);
-        pixelBrush(p5, 1);
+        p5.fill(color);
+        p5.noStroke();
+        p5.square(p5.mouseX, p5.mouseY, _.brushSize);
+        // p5.fill(color, 1/0);
+        p5.square(
+          p5.mouseX + p5.random(-15, 15),
+          p5.mouseY + p5.random(-15, 15),
+          _.brushSize / 2
+        );
+        p5.square(
+          p5.mouseX + p5.random(-25, 25),
+          p5.mouseY + p5.random(-25, 25),
+          _.brushSize / 4
+        );
+        // if (p5.mouseIsPressed) {
+        //   pixelBrush(p5, 20);
+        //   pixelBrush(p5, 1);
+        // }
       }
 
       if (brushChoice === "hairy") {
         // pen(p5);
-        hairyBrush(p5);
+
+        p5.stroke(color);
+        p5.strokeWeight(_.brushSize);
+        p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
+        p5.strokeWeight(_.brushSize / 3);
+        p5.line(
+          p5.mouseX + p5.random(-25, 25),
+          p5.mouseY + p5.random(-25, 25),
+          p5.pmouseX,
+          p5.pmouseY
+        );
+        p5.strokeWeight(_.brushSize / 5);
+        p5.line(
+          p5.mouseX + p5.random(-35, 35),
+          p5.mouseY + p5.random(-35, 35),
+          p5.pmouseX,
+          p5.pmouseY
+        );
+        // hairyBrush(p5);
+      }
+
+      if (brushChoice === "block") {
+        p5.noStroke();
+        p5.fill(0, 0, 0, 0.5);
+        p5.circle(p5.mouseX - 10, p5.mouseY + 10, _.brushSize * 5);
+        p5.fill(color);
+
+        p5.circle(p5.mouseX, p5.mouseY, _.brushSize * 5);
       }
     }
   }
@@ -210,6 +252,7 @@ const Algo4 = (props) => {
               <ParameterBrush name="default" id="default" value="default" />
               <ParameterBrush name="pixel" id="pixel" value="pixel" />
               <ParameterBrush name="hairy" id="hairy" value="hairy" />
+              <ParameterBrush name="block" id="block" value="block" />
             </div>
           </div>
           <div>

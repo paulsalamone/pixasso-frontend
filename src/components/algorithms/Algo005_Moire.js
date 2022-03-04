@@ -20,9 +20,9 @@ const Algo5 = (props) => {
 
   const [_, set_] = useState({
     //black
-    line1weight: 7,
-    line1angle: 20,
-    line1spacing: 10,
+    line1weight: 10,
+    line1angle: 40,
+    line1spacing: 2,
 
     //grey
     line2weight: 2,
@@ -91,58 +91,58 @@ const Algo5 = (props) => {
 
       for (let i = 0; i < 100; i += 2) {
         p5.strokeWeight(_.line1spacing);
-        p5.stroke("blue");
+        // p5.stroke("blue");
 
-        p5.circle(
-          0 + p5.random(0, 5),
-          _.line1angle + p5.random(0, 5),
-          i * _.line1weight
-        );
+        // p5.circle(
+        //   0 + p5.random(0, 5),
+        //   _.line1angle + p5.random(0, 5),
+        //   i * _.line1weight
+        // );
 
-        p5.circle(
-          800 + p5.random(0, 3),
-          250 + p5.random(0, 3),
-          i * _.line1weight
-        );
-        p5.stroke(255);
+        // p5.circle(
+        //   800 + p5.random(0, 3),
+        //   250 + p5.random(0, 3),
+        //   i * _.line1weight
+        // );
+        // p5.stroke(255);
 
-        p5.circle(
-          0 + p5.random(0, 3),
-          _.line1angle + p5.random(0, 3),
-          i * _.line1weight
-        );
-
-        p5.circle(
-          800 + p5.random(0, 3),
-          250 + p5.random(0, 3),
-          i * _.line1weight
-        );
-        p5.stroke("#00FF55");
-
-        p5.circle(
-          0 + p5.random(0, 3),
-          _.line1angle + p5.random(0, 3),
-          i * _.line1weight
-        );
+        // p5.circle(
+        //   0 + p5.random(0, 3),
+        //   _.line1angle + p5.random(0, 3),
+        //   i * _.line1weight
+        // );
 
         p5.circle(
           800 + p5.random(0, 3),
-          250 + p5.random(0, 3),
+          250 + p5.random(0, 3) + _.line1angle,
           i * _.line1weight
         );
+        // p5.stroke("#00FF55");
+
+        // p5.circle(
+        //   0 + p5.random(0, 3),
+        //   _.line1angle + p5.random(0, 3),
+        //   i * _.line1weight
+        // );
+
+        // p5.circle(
+        //   800 + p5.random(0, 3),
+        //   250 + p5.random(0, 3),
+        //   i * _.line1weight
+        // );
         p5.stroke(0, 50);
 
         p5.circle(
           0 + p5.random(0, 3),
-          400 + p5.random(0, 3),
+          400 + p5.random(0, 3) + _.line1angle,
           i * _.line1weight
         );
 
-        p5.circle(
-          800 + p5.random(0, 3),
-          -_.line1angle + p5.random(0, 3),
-          i * _.line1weight
-        );
+        // p5.circle(
+        //   800 + p5.random(0, 3),
+        //   -_.line1angle + p5.random(0, 3),
+        //   i * _.line1weight
+        // );
       }
 
       setIterate(iterate + 1);
@@ -250,7 +250,7 @@ const Algo5 = (props) => {
               id="Angle"
               value={_.line1angle}
               min="0"
-              max="60"
+              max="360"
               handleParameter={handleParameter}
             />
             <Parameter
