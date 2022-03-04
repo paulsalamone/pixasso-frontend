@@ -1,21 +1,38 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
-import { ProjectContext } from "../../contexts/ProjectContext";
+import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
-//import UploadSketch from "../UploadSketch";
+
+  //import UploadSketch from "../UploadSketch";
 //import domtoimage from "dom-to-image";
 //import saveAs from "file-saver";
 import axios from "axios";
+import data from "../algorithms/parameterData.json";
+import { RefreshContext } from "../../contexts/RefreshContext";
+import Refresh from "../editorComponents/Refresh";
 
 const Algo1 = (props) => {
-  const [project, setProject] = useContext(ProjectContext);
-  //const [imageFile, setImageFile] = useState("")
+  //controls if p5 animation is running or not:
+  const [startStop, setStartStop] = useContext(StartStopContext);
+  const [refresh, setRefresh] = useContext(RefreshContext);
+    //const [imageFile, setImageFile] = useState("")
   const [imageUrl, setImageUrl] = useState("")
   const [saveImage, setSaveImage] = useState(false);
   // let pngfile = "";
   let canvas="";
+  
+  useEffect(() => {
+    setStartStop({ ...startStop, start: true });
+  }, []);
 
+  // tells p5 if save button has been pressed
+  const [saveImage, setSaveImage] = useState(false);
+  const handleSaveImage = (e) => {
+    setSaveImage(true);
+  };
+
+  //sets state of all parameters
   const [_, set_] = useState({
     sizeRange: 15,
     scale: 2,
@@ -33,15 +50,14 @@ const Algo1 = (props) => {
     spread: 0,
     K: 0,
     L: 0,
-    BGhue: 100,
-    BGsaturation: 70,
-    BGbrightness: 0,
+    BGhue: 270,
+    BGsaturation: 82,
+    BGbrightness: 20,
   });
 
-  useEffect(() => {
-    setProject({ ...project, start: true });
-  }, []);
+  const [backup, setBackup] = useState(_);
 
+  //handles all parameters:
   const handleParameter = ({ currentTarget: input }) => {
     set_({
       ..._,
@@ -49,12 +65,20 @@ const Algo1 = (props) => {
     });
   };
 
-  const handleSaveImage = (e) => {
+     const handleSaveImage = (e) => {
     console.log("download to desktop");
     setSaveImage(true);
   };
+    
+  //when refresh is triggered, fills _ with backup state
+  useEffect(() => {
+    set_(backup);
+    setRefresh(false);
+  }, [refresh]);
 
-  const setup = (p5, canvasParentRef) => {
+  // START P5 ALGO:
+
+   const setup = (p5, canvasParentRef) => {
     canvas = p5.createCanvas(500, 500).parent(canvasParentRef);
     canvas.parent("artwork")
     // p5.createCanvas(project.width, project.height).parent(canvasParentRef);
@@ -62,9 +86,7 @@ const Algo1 = (props) => {
   };
 
   const draw = (p5) => {
-    // let value = p5.alpha(30);
     p5.frameRate(7);
-    // p5.noLoop();
 
     if (saveImage) {
       p5.saveCanvas(canvas, "canvas.png");
@@ -73,9 +95,8 @@ const Algo1 = (props) => {
       
     }
 
-    if (project.start) {
+    if (startStop.start) {
       p5.colorMode(p5.HSB);
-      // p5.noLoop();
       p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 50);
       p5.colorMode(p5.RGB);
 
@@ -100,7 +121,6 @@ const Algo1 = (props) => {
           p5.random(_.blue - 100, _.blue),
           50
         );
-        // p5.erase();
         psycheCircle(
           p5,
           _.spread,
@@ -194,6 +214,7 @@ const Algo1 = (props) => {
     }, 'image/jpeg', 0.95);
   }
   
+
   return (
     <>
       <div className="canvas-with-parameters">
@@ -232,6 +253,13 @@ const Algo1 = (props) => {
               handleParameter={handleParameter}
             />
           </div>
+          <div className="parameter-group">
+            <div style={{ opacity: "0" }}>
+              <Parameter />
+              <Parameter />
+              <Parameter />
+            </div>
+          </div>
         </div>
 
         <div className="canvas-container">
@@ -241,6 +269,9 @@ const Algo1 = (props) => {
           <div className="canvas-utilities">
             <button onClick={handleSaveImage}>Download to Desktop</button>
             <button onClick={uploadImage}>Save to Cloud</button>
+            <Refresh />
+
+
             <StartStop />
           </div>
         </div>

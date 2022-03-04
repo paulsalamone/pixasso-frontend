@@ -5,8 +5,8 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
-import Editor from "./components/Editor";
 import Community from "./components/Community";
+import Editor from "./components/editorComponents/Editor";
 import UploadSketch from "./components/UploadSketch";
 import DownloadSketch from "./components/DownloadSketch";
 import UpdateProfile from "./components/UpdateProfile";
@@ -21,10 +21,10 @@ const AppRouter = () => {
   // }
   return (
     <>
-      <body>
-        <header>
-          <Nav />
-        </header>
+      {/* <body> */}
+      <header>
+        <Nav />
+      </header>
 
         <div className="app-content">
           <Routes>
@@ -41,8 +41,9 @@ const AppRouter = () => {
           </Routes>
         </div>
 
-        <Footer />
-      </body>
+
+      <Footer />
+      {/* </body> */}
     </>
   );
 };
