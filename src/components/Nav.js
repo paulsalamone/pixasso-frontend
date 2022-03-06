@@ -44,8 +44,16 @@ const Nav = () => {
                 className="nav-logo"
               />
             </Link>
-            <Link to="/">About</Link>
+            {/* <Link to="/">About</Link> */}
             <Link to="/editor">Editor</Link>
+
+            {user && user ? (
+              <div className="top-nav-right">
+                <Link to="/community">Community</Link>
+              </div>
+            ) : (
+              <div className="top-nav-right"></div>
+            )}
           </div>
           {/* <div>Algorithm:</div> */}
         </div>
@@ -53,25 +61,24 @@ const Nav = () => {
           <Routes>
             <Route path="/editor" element={<AlgoSelector />} />
           </Routes>
-
-          {/* <StartStop /> */}
-
-          {user && user ? (
-            <div className="top-nav-right">
-              <Link to="/community">Community</Link>
-              <Link to="/update">Update Profile</Link>
-              <Link to="/profile">{user}</Link>
-              <Link to="/register">
-                <a onClick={handleClick}>Logout</a>
-              </Link>
-            </div>
-          ) : (
-            <div className="top-nav-right">
-              <Link to="/register">Register</Link>
-              <Link to="/login">Login</Link>
-            </div>
-          )}
         </div>
+
+        {user && user ? (
+          <div className="top-nav-right">
+            <Link to="/profile">{user}</Link>
+
+            <Link to="/update">Settings</Link>
+
+            <Link to="/register">
+              <a onClick={handleClick}>Logout</a>
+            </Link>
+          </div>
+        ) : (
+          <div className="top-nav-right">
+            <Link to="/register">Register</Link>
+            <Link to="/login">Login</Link>
+          </div>
+        )}
       </nav>
     </>
   );

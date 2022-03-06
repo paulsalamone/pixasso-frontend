@@ -2,16 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 
 * {
-  /* border: 1px dotted darkgrey; */
+  /* border: 1px dotted rgba(169, 169, 169, 0.303); */
 
-  font-family: "Open Sans", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-    sans-serif;
+  font-family: "Open Sans", "Gill Sans", "Gill Sans MT",
+    Calibvar(--neutral3) navri, "Trebuchet MS", sans-serif;
 }
 
-input {
-  color: black;
-  font-size: 1.2rem;
-}
 /* GLOBAL COLOR VARIABLES */
 :root {
   --main1: black;
@@ -47,7 +43,8 @@ body {
 nav {
   /* background-color: var(--sub2); */
   background-color: var(--main1);
-  height: 65px;
+  height: 35px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -67,6 +64,21 @@ nav a {
   letter-spacing: 1px;
 }
 
+h1 {
+  font-weight: 200;
+  font-size: 2.3rem;
+  color: var(--main2);
+  letter-spacing: 1px;
+}
+
+h2,
+h3,
+h4 {
+  font-weight: 300;
+  color: var(--neutral2);
+  letter-spacing: 1px;
+}
+
 .nav-logo:hover {
   filter: blur(1px);
 }
@@ -83,17 +95,6 @@ nav div {
   /* border: 1px red solid; */
 }
 
-.button-home-big {
-  border: 1px solid var(--highlight2);
-  color: var(--highlight2);
-  border-radius: 10px;
-  padding: 12px 20px 15px 20px;
-  font-size: 1.4rem;
-}
-
-.button-home-big:hover {
-  border: 1px solid var(--highlight2);
-}
 .top-nav-left {
   display: flex;
   justify-content: space-between;
@@ -116,22 +117,38 @@ nav div {
   font-size: 1.2rem;
 }
 
-nav select {
+/* nav select {
   background-color: var(--main1);
   border: var(--neutral3) 2px solid;
   padding: 10px 20px;
   margin: 0px 10px;
   color: var(--neutral3);
   font-size: 1.2rem;
-}
-
+  height: 35px;
+} */
+/* 
 nav select:hover {
   color: var(--main2);
   box-shadow: 0 0 10px var(--neutral2);
-}
+} */
 
 .app-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   flex: 1;
+  height: 100%;
+  /* border: 2px solid #00ff00; */
+}
+
+input {
+  color: black;
+  /* font-size: 1.2rem; */
+}
+
+.input-file {
+  color: var(--neutral3);
 }
 
 .form-page,
@@ -165,7 +182,122 @@ footer {
   text-align: center;
   padding: 10px;
 }
-.profile {
+
+.content-page {
+  display: flex;
+  width: 90%;
+  /* max-width: 1200px; */
+  /* border: 2px solid red; */
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 70%;
+}
+
+.profile-pic {
+  width: 200px;
+  height: auto;
+}
+.profile-info-box {
+  margin-left: 30px;
+}
+
+.profile-info-box p {
+  font-size: 0.9rem;
+}
+
+.profile-edit-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-edit-image * {
+  padding: 10px;
+}
+
+.gallery {
+  width: 90%;
+  /* border: 2px solid blue; */
+}
+
+.gallery h2 {
+  border-bottom: 1px solid var(--neutral3);
+  padding: 10px;
+}
+
+.gallery-section {
+  width: 100%;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.gallery-cell {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+  /* padding: 30px; */
+  /* border: 1px solid #00ff00; */
+}
+
+.gallery-cell img {
+  width: 90%;
+  margin-bottom: 7px;
+}
+
+.community-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  /* border: 2px solid red; */
+  grid-gap: 30px;
+}
+
+.community-grid-cell {
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+  /* border: 1px dotted red; */
+}
+
+.community-grid-cell img {
+  width: 100%;
+}
+
+.community-grid-cell input {
+  width: 70%;
+  padding: 5px;
+  background-color: var(--main1);
+  border: var(--neutral3) 1px solid;
+  height: 30px;
+  color: white;
+}
+
+.community-info-box {
+  width: 100%;
+}
+
+.community-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* border: 1px red solid; */
+}
+
+.community-comments {
   display: flex;
   flex-direction: column;
   align-items: center;

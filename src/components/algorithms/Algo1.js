@@ -73,7 +73,7 @@ const Algo1 = (props) => {
   // START P5 ALGO:
 
   const setup = (p5, canvasParentRef) => {
-    canvas = p5.createCanvas(500, 500).parent(canvasParentRef);
+    canvas = p5.createCanvas(800, 500).parent(canvasParentRef);
     canvas.parent("artwork");
     // p5.createCanvas(project.width, project.height).parent(canvasParentRef);
   };

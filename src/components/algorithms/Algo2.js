@@ -58,7 +58,7 @@ const Algo2 = (props) => {
     setWipe(true);
   };
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500).parent(canvasParentRef);
+    p5.createCanvas(800, 500).parent(canvasParentRef);
   };
 
   const draw = (p5) => {
