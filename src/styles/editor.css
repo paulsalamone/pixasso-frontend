@@ -85,6 +85,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 2px solid red; */
 }
 .controls {
   /* border: 2px solid rgb(172, 172, 172); */
@@ -111,6 +112,7 @@ input {
   /* margin-bottom: 10px; */
   position: relative;
   top: -20px;
+  left: -100px;
   /* height: 300px; */
   /* border: 1px red solid; */
   /* height: auto; */
@@ -144,7 +146,7 @@ input {
 .canvas-with-parameters {
   display: flex;
   /* background-color: blue; */
-  /* border: 1px solid black; */
+  /* border: 1px solid blue; */
   justify-content: center;
 }
 
@@ -225,6 +227,7 @@ input {
   display: grid;
   grid-template-columns: 1fr;
   margin-right: 50px;
+  max-width: 180px;
 }
 
 .parameters-right {
@@ -234,9 +237,14 @@ input {
 }
 
 .parameters-right-1col {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   margin-left: 50px;
+  /* border: 1px solid red; */
+  /* justify-content: flex-start;
+  align-items: flex-start; */
+  height: auto;
+  max-width: 180px;
 }
 
 .parameters-right-3column {
@@ -279,7 +287,7 @@ input {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 80%;
+  width: 100%;
   /* transition: 1s; */
 }
 
@@ -312,7 +320,7 @@ input {
 }
 
 .parameter input:hover {
-  background-color: 2px red solid;
+  /* background-color: 2px red solid; */
   filter: brightness(140%);
 }
 
@@ -403,4 +411,14 @@ input {
   flex-direction: column;
   padding: 0px;
   cursor: pointer;
+}
+
+.color-picker .react-colorful {
+  /* border: 5px solid white; */
+  /* width: 100px; */
+  /* padding: 10px; */
+  /* border: 1px red solid; */
+  max-width: 180px;
+  height: 150px;
+  margin-bottom: 10px;
 }

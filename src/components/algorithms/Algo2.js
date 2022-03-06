@@ -109,12 +109,12 @@ const Algo2 = (props) => {
   return (
     <>
       <div className="canvas-with-parameters">
-        <div className="parameters-left">
-          <div className="parameter-group">
+        <div className="parameters-left-1column">
+          {/* <div className="parameter-group">
             <div style={{ opacity: "0" }}>
               <Parameter />
             </div>
-          </div>
+          </div> */}
           <div className="parameters-group">
             <h4>BackGround Color:</h4>
             <Parameter

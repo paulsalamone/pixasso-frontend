@@ -137,7 +137,7 @@ nav select:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  /* flex: 1; */
   height: 100%;
   /* border: 2px solid #00ff00; */
 }

@@ -3,14 +3,11 @@ import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
-
-//import UploadSketch from "../UploadSketch";
-//import domtoimage from "dom-to-image";
-//import saveAs from "file-saver";
 import axios from "axios";
 import data from "../algorithms/parameterData.json";
 import { RefreshContext } from "../../contexts/RefreshContext";
 import Refresh from "../editorComponents/Refresh";
+import { HexColorPicker } from "react-colorful";
 
 const Algo1 = (props) => {
   //controls if p5 animation is running or not:
@@ -214,12 +211,12 @@ const Algo1 = (props) => {
   return (
     <>
       <div className="canvas-with-parameters">
-        <div className="parameters-left">
-          <div className="parameter-group">
+        <div className="parameters-left-1column">
+          {/* <div className="parameter-group">
             <div style={{ opacity: "0" }}>
               <Parameter />
             </div>
-          </div>
+          </div> */}
           <div className="parameters-group">
             <h4>BackGround Color:</h4>
             <Parameter

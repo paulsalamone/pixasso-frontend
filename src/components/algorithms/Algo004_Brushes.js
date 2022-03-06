@@ -11,8 +11,9 @@ import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
 import { BrushContext } from "../../contexts/BrushContext";
 import { BackgroundContext } from "../../contexts/BackgroundContext";
-import { HexColorPicker } from "react-colorful";
+import { HexColorPicker, RgbaColorPicker } from "react-colorful";
 import { ChromePicker } from "react-color";
+import BrushSize from "../editorComponents/BrushSize";
 
 const Algo4 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
@@ -20,8 +21,18 @@ const Algo4 = (props) => {
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [brushChoice, setBrushChoice] = useContext(BrushContext);
   const [background, setBackground] = useContext(BackgroundContext);
-  const [color, setColor] = useState("#aabbcc");
+  const [color, setColor] = useState({
+    r: 255,
+    g: 0,
+    b: 0,
+    a: 1,
+  });
 
+  console.log(color.r);
+  console.log(color.g);
+  console.log(color.b);
+  console.log(color.a);
+  console.log(color);
   const [_, set_] = useState({
     BGhue: 180,
     BGhueSettings: { name: "BGhue", id: "Hue", min: 0, max: 360 },
@@ -51,8 +62,8 @@ const Algo4 = (props) => {
     brushSizeSettings: {
       name: "brushSize",
       id: "Brush Size",
-      min: 1,
-      max: 30,
+      min: 3,
+      max: 40,
     },
   });
   const [backup, setBackup] = useState(_);
@@ -86,8 +97,8 @@ const Algo4 = (props) => {
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(800, 500).parent(canvasParentRef);
     p5.background(255);
-    p5.colorMode(p5.HSB, 360, 100, 100, 10);
-
+    // p5.colorMode(p5.HSB, 360, 100, 100, 10);
+    p5.colorMode(p5.RGB);
     p5.loadImage(background, (img) => {
       p5.image(img, 0, 0);
       console.log("Background image:" + img);
@@ -100,6 +111,8 @@ const Algo4 = (props) => {
 
   console.log(brushChoice);
   function draw(p5) {
+    let alphaNum = p5.map(color.a, 0, 1, 0, 255);
+
     p5.frameRate(60);
     if (saveImage === true) {
       p5.save("PIXASSO.png");
@@ -107,13 +120,17 @@ const Algo4 = (props) => {
     }
     if (p5.mouseIsPressed) {
       if (brushChoice === "default") {
-        p5.stroke(color);
+        // p5.stroke(color.r, color.g, color.b, color.a);
+        p5.stroke(color.r, color.g, color.b, alphaNum);
+
         p5.strokeWeight(_.brushSize);
         p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
       }
 
       if (brushChoice === "pixel") {
-        p5.fill(color);
+        p5.fill(color.r, color.g, color.b, alphaNum);
+        // p5.stroke(color.r, color.g, color.b, alphaNum);
+
         p5.noStroke();
         p5.square(p5.mouseX, p5.mouseY, _.brushSize);
         // p5.fill(color, 1/0);
@@ -136,7 +153,7 @@ const Algo4 = (props) => {
       if (brushChoice === "hairy") {
         // pen(p5);
 
-        p5.stroke(color);
+        p5.stroke(color.r, color.g, color.b, alphaNum);
         p5.strokeWeight(_.brushSize);
         p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
         p5.strokeWeight(_.brushSize / 3);
@@ -158,11 +175,10 @@ const Algo4 = (props) => {
 
       if (brushChoice === "block") {
         p5.noStroke();
-        p5.fill(0, 0, 0, 0.5);
-        p5.circle(p5.mouseX - 10, p5.mouseY + 10, _.brushSize * 5);
-        p5.fill(color);
-
-        p5.circle(p5.mouseX, p5.mouseY, _.brushSize * 5);
+        // p5.fill(0, 0, 0, 0.5);
+        // p5.circle(p5.mouseX - 10, p5.mouseY + 10, _.brushSize * 5);
+        p5.fill(color.r, color.g, color.b, alphaNum);
+        p5.circle(p5.mouseX, p5.mouseY, _.brushSize * 6);
       }
     }
   }
@@ -194,7 +210,7 @@ const Algo4 = (props) => {
   }
 
   function pixelBrush(p5, rand) {
-    p5.fill(color, 2);
+    p5.fill(color);
     p5.noStroke();
     p5.square(p5.mouseX, p5.mouseY, _.brushSize);
     let spray = _.brushSize * 3;
@@ -213,10 +229,9 @@ const Algo4 = (props) => {
   }
 
   return (
-    <>
-      <div className="canvas-with-parameters">
-        <div className="parameters-left-1column">
-          {/* <div className="parameters-group">
+    <div className="canvas-with-parameters">
+      <div className="parameters-left-1column">
+        {/* <div className="parameters-group">
             <h4>BackGround Color:</h4>
             <Parameter
               name={_.BGhueSettings.name}
@@ -246,68 +261,75 @@ const Algo4 = (props) => {
               handleParameter={handleParameter}
             />
           </div> */}
-          <div className="parameters-group">
-            <h4>Choose Brush:</h4>
-            <div className="parameter">
-              <ParameterBrush name="default" id="default" value="default" />
-              <ParameterBrush name="pixel" id="pixel" value="pixel" />
-              <ParameterBrush name="hairy" id="hairy" value="hairy" />
-              <ParameterBrush name="block" id="block" value="block" />
-            </div>
-          </div>
-          <div>
-            <Upload />
+        <div className="parameters-group">
+          <h4>Choose Brush:</h4>
+          <div className="parameter">
+            <ParameterBrush name="default" id="default" value="default" />
+            <ParameterBrush name="pixel" id="pixel" value="pixel" />
+            <ParameterBrush name="hairy" id="hairy" value="hairy" />
+            <ParameterBrush name="block" id="block" value="block" />
           </div>
         </div>
-
-        <div className="canvas-container">
-          <div className="artwork">
-            {/* <img src={background} /> */}
-            {/* <img src={StaticImage} alt="static image"></img> */}
-            <SketchHost
-              // preload={preload}
-              wipe={wipe}
-              className="x"
-              setup={setup}
-              draw={draw}
-            />
-
-            {/* <Sketch setup={setup} draw={draw} /> */}
-          </div>
-          <div className="canvas-utilities">
-            <button onClick={handleWipe}>Wipe Screen</button>
-            {/* <Refresh /> */}
-            <Save />
-            {/* <StartStop /> */}
-          </div>
-        </div>
-
-        <div className="parameters-right-1col">
-          <HexColorPicker color={color} onChange={setColor} />
-          {console.log(color)}
-          {/* <ChromePicker /> */}
-          <div className="parameters-group">
-            <h4>Brush Settings:</h4>
-            <Parameter
-              name={_.brushSizeSettings.name}
-              value={_.brushSizeSettings.value}
-              id={_.brushSizeSettings.id}
-              min={_.brushSizeSettings.min}
-              max={_.brushSizeSettings.max}
-              step="0"
-              handleParameter={handleParameter}
-            />
-            {/* <Parameter
-              name="transparency"
-              id="Transparency"
-              value="0"
-              step="0"
-              handleParameter={handleParameter}
-            /> */}
-          </div>
+        <div>
+          <Upload />
         </div>
       </div>
-    </>
+
+      <div className="canvas-container">
+        <div className="artwork">
+          {/* <img src={background} /> */}
+          {/* <img src={StaticImage} alt="static image"></img> */}
+          <SketchHost
+            // preload={preload}
+            wipe={wipe}
+            className="x"
+            setup={setup}
+            draw={draw}
+          />
+
+          {/* <Sketch setup={setup} draw={draw} /> */}
+        </div>
+        <div className="canvas-utilities">
+          <button onClick={handleWipe}>Wipe Screen</button>
+          {/* <Refresh /> */}
+          <Save />
+          {/* <StartStop /> */}
+        </div>
+      </div>
+
+      <div className="parameters-right">
+        {console.log(color)}
+
+        <div className="parameters-group">
+          <div className="color-picker ">
+            {/* <HexColorPicker color={color} onChange={setColor} /> */}
+            <h4>Brush Color:</h4>
+
+            <RgbaColorPicker color={color} onChange={setColor} />
+            {console.log(color)}
+          </div>
+        </div>
+        <div className="parameters-group" style={{ opacity: "0.0" }}>
+          <h4>xxx</h4>
+
+          <Parameter />
+        </div>
+        <div className="parameters-group">
+          <h4>Brush Settings:</h4>
+          <BrushSize size={_.brushSize} />
+          {_.brushSizeSettings.value}
+          <Parameter
+            name={_.brushSizeSettings.name}
+            value={_.brushSizeSettings.value}
+            id={_.brushSizeSettings.id}
+            min={_.brushSizeSettings.min}
+            max={_.brushSizeSettings.max}
+            step="0"
+            handleParameter={handleParameter}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
