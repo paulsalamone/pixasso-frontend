@@ -31,9 +31,15 @@
   /* text-align: center; */
 }
 
-h1 {
-  font-weight: 200;
+.button-home-big {
+  border: 1px solid var(--highlight2);
+  color: var(--highlight2);
+  border-radius: 10px;
+  padding: 12px 20px 15px 20px;
+  font-size: 1.4rem;
+  height: 60px;
 }
 
-main {
+.button-home-big:hover {
+  border: 1px solid var(--highlight2);
 }
