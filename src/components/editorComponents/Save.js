@@ -10,7 +10,7 @@ const Save = () => {
 
   return (
     <>
-      <button onClick={handleSaveImage}>save to desktop</button>
+      <button onClick={handleSaveImage}>Download</button>
     </>
   );
 };

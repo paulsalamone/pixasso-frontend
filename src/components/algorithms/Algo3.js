@@ -141,32 +141,7 @@ const Algo3 = (props) => {
   return (
     <>
       <div className="canvas-with-parameters">
-        {/* <div className="parameters-left-1column">
-          <div className="parameters-group">
-            <h4>Toggles:</h4>
-            <Parameter />
-          </div>
-        </div> */}
-
-        <div className="canvas-container">
-          <div className="artwork">
-            {/* <Sketch className="x" setup={setup} draw={draw} /> */}
-
-            <SketchHost wipe={wipe} className="x" setup={setup} draw={draw} />
-            {/* {!wipe ? (
-              <SketchHost className="x" setup={setup} draw={draw} />
-            ) : (
-              <SketchHostB className="x" setup={setup} draw={draw} />
-            )} */}
-          </div>
-          <div className="canvas-utilities">
-            <button onClick={handleWipe}>Wipe Screen</button>
-            <Refresh />
-            <Save />
-            <StartStop />
-          </div>
-        </div>
-        <div className="parameters-right-3column">
+        <div className="parameters-left-1column">
           <div className="parameters-group">
             <h4>Big Clouds:</h4>
             <Parameter
@@ -225,7 +200,27 @@ const Algo3 = (props) => {
               handleParameter={handleParameter}
             />
           </div>
+        </div>
 
+        <div className="canvas-container">
+          <div className="artwork">
+            {/* <Sketch className="x" setup={setup} draw={draw} /> */}
+
+            <SketchHost wipe={wipe} className="x" setup={setup} draw={draw} />
+            {/* {!wipe ? (
+              <SketchHost className="x" setup={setup} draw={draw} />
+            ) : (
+              <SketchHostB className="x" setup={setup} draw={draw} />
+            )} */}
+          </div>
+          <div className="canvas-utilities">
+            <button onClick={handleWipe}>Wipe Screen</button>
+            <Refresh />
+            <Save />
+            <StartStop />
+          </div>
+        </div>
+        <div className="parameters-right">
           <div className="parameters-group">
             <h4>Medium Clouds:</h4>
 

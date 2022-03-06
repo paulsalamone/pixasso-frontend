@@ -22,7 +22,7 @@ const StartStop = () => {
     <div className="start-stop">
       <p>
         {/* Animation: */}
-        <button onClick={startHandler}>start / stop</button>{" "}
+        <button onClick={startHandler}>Start / Stop</button>{" "}
       </p>
     </div>
   );
