@@ -10,6 +10,7 @@ import { RefreshContext } from "../../contexts/RefreshContext";
 import Refresh from "../editorComponents/Refresh";
 import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
+import ParameterColor from "../editorComponents/ParameterColor";
 
 let r, g, b;
 let c1, c2;
@@ -172,31 +173,34 @@ const Algo3 = (props) => {
               handleParameter={handleParameter}
             />
             <div className="parameter-spacer"></div>
-            <Parameter
+            <ParameterColor
               name="Ared"
               value={_.Ared}
               id="Red"
               min="120"
               max="255"
               step="0"
+              color="red"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="Agreen"
               value={_.Agreen}
               id="Green"
               min="120"
               max="255"
               step="0"
+              color="green"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="Ablue"
               value={_.Ablue}
               id="blue"
               min="120"
               max="255"
               step="0"
+              color="blue"
               handleParameter={handleParameter}
             />
           </div>
@@ -253,31 +257,34 @@ const Algo3 = (props) => {
             />
             <div className="parameter-spacer"></div>
 
-            <Parameter
+            <ParameterColor
               name="Bred"
               value={_.Bred}
               id="Red"
-              min="180"
+              min="120"
               max="255"
               step="0"
+              color="red"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="Bgreen"
               value={_.Bgreen}
               id="Green"
-              min="180"
+              min="120"
               max="255"
               step="0"
+              color="green"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="Bblue"
               value={_.Bblue}
               id="blue"
-              min="180"
+              min="120"
               max="255"
               step="0"
+              color="blue"
               handleParameter={handleParameter}
             />
           </div>
@@ -312,31 +319,34 @@ const Algo3 = (props) => {
             />
             <div className="parameter-spacer"></div>
 
-            <Parameter
+            <ParameterColor
               name="Cred"
               value={_.Cred}
               id="Red"
-              min="180"
+              min="120"
               max="255"
               step="0"
+              color="red"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="Cgreen"
               value={_.Cgreen}
               id="Green"
-              min="180"
+              min="120"
               max="255"
               step="0"
+              color="green"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="Cblue"
               value={_.Cblue}
               id="blue"
-              min="180"
+              min="120"
               max="255"
               step="0"
+              color="blue"
               handleParameter={handleParameter}
             />
           </div>

@@ -267,11 +267,15 @@ input {
 }
 
 .parameters-group h4 {
-  margin: 7px 0px 3px 0px;
+  margin: 7px 0px 5px 0px;
   font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
-  color: var(--neutral3);
+  color: var(--neutral2);
   text-align: center;
+  /* width: 100%; */
+  padding-bottom: 1px;
+  border-bottom: 1px dotted var(--neutral3);
 }
 
 .parameters-group p {
@@ -304,9 +308,9 @@ input {
 }
 
 .parameter p:nth-child(2) {
-  font-weight: 400;
+  font-weight: 300;
 
-  color: var(--neutral3);
+  /* color: var(--neutral3); */
 }
 
 .parameter label {

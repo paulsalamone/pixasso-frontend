@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
+import ParameterColor from "../editorComponents/ParameterColor";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 import axios from "axios";
@@ -218,31 +219,36 @@ const Algo1 = (props) => {
             </div>
           </div> */}
           <div className="parameters-group">
-            <h4>BackGround Color:</h4>
-            <Parameter
+            <h4>BackGround:</h4>
+            <ParameterColor
               name="BGhue"
               value={_.BGhue}
               id="Hue"
               min="1"
               max="360"
+              color="hue"
               step="0"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="BGsaturation"
               value={_.BGsaturation}
               id="Saturation"
               min="0"
               max="100"
+              color="saturation"
+              hue={_.BGhue}
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="BGbrightness"
               value={_.BGbrightness}
               id="Brightness"
               min="0"
               max="100"
               step="0"
+              color="brightness"
+              hue={_.BGhue}
               handleParameter={handleParameter}
             />
           </div>
@@ -300,32 +306,35 @@ const Algo1 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <h4>Color:</h4>
-            <Parameter
+            <h4>Color Balance:</h4>
+            <ParameterColor
               name="red"
               value={_.red}
               id="Red"
               min="0"
               max="255"
               step="0"
+              color="red"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="green"
               value={_.green}
               id="Green"
               min="0"
               max="255"
               step="0"
+              color="green"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="blue"
               value={_.blue}
               id="Blue"
               min="0"
               max="255"
               step="0"
+              color="blue"
               handleParameter={handleParameter}
             />
           </div>
@@ -341,12 +350,13 @@ const Algo1 = (props) => {
               handleParameter={handleParameter}
             />
 
-            <Parameter
+            <ParameterColor
               name="strokeShade"
               value={_.strokeShade}
               id="Stroke Shade"
               min="0"
               max="255"
+              color="brightness"
               // step="0"
               handleParameter={handleParameter}
             />
