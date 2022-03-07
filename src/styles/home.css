@@ -56,11 +56,11 @@
   border: 1px solid var(--highlight2);
   color: var(--highlight2);
   border-radius: 10px;
-  padding: 10px 10px 33px 10px;
+  padding: 10px 10px 23px 10px;
 
-  font-size: 1.2rem;
+  font-size: 1rem;
   height: 40px;
-  margin-top: 10px;
+  margin-top: 20px;
   opacity: 0;
   text-decoration: none;
 }
@@ -97,6 +97,7 @@
   .hero-h1 {
     font-size: 1.2rem;
     width: 100%;
+    padding: 10px;
   }
 
   .hero-div {
