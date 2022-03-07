@@ -5,13 +5,19 @@ import AlgoSelector from "./editorComponents/AlgoSelector";
 import Logo from "../images/logo-small-white.png";
 //import {UserContext} from "../contexts/UserContext";
 import jwt_decode from "jwt-decode";
+import { UserContext } from "../contexts/UserContext";
+import { useContext } from "react";
 
 const Nav = () => {
+  // const [user, setUser] = useContext(UserContext);
+  // console.log(user)
+  // const name = user.username
   const [user, setUser] = useState("");
   let navigate = useNavigate();
   useEffect(() => {
     getUser();
   }, [user]);
+
 
   const getUser = () => {
     const token = localStorage.getItem("token");
@@ -28,7 +34,6 @@ const Nav = () => {
   const handleClick = (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
-    //navigate("/")
     console.log("bye bye");
   };
 

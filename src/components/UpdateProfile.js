@@ -2,21 +2,22 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import defaultPic from "../images/profilepic.jpg";
-// import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../contexts/UserContext";
 import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
   const [profilePic, setProfilePic] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
   const { userid } = useParams();
-  //const [user, setUser] = useContext(UserContext)
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    profile_pic_url: "",
-    biography: "",
-  });
+  const [user, setUser] = useContext(UserContext)
+  console.log(user)
+//   const [user, setUser] = useState({
+//     username: "",
+//     email: "",
+//     password: "",
+//     profile_pic_url: "",
+//     biography: "",
+//   });
 
   const uploadPic = async () => {
     const picData = new FormData();
@@ -35,24 +36,24 @@ const UserProfile = () => {
       });
   };
 
-  const getProfile = () => {
-    const token = localStorage.token;
-    console.log(token);
-    const decoded = jwt_decode(token);
-    console.log(decoded);
-    setUser({
-      id: decoded.user._id,
-      username: decoded.user.username,
-      email: decoded.user.email,
-      password: decoded.user.password,
-      biography: decoded.user.biography,
-      profile_pic_url: profilePicUrl,
-    });
-  };
+//   const getProfile = () => {
+//     const token = localStorage.token;
+//     console.log(token);
+//     const decoded = jwt_decode(token);
+//     console.log(decoded);
+//     setUser({
+//       id: decoded.user._id,
+//       username: decoded.user.username,
+//       email: decoded.user.email,
+//       password: decoded.user.password,
+//       biography: decoded.user.biography,
+//       profile_pic_url: profilePicUrl,
+//     });
+//   };
 
-  useEffect(() => {
-    getProfile();
-  }, []);
+//   useEffect(() => {
+//     getProfile();
+//   }, []);
 
   const handleChange = ({ currentTarget: input }) => {
     setUser({ ...user, [input.name]: input.value });
