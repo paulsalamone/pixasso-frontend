@@ -9,7 +9,7 @@ const UserProfile = () => {
     const [profilePic, setProfilePic] = useState("")
     const [profilePicUrl, setProfilePicUrl] = useState(defaultPic)
     const {userid} = useParams()
-    // const [user, setUser] = useContext(UserContext)
+    //const [user, setUser] = useContext(UserContext)
     const [user, setUser] = useState({
         username: "",
         email: "",

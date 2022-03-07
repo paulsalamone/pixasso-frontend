@@ -1,19 +1,23 @@
 import React from 'react'
 import Community from "../components/Community";
 import jwt_decode from "jwt-decode";
+import {UserContext} from "../contexts/UserContext";
+import { useContext} from "react";
 
 
 
 const UserProfile = () => {
     const token = localStorage.getItem("token")
-    const user = jwt_decode(token);
-    console.log(user.user.username);
-    
+    const temp = jwt_decode(token);
+    // console.log(user.user.username);
+    const [user, setUser] = useContext(UserContext);
+
+    console.log(user)
     return (
         <div className="profile">
             <div>
                 <h1>
-                   {user.user.username}
+                    {user.user.username}
                 </h1>
                 <img src=""/>
             </div>
