@@ -2,10 +2,10 @@ import BigLogo from "../images/logo-large-home-tagline.png";
 import "../styles/home.css";
 import { Link } from "react-router-dom";
 const Home = () => {
- 
   return (
     <>
-      <header>
+      {/* <div className="home-spacer"></div> */}
+      <div className="hero-div">
         <img
           src={BigLogo}
           className="big-logo"
@@ -22,8 +22,7 @@ const Home = () => {
             <button className="button-home-big">make some art!</button>
           </Link>
         </div>
-      </header>
-      <main></main>
+      </div>
     </>
   );
 };

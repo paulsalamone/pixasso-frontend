@@ -1,20 +1,37 @@
 import "./App.css";
 import AppRouter from "./AppRouter";
 
-import { ProjectController } from "./contexts/ProjectContext";
+import { StartStopController } from "./contexts/StartStopContext";
 import { AlgoController } from "./contexts/AlgoContext";
+
 import { UserController } from "./contexts/UserContext";
+import { SaveController } from "./contexts/SaveContext";
+import { RefreshController } from "./contexts/RefreshContext";
+import { BrushController } from "./contexts/BrushContext";
+import { BackgroundController } from "./contexts/BackgroundContext";
 
 function App() {
   return (
     <div className="App">
-      <UserController>
-        <ProjectController>
-          <AlgoController>
-            <AppRouter />
-          </AlgoController>
-        </ProjectController>
-      </UserController>
+
+      <StartStopController>
+        <AlgoController>
+          <SaveController>
+            <RefreshController>
+              <BrushController>
+              <UserController>
+
+                <BackgroundController>
+
+                  <AppRouter />
+                </BackgroundController>
+          </UserController>
+
+              </BrushController>
+            </RefreshController>
+          </SaveController>
+        </AlgoController>
+      </StartStopController>
     </div>
   );
 }

@@ -1,24 +1,28 @@
-import { ProjectContext } from "../../contexts/ProjectContext";
-import { useState, useContext } from "react";
+import { StartStopContext } from "../../contexts/StartStopContext";
+import { useState, useEffect, useContext } from "react";
 
 const StartStop = () => {
-  const [project, setProject] = useContext(ProjectContext);
+  const [startStop, setStartStop] = useContext(StartStopContext);
+
+  useEffect(() => {
+    setStartStop({ ...startStop, start: true });
+  }, []);
 
   const startHandler = (e) => {
     e.preventDefault();
-    if (project.start) {
-      setProject({ ...project, start: false });
+    if (startStop.start) {
+      setStartStop({ ...startStop, start: false });
     } else {
-      setProject({ ...project, start: true });
+      setStartStop({ ...startStop, start: true });
     }
-    console.log(project.start);
+    // console.log(startStop.start);
   };
 
   return (
     <div className="start-stop">
       <p>
         {/* Animation: */}
-        <button onClick={startHandler}>start / stop</button>{" "}
+        <button onClick={startHandler}>Start / Stop</button>{" "}
       </p>
     </div>
   );
