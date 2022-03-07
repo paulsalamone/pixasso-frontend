@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import Sketch from "react-p5";
 import Refresh from "../editorComponents/Refresh";
 import { RefreshContext } from "../../contexts/RefreshContext";
-
 import Parameter from "../editorComponents/Parameter";
+import ParameterColor from "../editorComponents/ParameterColor";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 const Algo2 = (props) => {
@@ -116,31 +116,38 @@ const Algo2 = (props) => {
             </div>
           </div> */}
           <div className="parameters-group">
-            <h4>BackGround Color:</h4>
-            <Parameter
+            <h4>BackGround:</h4>
+            <ParameterColor
               name="BGhue"
               value={_.BGhue}
               id="Hue"
               min="1"
               max="360"
               step="0"
+              color="hue"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="BGsaturation"
               value={_.BGsaturation}
               id="Saturation"
               min="0"
               max="100"
+              color="saturation"
+              hue={_.BGhue}
               handleParameter={handleParameter}
             />
-            <Parameter
+            {console.log("----->" + _.BGhue)}
+
+            <ParameterColor
               name="BGbrightness"
               value={_.BGbrightness}
               id="Brightness"
               min="0"
               max="100"
               step="0"
+              color="brightness"
+              hue={_.BGhue}
               handleParameter={handleParameter}
             />
           </div>
@@ -191,31 +198,36 @@ const Algo2 = (props) => {
           </div>
           <div className="parameters-group">
             <h4>Color:</h4>
-            <Parameter
+            <ParameterColor
               name="hue"
               value={_.hue}
               id="Hue"
               min="0"
               max="360"
               step="0"
+              color="hue"
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="saturation"
               value={_.saturation}
               id="Saturation"
               min="0"
               max="100"
               step="0"
+              color="saturation"
+              hue={_.hue}
               handleParameter={handleParameter}
             />
-            <Parameter
+            <ParameterColor
               name="brightness"
               value={_.brightness}
               id="Brightness"
               min="0"
               max="100"
               step="0"
+              color="brightness"
+              hue={_.hue}
               handleParameter={handleParameter}
             />
           </div>
@@ -224,29 +236,31 @@ const Algo2 = (props) => {
             <Parameter
               name="strokeWeight"
               value={_.strokeWeight}
-              id="Stroke Weight"
+              id="Weight"
               min="0"
               max="20"
               step="0"
               handleParameter={handleParameter}
             />
-
-            <Parameter
-              name="strokeBrightness"
-              value={_.strokeBrightness}
-              id="Stroke Brightness"
+            <ParameterColor
+              name="strokeHue"
+              value={_.strokeHue}
+              id="Hue"
               min="0"
-              max="100"
+              max="360"
+              color="hue"
               step="0"
               handleParameter={handleParameter}
             />
-            <Parameter
-              name="strokeHue"
-              value={_.strokeHue}
-              id="Stroke Hue"
+            <ParameterColor
+              name="strokeBrightness"
+              value={_.strokeBrightness}
+              id="Brightness"
               min="0"
-              max="360"
+              max="100"
               step="0"
+              color="brightness"
+              hue={_.BGhue}
               handleParameter={handleParameter}
             />
           </div>
