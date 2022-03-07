@@ -7,17 +7,18 @@ import GalleryPlaceholder1 from "../images/gallery-placeholder1.png";
 import GalleryPlaceholder2 from "../images/gallery-placeholder2.png";
 import GalleryPlaceholder3 from "../images/gallery-placeholder3.png";
 import GalleryPlaceholder4 from "../images/gallery-placeholder4.png";
-import {UserContext} from "../contexts/UserContext";
-import { useContext} from "react";
+import { UserContext } from "../contexts/UserContext";
+import { useContext } from "react";
 
 const UserProfile = () => {
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
   const token = localStorage.getItem("token");
   const temp = jwt_decode(token);
+  console.log(temp.user.username);
   const [user, setUser] = useContext(UserContext);
 
-  console.log(user.user.username);
-  
+  //   console.log(user.user.username);
+
   const placeholderBio =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
   return (
@@ -33,7 +34,8 @@ const UserProfile = () => {
           className="profile-pic"
         />
         <div className="profile-info-box">
-          <h1>{user.user.username}</h1>
+          <h1>{temp.user.username}</h1>
+          {/* <h1>hello</h1> */}
           {/* <p>Email: {user.user.email}</p> */}
           <h3>Artist Statement:</h3>
           <p>{placeholderBio}</p>

@@ -2,21 +2,21 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import defaultPic from "../images/profilepic.jpg";
-//import {UserContext} from "../contexts/UserContext";
+// import { UserContext } from "../contexts/UserContext";
 import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
-    const [profilePic, setProfilePic] = useState("")
-    const [profilePicUrl, setProfilePicUrl] = useState(defaultPic)
-    const {userid} = useParams()
-    //const [user, setUser] = useContext(UserContext)
-    const [user, setUser] = useState({
-        username: "",
-        email: "",
-        password:"",
-        profile_pic_url:"",
-        biography: ""
-    })
+  const [profilePic, setProfilePic] = useState("");
+  const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
+  const { userid } = useParams();
+  //const [user, setUser] = useContext(UserContext)
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    profile_pic_url: "",
+    biography: "",
+  });
 
   const uploadPic = async () => {
     const picData = new FormData();
