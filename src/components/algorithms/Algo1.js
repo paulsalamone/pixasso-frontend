@@ -219,7 +219,7 @@ const Algo1 = (props) => {
             </div>
           </div> */}
           <div className="parameters-group">
-            <h4>BackGround:</h4>
+            <h4>Background:</h4>
             <ParameterColor
               name="BGhue"
               value={_.BGhue}
@@ -306,7 +306,7 @@ const Algo1 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <h4>Color Balance:</h4>
+            <h4>Colors:</h4>
             <ParameterColor
               name="red"
               value={_.red}
@@ -343,7 +343,7 @@ const Algo1 = (props) => {
             <Parameter
               name="strokeWeight"
               value={_.strokeWeight}
-              id="Stroke Weight"
+              id="Thickness"
               min="0"
               max="60"
               step="0"
@@ -353,7 +353,7 @@ const Algo1 = (props) => {
             <ParameterColor
               name="strokeShade"
               value={_.strokeShade}
-              id="Stroke Shade"
+              id="Shade"
               min="0"
               max="255"
               color="brightness"
@@ -371,12 +371,12 @@ const Algo1 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <h4>Effects:</h4>
+            <h4>Move:</h4>
 
             <Parameter
               name="scale"
               value={_.scale}
-              id="Scale"
+              id="Zoom"
               min="1"
               max="6"
               handleParameter={handleParameter}
@@ -384,7 +384,7 @@ const Algo1 = (props) => {
             <Parameter
               name="randomSize"
               value={_.randomSize}
-              id="Move Vertically"
+              id="Up/Down"
               min="-200"
               max="200"
               step="0"
@@ -393,7 +393,7 @@ const Algo1 = (props) => {
             <Parameter
               name="shake"
               value={_.shake}
-              id="Move Horizontally"
+              id="Sideways"
               min="-200"
               max="200"
               step="0"

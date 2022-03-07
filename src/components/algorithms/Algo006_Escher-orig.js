@@ -10,7 +10,6 @@ import { RefreshContext } from "../../contexts/RefreshContext";
 import Refresh from "../editorComponents/Refresh";
 import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
-import ParameterColor from "../editorComponents/ParameterColor";
 
 let r, g, b;
 let c1, c2;
@@ -22,21 +21,26 @@ const Algo6 = (props) => {
   const [saveImage, setSaveImage] = useContext(SaveContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [_, set_] = useState({
-    BGred: 90,
-    BGgreen: 75,
-    BGblue: 65,
-    Asize: 100,
-    Bsize: 45,
-    Csize: 5,
-    horizA: 2,
-    horizB: 3,
-    horizC: 4,
-    vertA: 2,
-    vertB: 3,
-    vertC: 4,
-    stretchHoriz: 1,
-    stretchVert: 1,
-    stretchDiag: 1,
+    Asize: 128,
+    Ahoriz: 4,
+    Avert: 2,
+    Ared: 0,
+    Agreen: 1,
+    Ablue: 1,
+
+    Bsize: 50,
+    Bhoriz: 10,
+    Bvert: 2,
+    Bred: 242,
+    Bgreen: 200,
+    Bblue: 180,
+
+    Csize: 2,
+    Choriz: 9,
+    Cvert: 2,
+    Cred: 252,
+    Cgreen: 244,
+    Cblue: 220,
   });
   const [backup, setBackup] = useState(_);
   const [wipe, setWipe] = useState(false);
@@ -82,49 +86,27 @@ const Algo6 = (props) => {
     }
 
     if (startStop.start) {
-      // p5.background(0, 0, 0, 10);
-      p5.background(_.BGred, _.BGgreen, _.BGblue, 10);
-
-      // CLOUDS A
+      p5.background(0, 0, 0, 10);
+      // BIG CLOUDS
       for (let i = 0; i < 2000; i++) {
-        step(
-          p5,
-          _.Asize,
-          _.horizA,
-          _.vertA,
-          _.stretchHoriz,
-          _.stretchVert,
-          _.stretchDiag
-        );
+        step(p5, _.Asize, _.Ahoriz, _.Avert, _.Ared, _.Agreen, _.Ablue, 7);
       }
-      // CLOUDS B
+      // // MEDIUM CLOUDS
       for (let i = 0; i < 2000; i++) {
-        step(
-          p5,
-          _.Bsize,
-          _.horizB,
-          _.vertB,
-          _.stretchHoriz,
-          _.stretchVert,
-          _.stretchDiag
-        );
+        step(p5, _.Bsize, _.Bhoriz, _.Bvert, _.Bred, _.Bgreen, _.Bblue, 4);
       }
-      // CLOUDS C
+      // SMALL CLOUDS
       for (let i = 0; i < 2000; i++) {
-        step(
-          p5,
-          _.Csize,
-          _.horizC,
-          _.vertC,
-          _.stretchHoriz,
-          _.stretchVert,
-          _.stretchDiag
-        );
+        step(p5, _.Csize, _.Choriz, _.Cvert, _.Cred, _.Cgreen, _.Cblue, 6);
+      }
+      // SMALL CLOUDS
+      for (let i = 0; i < 2000; i++) {
+        step(p5, _.Csize, _.Choriz, _.Cvert, _.Cred, _.Cgreen, _.Cblue, 3);
       }
     }
   }
 
-  function step(p5, size, horiz, vert, stretchH, stretchV, stretchD) {
+  function step(p5, size, horiz, vert, red, green, blue, glow) {
     if (startStop.start) {
       x += p5.random(-horiz, horiz);
       y += p5.random(-vert, vert);
@@ -133,17 +115,22 @@ const Algo6 = (props) => {
 
       //SHADOW
       p5.noStroke();
-      p5.fill(0, 5);
-      p5.rect(x - 10, y + 10, size / stretchV, size / stretchH);
+      p5.fill(0, 10);
+      p5.rect(x - 10, y + 10, size / _.Ablue, size / _.Agreen);
       //HIGHLIGHT
       p5.noStroke();
-      p5.fill(255, 30);
-      p5.rect(x + 3, y - 3, size / stretchV, size / stretchH);
+      p5.fill(255, 50);
+      p5.rect(x + 3, y - 3, size / _.Ablue, size / _.Agreen);
       //BLOCK
       p5.strokeWeight(1);
-      p5.stroke(0, 80);
-      p5.fill(255, 70);
-      p5.rect(x, y, size / stretchV, size / stretchH);
+      p5.stroke(0);
+      p5.fill(255);
+      p5.rect(x, y, size / _.Ablue, size / _.Agreen);
+      // p5.noStroke();
+
+      //SLANTED
+      // p5.fill(255, 0, 0, 10);
+      // p5.quad(x, y, x + 100, y, x + 150, y + 100, x + 50, y + 100);
     }
   }
 
@@ -152,55 +139,59 @@ const Algo6 = (props) => {
       <div className="canvas-with-parameters">
         <div className="parameters-left-1column">
           <div className="parameters-group">
-            <h4>Tint:</h4>
-            <ParameterColor
-              name="BGred"
-              value={_.BGred}
-              id="Red"
-              min="1"
-              max="140"
+            <h4>Big Clouds:</h4>
+            <Parameter
+              name="Asize"
+              value={_.Asize}
+              id="Size"
+              min="60"
+              max="180"
               step="0"
-              color="red"
               handleParameter={handleParameter}
             />
-            <ParameterColor
-              name="BGgreen"
-              value={_.BGgreen}
+            <Parameter
+              name="Ahoriz"
+              value={_.Ahoriz}
+              id="Horizontal"
+              min="0"
+              max="10"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Avert"
+              value={_.Avert}
+              id="Vertical"
+              min="0"
+              max="10"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <div className="parameter-spacer"></div>
+            <Parameter
+              name="Ared"
+              value={_.Ared}
+              id="Red"
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Agreen"
+              value={_.Agreen}
               id="Green"
               min="1"
-              max="140"
-              step="0"
-              color="green"
-              handleParameter={handleParameter}
-            />
-            <ParameterColor
-              name="BGblue"
-              value={_.BGblue}
-              id="Blue"
-              min="1"
-              max="140"
-              step="0"
-              color="blue"
-              handleParameter={handleParameter}
-            />
-          </div>
-          <div className="parameters-group">
-            <h4>Box Shape:</h4>
-            <Parameter
-              name="stretchHoriz"
-              value={_.stretchHoriz}
-              id="Width"
-              min="1"
-              max="40"
+              max="30"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="stretchVert"
-              value={_.stretchVert}
-              id="Height"
+              name="Ablue"
+              value={_.Ablue}
+              id="blue"
               min="1"
-              max="40"
+              max="30"
               step="0"
               handleParameter={handleParameter}
             />
@@ -209,7 +200,14 @@ const Algo6 = (props) => {
 
         <div className="canvas-container">
           <div className="artwork">
+            {/* <Sketch className="x" setup={setup} draw={draw} /> */}
+
             <SketchHost wipe={wipe} className="x" setup={setup} draw={draw} />
+            {/* {!wipe ? (
+              <SketchHost className="x" setup={setup} draw={draw} />
+            ) : (
+              <SketchHostB className="x" setup={setup} draw={draw} />
+            )} */}
           </div>
           <div className="canvas-utilities">
             <button onClick={handleWipe}>Wipe Screen</button>
@@ -220,51 +218,20 @@ const Algo6 = (props) => {
         </div>
         <div className="parameters-right">
           <div className="parameters-group">
-            <h4>Big Boxes:</h4>
-            <Parameter
-              name="Asize"
-              value={_.Asize}
-              id="Size"
-              min="50"
-              max="200"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="horizA"
-              value={_.horizA}
-              id="Horizontal"
-              min="0"
-              max="20"
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name="vertA"
-              value={_.vertA}
-              id="Vertical"
-              min="0"
-              max="20"
-              step="0"
-              handleParameter={handleParameter}
-            />
-          </div>
-
-          <div className="parameters-group">
-            <h4>Medium Boxes:</h4>
+            <h4>Medium Clouds:</h4>
 
             <Parameter
               name="Bsize"
               value={_.Bsize}
               id="Size"
-              min="25"
-              max="60"
+              min="10"
+              max="35"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="horizB"
-              value={_.horizB}
+              name="Bhoriz"
+              value={_.Bhoriz}
               id="Horizontal"
               min="0"
               max="20"
@@ -272,29 +239,58 @@ const Algo6 = (props) => {
               handleParameter={handleParameter}
             />
             <Parameter
-              name="vertB"
-              value={_.vertB}
+              name="Bvert"
+              value={_.Bvert}
               id="Vertical"
               min="0"
               max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <div className="parameter-spacer"></div>
+
+            <Parameter
+              name="Bred"
+              value={_.Bred}
+              id="Red"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Bgreen"
+              value={_.Bgreen}
+              id="Green"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Bblue"
+              value={_.Bblue}
+              id="blue"
+              min="180"
+              max="255"
               step="0"
               handleParameter={handleParameter}
             />
           </div>
           <div className="parameters-group">
-            <h4>Small Boxes:</h4>
+            <h4>Small Clouds:</h4>
             <Parameter
               name="Csize"
               value={_.Csize}
               id="Size"
               min="1"
-              max="10"
+              max="5"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="horizC"
-              value={_.horizC}
+              name="Choriz"
+              value={_.Choriz}
               id="Horizontal"
               min="0"
               max="20"
@@ -302,11 +298,40 @@ const Algo6 = (props) => {
               handleParameter={handleParameter}
             />
             <Parameter
-              name="vertC"
-              value={_.vertC}
+              name="Cvert"
+              value={_.Cvert}
               id="Vertical"
               min="0"
               max="20"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <div className="parameter-spacer"></div>
+
+            <Parameter
+              name="Cred"
+              value={_.Cred}
+              id="Red"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Cgreen"
+              value={_.Cgreen}
+              id="Green"
+              min="180"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="Cblue"
+              value={_.Cblue}
+              id="blue"
+              min="180"
+              max="255"
               step="0"
               handleParameter={handleParameter}
             />
