@@ -15,12 +15,7 @@ import UpdateProfile from "./components/UpdateProfile";
 import UserProfile from "./components/UserProfile";
 
 const AppRouter = () => {
-  // const user = localStorage.getItem("token");
-  // if (user) {
-  //   console.log("welcome");
-  // } else {
-  //   console.log("you are not logged in");
-  // }
+ 
   return (
     <>
       {/* <body> */}

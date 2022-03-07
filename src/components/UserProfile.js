@@ -1,17 +1,23 @@
 import { useState } from "react";
 import Community from "../components/Community";
 import jwt_decode from "jwt-decode";
+
 import defaultPic from "../images/profilepic.jpg";
 import GalleryPlaceholder1 from "../images/gallery-placeholder1.png";
 import GalleryPlaceholder2 from "../images/gallery-placeholder2.png";
 import GalleryPlaceholder3 from "../images/gallery-placeholder3.png";
 import GalleryPlaceholder4 from "../images/gallery-placeholder4.png";
+import {UserContext} from "../contexts/UserContext";
+import { useContext} from "react";
 
 const UserProfile = () => {
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
   const token = localStorage.getItem("token");
-  const user = jwt_decode(token);
+  const temp = jwt_decode(token);
+  const [user, setUser] = useContext(UserContext);
+
   console.log(user.user.username);
+  
   const placeholderBio =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
   return (

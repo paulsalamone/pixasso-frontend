@@ -6,17 +6,17 @@ import defaultPic from "../images/profilepic.jpg";
 import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
-  const [profilePic, setProfilePic] = useState("");
-  const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
-  const { userid } = useParams();
-  // const [user, setUser] = useContext(UserContext)
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    profile_pic_url: "",
-    biography: "",
-  });
+    const [profilePic, setProfilePic] = useState("")
+    const [profilePicUrl, setProfilePicUrl] = useState(defaultPic)
+    const {userid} = useParams()
+    //const [user, setUser] = useContext(UserContext)
+    const [user, setUser] = useState({
+        username: "",
+        email: "",
+        password:"",
+        profile_pic_url:"",
+        biography: ""
+    })
 
   const uploadPic = async () => {
     const picData = new FormData();
@@ -24,7 +24,7 @@ const UserProfile = () => {
     picData.append("upload_preset", "profilepic");
     picData.append("cloud_name", "pixasso");
 
-    fetch(" https://api.cloudinary.com/v1_1/pixasso/image/upload", {
+    fetch("https://api.cloudinary.com/v1_1/pixasso/image/upload", {
       method: "post",
       body: picData,
     })
