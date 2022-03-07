@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import AlgoSelector from "./components/editorComponents/AlgoSelector";
 import Editor from "./components/editorComponents/Editor";
+import EditorMobile from "./components/mobileComponents/EditorMobile";
 
 import Community from "./components/Community";
 
@@ -15,7 +16,6 @@ import UpdateProfile from "./components/UpdateProfile";
 import UserProfile from "./components/UserProfile";
 
 const AppRouter = () => {
- 
   return (
     <>
       {/* <body> */}
@@ -36,6 +36,7 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/editor" element={<Editor />} />
+          <Route path="/editor-mobile" element={<EditorMobile />} />
           <Route path="/community" element={<Community />} />
           {/* <Route path="/upload" element={<UploadSketch />} /> */}
           <Route path="/register" element={<Register />} />
@@ -45,9 +46,9 @@ const AppRouter = () => {
           <Route path="/update" element={<UpdateProfile />} />
           <Route path="/profile" element={<UserProfile />} />
         </Routes>
+        <Footer />
       </div>
 
-      <Footer />
       {/* </body> */}
     </>
   );

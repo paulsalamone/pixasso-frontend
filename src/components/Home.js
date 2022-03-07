@@ -3,8 +3,12 @@ import "../styles/home.css";
 import { Link } from "react-router-dom";
 const Home = () => {
   return (
-    <>
-      {/* <div className="home-spacer"></div> */}
+    <div className="home-page">
+      {/* <div className="home-spacer"></div> */}{" "}
+      <h3 className="mobile-message">
+        NOTE: you are viewing the mobile version of this site. For the full
+        Pixasso experience, please view the desktop version.
+      </h3>
       <div className="hero-div">
         <img
           src={BigLogo}
@@ -12,7 +16,7 @@ const Home = () => {
           alt="generative art for everyone"
         />
         <div className="hero-text">
-          <h1>
+          <h1 className="hero-h1">
             Welcome to <span className="yellow">Pixasso</span>, the{" "}
             <b>user-friendly art tool</b> that lets you create cool, futuristic
             <span className="green"> generative art</span> without needing to
@@ -21,9 +25,12 @@ const Home = () => {
           <Link to="/editor">
             <button className="button-home-big">make some art!</button>
           </Link>
+          <Link to="/editor-mobile">
+            <button className="button-home-mobile">make some art!!!!</button>
+          </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
