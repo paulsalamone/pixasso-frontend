@@ -26,7 +26,7 @@ const Algo2 = (props) => {
     brightness: 80,
     strokeWeight: 0,
     strokeHue: 0,
-    strokeBrightness: 0,
+    strokeBrightness: 40,
     randomColors: 0,
     randomSize: 3,
     columnize: 0,
@@ -162,7 +162,7 @@ const Algo2 = (props) => {
           <div className="canvas-utilities">
             <Refresh />
 
-            <button onClick={handleSaveImage}>save to desktop</button>
+            <button onClick={handleSaveImage}>Download</button>
             <StartStop />
           </div>
         </div>

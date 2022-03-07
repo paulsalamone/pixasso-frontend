@@ -306,7 +306,7 @@ const Algo1 = (props) => {
             />
           </div>
           <div className="parameters-group">
-            <h4>Color:</h4>
+            <h4>Color Balance:</h4>
             <ParameterColor
               name="red"
               value={_.red}
