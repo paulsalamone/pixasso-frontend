@@ -3,15 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import AlgoSelector from "./editorComponents/AlgoSelector";
 import Logo from "../images/logo-small-white.png";
-//import {UserContext} from "../contexts/UserContext";
 import jwt_decode from "jwt-decode";
-import { UserContext } from "../contexts/UserContext";
-import { useContext } from "react";
 
 const Nav = () => {
-  // const [user, setUser] = useContext(UserContext);
-  // console.log(user)
-  // const name = user.username
   const [user, setUser] = useState("");
   let navigate = useNavigate();
   useEffect(() => {
@@ -38,6 +32,7 @@ const Nav = () => {
 
   return (
     <>
+      <>
       <nav>
         <div className="top-nav-left">
           <div>
@@ -48,18 +43,8 @@ const Nav = () => {
                 className="nav-logo"
               />
             </Link>
-            {/* <Link to="/">About</Link> */}
             <Link to="/editor">Editor</Link>
-
-            {user && user ? (
-              <div className="top-nav-right">
-                <Link to="/community">Community</Link>
-              </div>
-            ) : (
-              <div className="top-nav-right"></div>
-            )}
           </div>
-          {/* <div>Algorithm:</div> */}
         </div>
         <div className="top-nav-controls">
           <Routes>
@@ -69,6 +54,9 @@ const Nav = () => {
 
         {user && user ? (
           <div className="top-nav-right">
+      
+            <Link to="/community">Community</Link>
+              
             <Link to="/profile">{user}</Link>
 
             <Link to="/update">Settings</Link>
@@ -84,6 +72,7 @@ const Nav = () => {
           </div>
         )}
       </nav>
+    </>
     </>
   );
 };

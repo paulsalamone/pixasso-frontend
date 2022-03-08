@@ -9,7 +9,7 @@ import data from "../algorithms/parameterData.json";
 import { RefreshContext } from "../../contexts/RefreshContext";
 import Refresh from "../editorComponents/Refresh";
 import { HexColorPicker } from "react-colorful";
-
+// import {uploadImage} from "../editorComponents/SavetoCloud";
 const Algo1 = (props) => {
   //controls if p5 animation is running or not:
   const [startStop, setStartStop] = useContext(StartStopContext);
@@ -17,7 +17,7 @@ const Algo1 = (props) => {
   //const [imageFile, setImageFile] = useState("")
   const [imageUrl, setImageUrl] = useState("");
   const [saveImage, setSaveImage] = useState(false);
-  // let pngfile = "";
+
   let canvas = "";
 
   useEffect(() => {
@@ -178,14 +178,13 @@ const Algo1 = (props) => {
   };
   const uploadImage = async () => {
     const image = document.getElementById("defaultCanvas0");
-    image.toBlob(
-      (blob) => {
+    image.toBlob(async (blob) => {
         const data = new FormData();
         data.append("file", blob);
         data.append("upload_preset", "sketch");
         data.append("cloud_name", "pixasso");
         //console.log(data)
-        fetch("https://api.cloudinary.com/v1_1/pixasso/image/upload", {
+        await fetch("https://api.cloudinary.com/v1_1/pixasso/image/upload", {
           method: "POST",
           body: data,
         })
@@ -263,7 +262,7 @@ const Algo1 = (props) => {
 
         <div className="canvas-container">
           <div className="artwork" id="artwork">
-            <Sketch className="x" setup={setup} draw={draw} />
+            <Sketch setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
             <button onClick={handleSaveImage}>Download to Desktop</button>

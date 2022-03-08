@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Community from "../components/Community";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -12,26 +12,32 @@ import { UserContext } from "../contexts/UserContext";
 
 
 const UserProfile = () => {
-    const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
-    // const token = localStorage.getItem("token");
-    // const decoded = jwt_decode(token);
-    // console.log(decoded);
-    const [user, setUser] = useContext(UserContext);
-    console.log(user.username)
-    const sketch= user.sketch_ids.map ((sketch) =>{
-        return(
-            sketch
-        )
-    })
-    console.log(sketch[0])
+  const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
+  const [user, setUser] = useContext(UserContext);
+  const[obj,setObj] =useState([])
 
-    axios
-      .get(`http://localhost:4000/api/sketch/${sketch[0]}`) 
+  // console.log(user)
+  // console.log(user.username)
+  console.log(user.sketch_ids)
+  
+  // useEffect(()=>{
+  //   getUrl()
+  //   console.log("hello")
+  // },[])
 
-      .then(res=> console.log(res))
 
-      .catch((error) => console.log(error));
+  
 
+
+  const handleUnpublish = () => {
+    
+
+  }
+  
+  const handlePublish = (e) => {
+  
+}
+ 
 
 
   const placeholderBio =
@@ -61,60 +67,47 @@ const UserProfile = () => {
         <div className="gallery-section">
           <h2>Unpublished Sketches</h2>
           <div className="gallery-grid">
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder1} />
-              <button onClick={<Community />}>publish</button>
-            </div>
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder2} />
-              <button onClick={<Community />}>publish</button>
-            </div>
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder3} />
-              <button onClick={<Community />}>publish</button>
-            </div>
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder4} />
-              <button onClick={<Community />}>publish</button>
-            </div>
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder1} />
-              <button onClick={<Community />}>publish</button>
-            </div>
+
+          {user.sketch_ids && user.sketch_ids
+          .filter(sketch =>sketch.sketch_status=== false)
+          .map(element => {
+              return (
+                <>
+                <div className="gallery-cell">
+                    <img src={element.sketch_url} />
+                    <button onClick={handlePublish}>Publish</button>
+                  </div>                  
+                </>
+              )
+          })}
           </div>
         </div>
+
+          
         <div className="gallery-section">
           <h2>Published Sketches</h2>
           <div className="gallery-grid">
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder2} />
-              <button onClick={<Community />}>unpublish</button>
+          {user.sketch_ids && user.sketch_ids
+          .filter(sketch =>sketch.sketch_status=== true)
+          .map(element => {
+              return (
+                <>
+                <div className="gallery-cell">
+                    <img src={element.sketch_url} />
+                    <button onClick={handleUnpublish}>Unpublish</button>
+                </div>
+                  
+                </>
+              )
+          })}
+            
             </div>
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder3} />
-              <button onClick={<Community />}>unpublish</button>
             </div>
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder4} />
-              <button onClick={<Community />}>unpublish</button>
-            </div>
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder1} />
-              <button onClick={<Community />}>unpublish</button>
-            </div>
-            <div className="gallery-cell">
-              <img src={GalleryPlaceholder2} />
-              <button onClick={<Community />}>unpublish</button>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
+
+     </div>
   );
 };
 
-{
-  /* <img src="https://res.cloudinary.com/pixasso/image/upload/v1646300481/ae6cct2tky57obshjhgx.jpg" /> */
-}
 
 export default UserProfile;
