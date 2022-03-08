@@ -1,4 +1,13 @@
 /* for home / splash page only */
+* {
+  /* border: 1px solid red; */
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
 .hero-div {
   display: flex;
@@ -11,6 +20,7 @@
 
 .big-logo {
   width: 300px;
+  height: auto;
 }
 
 .yellow {
@@ -26,7 +36,7 @@
   max-width: 580px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: flex-start;
   justify-content: center;
   /* text-align: center; */
 }
@@ -35,11 +45,87 @@
   border: 1px solid var(--highlight2);
   color: var(--highlight2);
   border-radius: 10px;
-  padding: 12px 20px 15px 20px;
+  padding: 12px 20px 13px 20px;
   font-size: 1.4rem;
   height: 60px;
+  /* display: inline; */
+  margin-top: 15px;
+}
+
+.button-home-mobile {
+  border: 1px solid var(--highlight2);
+  color: var(--highlight2);
+  border-radius: 10px;
+  padding: 10px 10px 23px 10px;
+
+  font-size: 1rem;
+  height: 40px;
+  margin-top: 20px;
+  opacity: 0;
+  text-decoration: none;
+}
+
+.button-home-mobile a {
+  text-decoration: none;
 }
 
 .button-home-big:hover {
   border: 1px solid var(--highlight2);
+}
+
+.hero-h1 {
+  font-size: 2.1rem;
+  font-weight: 300;
+  margin: 0px;
+}
+
+.mobile-message {
+  opacity: 1;
+  padding: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0;
+  max-width: 600px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .hero-div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-h1 {
+    font-size: 1.2rem;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .hero-div {
+    margin-top: 5px;
+  }
+
+  .hero-text {
+    align-items: center;
+    margin: 10px;
+    max-width: 350px;
+  }
+
+  .mobile-message {
+    opacity: 1;
+  }
+
+  .big-logo {
+    width: 40%;
+    max-width: 250px;
+  }
+
+  .button-home-big {
+    display: none;
+  }
+
+  .button-home-mobile {
+    border-radius: 8px;
+    /* padding: 10px 18px; */
+    opacity: 1;
+  }
 }

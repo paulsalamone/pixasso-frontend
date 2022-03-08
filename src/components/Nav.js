@@ -18,7 +18,6 @@ const Nav = () => {
     getUser();
   }, [user]);
 
-
   const getUser = () => {
     const token = localStorage.getItem("token");
     if (token) {
