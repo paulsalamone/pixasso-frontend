@@ -36,7 +36,8 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/editor" element={<Editor />} />
-          <Route path="/editor-mobile" element={<EditorMobile />} />
+          <Route path="/editormobile" element={<EditorMobile />} />
+
           <Route path="/community" element={<Community />} />
           {/* <Route path="/upload" element={<UploadSketch />} /> */}
           <Route path="/register" element={<Register />} />
