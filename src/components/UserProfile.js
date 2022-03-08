@@ -14,76 +14,30 @@ import { UserContext } from "../contexts/UserContext";
 const UserProfile = () => {
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
   const [user, setUser] = useContext(UserContext);
-  const[publishUrl, setPublishUrl] = useState([]);
-  const[unpublishUrl, setUnpublishUrl] = useState([]);
   const[obj,setObj] =useState([])
-  
-  const[sketch, setSketch] =useState({})
+
   // console.log(user)
   // console.log(user.username)
-  // console.log(user.sketch_ids)
+  console.log(user.sketch_ids)
   
-  useEffect(()=>{
-    getUrl()
-    console.log("hello")
-  },[])
+  // useEffect(()=>{
+  //   getUrl()
+  //   console.log("hello")
+  // },[])
 
 
   
-  const getUrl =  () => {
-    user.sketch_ids.map(async sketchId =>{
-          await axios
-          .get(`http://localhost:4000/api/sketch/${sketchId}`) 
-          .then(res=> setObj(obj=>[...obj,
-            {_id: res.data._id,
-              url:res.data.sketch_Url,
-              status:res.data.sketch_status
-          }]))
-          .catch((error) => console.log(error))   
-  })
-  }
-  console.log(obj)
+
 
   const handleUnpublish = () => {
     
 
   }
   
-  const handlePublish = () => {
-//     user.sketch_ids.map(async(_id) =>{
-//       await axios
-//       .get(`http://localhost:4000/api/sketch/${_id}`) 
-//       // .then(res=> console.log(res.data))
-//       .then(res =>console.log(res.data._id))
-//       .catch((error) => console.log(error));
-//       // console.log(sketch)  
-// })
+  const handlePublish = (e) => {
+  
 }
-  // console.log(obj)
-
-  // const section =  () => {
-  //   user.sketch_ids.map(async(sketchId) =>{
-  //         await axios
-  //         .get(`http://localhost:4000/api/sketch/${sketchId}`)
-  //         .then(res => {
-  //           if(!res.data.sketch_status){
-  //             console.log(res.data.sketch_status)
-  //             setUnpublishUrl(unpublishUrl => [...unpublishUrl, res.data.sketch_Url])
-  //             console.log(unpublishUrl)
-  //           } else {
-  //             setPublishUrl(publishUrl => [...publishUrl, res.data.sketch_Url])
-  //             console.log(publishUrl)
-  //           }
-  //         })
-  //         .catch((error) => console.log(error))   
-  // })
-  // }
-
-  // const updateStatus = () => {
-  //   axios.post()    i need  sketch id here and cprrespong to that id i can update sketch status using put route
-
-
-  // }
+ 
 
 
   const placeholderBio =
@@ -113,44 +67,39 @@ const UserProfile = () => {
         <div className="gallery-section">
           <h2>Unpublished Sketches</h2>
           <div className="gallery-grid">
-          {/* {obj.map(each =>{
-            return(
-              <>
-              {console.log(each._id)}
-              </>
-            )
 
-          })}   */}
-
-               
-              {obj.filter(e => e.status === false)
-              .map(e => {
-                return(
-                  <div className="gallery-cell">
-                    <img src={e.url} />
+          {user.sketch_ids && user.sketch_ids
+          .filter(sketch =>sketch.sketch_status=== false)
+          .map(element => {
+              return (
+                <>
+                <div className="gallery-cell">
+                    <img src={element.sketch_url} />
                     <button onClick={handlePublish}>Publish</button>
-                  </div>
-
-                )
-              })}
-
-            
+                  </div>                  
+                </>
+              )
+          })}
           </div>
         </div>
+
           
         <div className="gallery-section">
           <h2>Published Sketches</h2>
           <div className="gallery-grid">
-          {obj.filter(e => e.status === true)
-              .map(e => {
-                return(
-                  <div className="gallery-cell">
-                    <img src={e.url} />
+          {user.sketch_ids && user.sketch_ids
+          .filter(sketch =>sketch.sketch_status=== true)
+          .map(element => {
+              return (
+                <>
+                <div className="gallery-cell">
+                    <img src={element.sketch_url} />
                     <button onClick={handleUnpublish}>Unpublish</button>
-                  </div>
-
-                )
-              })}
+                </div>
+                  
+                </>
+              )
+          })}
             
             </div>
             </div>
