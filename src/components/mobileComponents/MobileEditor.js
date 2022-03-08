@@ -21,7 +21,7 @@ let rr = 0;
 let gg = 0;
 let bb = 0;
 
-const EditorMobile = (props) => {
+export default function MobileEditor() {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [imageUrl, setImageUrl] = useState("");
@@ -104,79 +104,79 @@ const EditorMobile = (props) => {
     }
   };
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+  //   const handleBack = () => {
+  //     navigate(-1);
+  //   };
 
   return (
-    <div className="mobile-editor-main">
-      <header>
-        {" "}
-        <button onClick={handleBack} className="back-button">
-          <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
-        </button>
-        <img
-          src={Logo}
-          alt="small white pixasso logo"
-          className="mobile-logo"
-        />
-        <p style={{ color: "black" }}>back</p>
-      </header>
-      {/* <h3>Algorithm: MobileAlgo</h3> */}
-      <div className="mobile-canvas">
-        <div className="mobile-artwork">
-          <Sketch setup={setup} draw={draw} className="mobile-x" />
+    <>
+      <div className="mobile-editor-main">
+        <header>
+          {" "}
+          {/* <button onClick={handleBack} className="back-button">
+            <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
+          </button> */}
+          <img
+            src={Logo}
+            alt="small white pixasso logo"
+            className="mobile-logo"
+          />
+          <p style={{ color: "black" }}>back</p>
+        </header>
+        {/* <h3>Algorithm: MobileAlgo</h3> */}
+        <div className="mobile-canvas">
+          <div className="mobile-artwork">
+            <Sketch setup={setup} draw={draw} className="mobile-x" />
+          </div>
+          <div className="canvas-utilities">
+            {/* <Refresh /> */}
+            <button onClick={handleSaveImage}>Download</button>
+            {/* <button onClick={uploadImage}>Save to Cloud</button> */}
+            {/* <Save /> */}
+            <StartStop />
+          </div>
         </div>
-        <div className="canvas-utilities">
-          {/* <Refresh /> */}
-          <button onClick={handleSaveImage}>Download</button>
-          {/* <button onClick={uploadImage}>Save to Cloud</button> */}
-          {/* <Save /> */}
-          <StartStop />
+        <div className="mobile-parameters">
+          <div className="parameters-group">
+            <Parameter
+              name="paramA"
+              value={_.paramA}
+              id="Stroke"
+              min=".1"
+              max="10"
+              step=".5"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="paramB"
+              value={_.paramB}
+              id="Spacing"
+              min="10"
+              max="50"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="paramC"
+              value={_.paramC}
+              id="Random Size"
+              min="0"
+              max="100"
+              step="0"
+              handleParameter={handleParameter}
+            />
+            <Parameter
+              name="paramD"
+              value={_.paramD}
+              id="Color Balance"
+              min="0"
+              max="255"
+              step="0"
+              handleParameter={handleParameter}
+            />
+          </div>
         </div>
       </div>
-      <div className="mobile-parameters">
-        <div className="parameters-group">
-          <Parameter
-            name="paramA"
-            value={_.paramA}
-            id="Stroke"
-            min=".1"
-            max="10"
-            step=".5"
-            handleParameter={handleParameter}
-          />
-          <Parameter
-            name="paramB"
-            value={_.paramB}
-            id="Spacing"
-            min="10"
-            max="50"
-            step="0"
-            handleParameter={handleParameter}
-          />
-          <Parameter
-            name="paramC"
-            value={_.paramC}
-            id="Random Size"
-            min="0"
-            max="100"
-            step="0"
-            handleParameter={handleParameter}
-          />
-          <Parameter
-            name="paramD"
-            value={_.paramD}
-            id="Color Balance"
-            min="0"
-            max="255"
-            step="0"
-            handleParameter={handleParameter}
-          />
-        </div>
-      </div>
-    </div>
+    </>
   );
-};
-
-export default EditorMobile;
+}
