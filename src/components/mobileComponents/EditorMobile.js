@@ -16,6 +16,10 @@ import Logo from "../../images/logo-small-white.png";
 
 let iterator = 0;
 
+let rr = 0;
+let gg = 0;
+let bb = 0;
+
 const EditorMobile = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
@@ -71,7 +75,7 @@ const EditorMobile = (props) => {
     }
 
     if (startStop.start) {
-      p5.background(55);
+      p5.background(255, 20);
       p5.stroke(0);
       for (let i = 0; i < p5.width / 10; i++) {
         for (let j = 0; j < p5.width / 10; j++) {
@@ -85,6 +89,11 @@ const EditorMobile = (props) => {
           let g = p5.map(i, 0, 15, 100, _.paramD / 2);
           let b = p5.map(j, 0, 15, 100, _.paramD / 3);
           p5.fill(r, g, b);
+          p5.fill(
+            p5.random(0, _.paramD),
+            p5.random(0, 255) / 2.5,
+            p5.random(0, 255)
+          );
 
           p5.rect(x, y, d, d);
         }
@@ -128,7 +137,7 @@ const EditorMobile = (props) => {
           <Parameter
             name="paramA"
             value={_.paramA}
-            id="paramA"
+            id="Stroke"
             min=".1"
             max="10"
             step=".5"
@@ -137,25 +146,25 @@ const EditorMobile = (props) => {
           <Parameter
             name="paramB"
             value={_.paramB}
-            id="paramB"
-            min="2"
-            max="30"
+            id="Spacing"
+            min="10"
+            max="50"
             step="0"
             handleParameter={handleParameter}
           />
           <Parameter
             name="paramC"
             value={_.paramC}
-            id="paramC"
+            id="Random Size"
             min="0"
-            max="50"
+            max="100"
             step="0"
             handleParameter={handleParameter}
           />
           <Parameter
             name="paramD"
             value={_.paramD}
-            id="paramD"
+            id="Color Balance"
             min="0"
             max="255"
             step="0"
