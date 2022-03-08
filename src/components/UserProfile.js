@@ -19,23 +19,27 @@ const UserProfile = () => {
   // console.log(user)
   // console.log(user.username)
   console.log(user.sketch_ids)
-  
-  // useEffect(()=>{
-  //   getUrl()
-  //   console.log("hello")
-  // },[])
 
-
-  
-
-
-  const handleUnpublish = () => {
+  const handleUnpublish = async(id) => {
+      await axios
+      .put(`http://localhost:4000/api/sketch/${id}`, {
+        sketch_status: false
+      })
+      .then(res => console.log(res))
+      .catch((error) => console.log(error))
+      console.log("unpublish");
     
-
   }
   
-  const handlePublish = (e) => {
-  
+  const handlePublish = (id) => {
+    console.log("xxxxx")
+        // await axios
+        // .put(`http://localhost:4000/api/sketch/${id}`, {
+        //   sketch_status: true
+        // })
+        // .then(res => console.log(res))
+        // .then(console.log("publish"))
+        // .catch((error) => console.log(error))
 }
  
 
