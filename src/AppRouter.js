@@ -7,7 +7,7 @@ import Login from "./components/Login";
 import AlgoSelector from "./components/editorComponents/AlgoSelector";
 import Editor from "./components/editorComponents/Editor";
 import EditorMobile from "./components/mobileComponents/EditorMobile";
-import MobileEditor from "./components/mobileComponents/MobileEditor";
+
 import Community from "./components/Community";
 
 import UploadSketch from "./components/UploadSketch";
@@ -37,7 +37,7 @@ const AppRouter = () => {
           <Route path="/" element={<Home />} />
           <Route path="/editor" element={<Editor />} />
           <Route path="/editormobile" element={<EditorMobile />} />
-          <Route path="/mobile" element={<MobileEditor />} />
+
           <Route path="/community" element={<Community />} />
           {/* <Route path="/upload" element={<UploadSketch />} /> */}
           <Route path="/register" element={<Register />} />

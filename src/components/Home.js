@@ -26,7 +26,7 @@ const Home = () => {
           <Link to="/editor">
             <button className="button-home-big">make some art!</button>
           </Link>
-          <Link to="/mobile">
+          <Link to="/editormobile">
             <button className="button-home-mobile">make some art!??!</button>
           </Link>
         </div>
