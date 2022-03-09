@@ -8,15 +8,16 @@ import GalleryPlaceholder4 from "../images/gallery-placeholder4.png";
 import { UserContext } from "../contexts/UserContext";
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import ReactPaginate from 'react-paginate'
-
+import ReactPaginate from "react-paginate";
+import Pagination from "./Pagination";
 
 const Community = () => {
-  const [user, setUser] = useContext(UserContext)
-  const [sketches, setSketches] = useState([])
-  const [sketchesDisplayed, setSketchesDisplayed] = useState([])
+  const [user, setUser] = useContext(UserContext);
+  const [sketches, setSketches] = useState([]);
+  const [sketchesDisplayed, setSketchesDisplayed] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [pageCount, setPageCount] = useState(0);
+
   const [loading, setLoading] = useState(false)
   const sketchesPerPage = 20
 
@@ -38,62 +39,81 @@ const Community = () => {
   }
   console.log(data)
 
-  useEffect(()=>{
-    fetchSketches()
-  },[])
+  useEffect(() => {
+    fetchSketches();
+  }, []);
 
   useEffect(() => {
     setPageCount(Math.ceil(sketches.length / sketchesPerPage));
-    setSketchesDisplayed(sketches.reverse().slice(pageNumber, pageNumber + sketchesPerPage))
-  }, [sketches, pageNumber])
+    setSketchesDisplayed(
+      sketches.reverse().slice(pageNumber, pageNumber + sketchesPerPage)
+    );
+  }, [sketches, pageNumber]);
 
-  const handlePageChange = ({selected}) => {
+  const handlePageChange = ({ selected }) => {
     setPageNumber(selected * sketchesPerPage);
-  }
-  //console.log(sketches)
+  };
+  console.log(sketches);
+
   return (
     <>
       <div className="content-page">
         <div>
           <h1>Community artwork</h1>
           <h4>Most recent shown first:</h4>
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={4}
+            onPageChange={handlePageChange}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            pageRangeDisplayed={5}
+            previousClassName={"page-items"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"break-me"}
+            breakLinkClassName={"page-Link"}
+            activeClassName={"active"}
+          />
           <div className="community-grid">
-            {/* <CommunityCard artwork={GalleryPlaceholder1} title="Tan Clouds" />
-            <CommunityCard artwork={GalleryPlaceholder2} title="Weird Chess" />
-            <CommunityCard artwork={GalleryPlaceholder3} title="Bullseye!" />
-            <CommunityCard
-              artwork={GalleryPlaceholder4}
-              title="Spring in the City"
-            /> */}
-            <div>
-              {sketchesDisplayed && sketchesDisplayed
-                .map(sketch => {
-                  return(  
-                  <>
-                  <img style={{width:"300px", height:"auto"}} src={sketch.sketch_url}/>
-                  </>
-                )})} 
-            </div>
-            <ReactPaginate
-              previousLabel={"previous"}
-              nextLabel={"next"}
-              breakLabel={"..."}
-              pageCount={pageCount}
-              marginPagesDisplayed={4}
-              onPageChange={handlePageChange}
-              containerClassName={"pagination justify-content-center"}
-              pageClassName={"page-item"}
-              pageLinkClassName= {"page-link"}
-              pageRangeDisplayed={5}
-              previousClassName= {"page-items"}
-              previousLinkClassName={"page-link"}
-              nextClassName={"page-item"}
-              nextLinkClassName={"page-link"}
-              breakClassName={"break-me"}
-              breakLinkClassName={"page-Link"}
-              activeClassName={"active"}
-            />
+            {sketchesDisplayed &&
+              sketchesDisplayed.map((sketch) => {
+                return (
+                  <div className="community-grid-cell">
+                    <img src={sketch.sketch_url} />
+                    <div className="community-info-box">
+                      <p>
+                        Posted by <a href="x">userName</a>
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
+          <ReactPaginate
+            previousLabel={"previous-label"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={4}
+            onPageChange={handlePageChange}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            pageRangeDisplayed={5}
+            previousClassName={"page-items"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"break-me"}
+            breakLinkClassName={"page-Link"}
+            activeClassName={"active"}
+          />
         </div>
       </div>
     </>
