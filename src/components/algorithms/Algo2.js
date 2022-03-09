@@ -6,10 +6,16 @@ import Parameter from "../editorComponents/Parameter";
 import ParameterColor from "../editorComponents/ParameterColor";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
+import { UserContext } from "../../contexts/UserContext";
+// import { uploadImage } from "./SaveToCloud";
+import SaveToCloud from "../editorComponents/SaveToCloud";
+import Download from "../editorComponents/Download";
+
 const Algo2 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [wipe, setWipe] = useState(false);
   const [saveImage, setSaveImage] = useState(false);
+  const [user, setUser] = useContext(UserContext);
 
   const [refresh, setRefresh] = useContext(RefreshContext);
   const handleSaveImage = (e) => {
@@ -160,10 +166,14 @@ const Algo2 = (props) => {
           </div>
 
           <div className="canvas-utilities">
-            <Refresh />
-
-            <button onClick={handleSaveImage}>Download</button>
-            <StartStop />
+            <div>
+              <Download setSaveImage={setSaveImage} />
+              <SaveToCloud />
+            </div>
+            <div>
+              <Refresh />
+              <StartStop />
+            </div>
           </div>
         </div>
         <div className="parameters-right">

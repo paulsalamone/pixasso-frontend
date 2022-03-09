@@ -10,12 +10,14 @@ import { RefreshContext } from "../../contexts/RefreshContext";
 import Refresh from "../editorComponents/Refresh";
 import { HexColorPicker } from "react-colorful";
 import { UserContext } from "../../contexts/UserContext";
-// import {uploadImage} from "../editorComponents/SavetoCloud";
+// import { uploadImage } from "./SaveToCloud";
+import SaveToCloud from "../editorComponents/SaveToCloud";
+import Download from "../editorComponents/Download";
 
 const Algo1 = (props) => {
   //controls if p5 animation is running or not:
-  const [user, setUser] = useContext(UserContext)
-  console.log(user)
+  const [user, setUser] = useContext(UserContext);
+  console.log(user);
   const [startStop, setStartStop] = useContext(StartStopContext);
   const [refresh, setRefresh] = useContext(RefreshContext);
   //const [imageFile, setImageFile] = useState("")
@@ -27,11 +29,6 @@ const Algo1 = (props) => {
   useEffect(() => {
     setStartStop({ ...startStop, start: true });
   }, []);
-
-  // tells p5 if save button has been pressed
-  const handleSaveImage = (e) => {
-    setSaveImage(true);
-  };
 
   //sets state of all parameters
   const [_, set_] = useState({
@@ -180,9 +177,10 @@ const Algo1 = (props) => {
       p5.width - i * 20 - p5.random(0, sizeRange)
     );
   };
-  const uploadImage = async () => {
-        const image = document.getElementById("defaultCanvas0");
-        image.toBlob(async (blob) => {
+  const uploadImageOLD = async () => {
+    const image = document.getElementById("defaultCanvas0");
+    image.toBlob(
+      async (blob) => {
         const data = new FormData();
         data.append("file", blob);
         data.append("upload_preset", "sketch");
@@ -193,7 +191,7 @@ const Algo1 = (props) => {
           body: data,
         })
           .then((res) => res.json())
-          .then(async(data) => {
+          .then(async (data) => {
             console.log(data.url);
             let url = data.url;
             // setImageUrl(data.url);
@@ -203,14 +201,18 @@ const Algo1 = (props) => {
               
               })
 
-              .then((res) => 
-                  axios
-              .put(`http://localhost:4000/api/users/${user.id}`, {
-                sketch_ids : res.data._id
-              })
-              )      
+              .then((res) =>
+                axios.put(`http://localhost:4000/api/users/${user.id}`, {
+                  sketch_ids: res.data._id,
                 })
-              .then(res => console.log(res))
+//                 .put(`http://localhost:4000/api/sketch/${res.data._id}`,{
+//                   posted_by: user.id
+//                 })
+              )
+              
+              .then(res => console.log(res));
+
+          })
           .catch((err) => console.log(err));
 
                 // .put(`http://localhost:4000/api/sketch/${res.data.id}`,{
@@ -280,11 +282,15 @@ const Algo1 = (props) => {
             <Sketch setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
-            <button onClick={handleSaveImage}>Download to Desktop</button>
-            <button onClick={uploadImage}>Save to Cloud</button>
-            <Refresh />
+            <div>
+              <Download setSaveImage={setSaveImage} />
+              <SaveToCloud />
+            </div>
+            <div>
+              <Refresh />
 
-            <StartStop />
+              <StartStop />
+            </div>
           </div>
         </div>
         <div className="parameters-right">
