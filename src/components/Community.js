@@ -13,44 +13,46 @@ import ReactPaginate from 'react-paginate'
 
 const Community = () => {
   const [user, setUser] = useContext(UserContext)
-  const [sketches, setSketches] = useState([])
-  const [sketchesDisplayed, setSketchesDisplayed] = useState([])
+  const [usersDisplayed, setUsersDisplayed] = useState([])
   const [pageNumber, setPageNumber] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [loading, setLoading] = useState(false)
-  const sketchesPerPage = 20
-
-  const [data, setData] = useState([])
+  const usersPerPage = 6
+  const [users, setUsers] = useState([])
   
-  const fetchSketches = async () => {
+  const fetchUsers = async () => {
     setLoading(true);
     await axios
       .get(`http://localhost:4000/api/users/all`)
-      .then(res =>
-        setData(res.data)
-        // res.data.map(user => {
-        //   console.log(user.username)
-        //   user.sketch_ids.map(sketch => {
-        //     console.log(sketch.sketch_url)
-        //   })
-        // })
-        )
+      .then(res => {
+        // console.log(res.data)
+        setUsers(res.data)
+      })
+        setLoading(false)
+        console.log(users)
   }
-  console.log(data)
-
+  
   useEffect(()=>{
-    fetchSketches()
+    fetchUsers()
   },[])
 
   useEffect(() => {
-    setPageCount(Math.ceil(sketches.length / sketchesPerPage));
-    setSketchesDisplayed(sketches.reverse().slice(pageNumber, pageNumber + sketchesPerPage))
-  }, [sketches, pageNumber])
+    setPageCount(Math.ceil(users.length / usersPerPage));
+    let reverseList = users.reverse();
+    console.log(reverseList)
+    setUsersDisplayed(reverseList.slice(pageNumber, pageNumber + usersPerPage)) // 1,1+2----2,2+2
+  }, [users, pageNumber])
+
+
+  // return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+
+
 
   const handlePageChange = ({selected}) => {
-    setPageNumber(selected * sketchesPerPage);
+    setPageNumber(selected * usersPerPage);
   }
-  //console.log(sketches)
+  console.log(usersDisplayed)
+ 
   return (
     <>
       <div className="content-page">
@@ -65,15 +67,26 @@ const Community = () => {
               artwork={GalleryPlaceholder4}
               title="Spring in the City"
             /> */}
+          
+
             <div>
-              {sketchesDisplayed && sketchesDisplayed
-                .map(sketch => {
-                  return(  
+              {!loading && usersDisplayed.map(user =>{
+                {console.log(user.sketch_ids)}
+                return (
                   <>
-                  <img style={{width:"300px", height:"auto"}} src={sketch.sketch_url}/>
+                  <h1 style={{color:"red"}}>{user.username}</h1>
+                  { user.sketch_ids.slice(-3).map((sketch) =>{
+                    return(
+                      <img style={{width:"250px"}} src={sketch.sketch_url}/>
+                    )
+                  })
+                  }
                   </>
-                )})} 
+                )
+                })
+              }
             </div>
+            
             <ReactPaginate
               previousLabel={"previous"}
               nextLabel={"next"}

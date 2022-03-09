@@ -80,7 +80,7 @@ const UserProfile = () => {
       .catch((error) => console.log(error));
   }
 
-  console.log(user.sketch_ids)
+  //console.log(user.sketch_ids)
 
   const placeholderBio =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
@@ -129,7 +129,7 @@ const UserProfile = () => {
                           <button type="submit">Publish</button>
                           {/* <button onClick={handleDelete(element._id)} type="submit">Delete</button> */}
                         </form>
-                       
+                      
                       </div>
                     </>
                   );
