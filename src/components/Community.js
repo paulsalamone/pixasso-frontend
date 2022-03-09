@@ -12,11 +12,15 @@ import ReactPaginate from 'react-paginate'
 import {Link} from "react-router-dom"
 
 
+
 const Community = () => {
-  const [user, setUser] = useContext(UserContext)
   const [usersDisplayed, setUsersDisplayed] = useState([])
+  const [user, setUser] = useContext(UserContext);
+  const [sketches, setSketches] = useState([]);
+  const [sketchesDisplayed, setSketchesDisplayed] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [pageCount, setPageCount] = useState(0);
+
   const [loading, setLoading] = useState(false)
   const usersPerPage = 6
   const [users, setUsers] = useState([])
@@ -54,12 +58,32 @@ const Community = () => {
   }
   console.log(usersDisplayed)
  
+
   return (
     <>
       <div className="content-page">
         <div>
           <h1>Community artwork</h1>
           <h4>Most recent shown first:</h4>
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={4}
+            onPageChange={handlePageChange}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            pageRangeDisplayed={5}
+            previousClassName={"page-items"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"break-me"}
+            breakLinkClassName={"page-Link"}
+            activeClassName={"active"}
+          />
           <div className="community-grid">
             {/* <CommunityCard artwork={GalleryPlaceholder1} title="Tan Clouds" />
             <CommunityCard artwork={GalleryPlaceholder2} title="Weird Chess" />
@@ -112,7 +136,27 @@ const Community = () => {
               breakLinkClassName={"page-Link"}
               activeClassName={"active"}
             />
+
           </div>
+          <ReactPaginate
+            previousLabel={"previous-label"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={4}
+            onPageChange={handlePageChange}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            pageRangeDisplayed={5}
+            previousClassName={"page-items"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"break-me"}
+            breakLinkClassName={"page-Link"}
+            activeClassName={"active"}
+          />
         </div>
       </div>
     </>

@@ -11,6 +11,9 @@ import Refresh from "../editorComponents/Refresh";
 import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
 import ParameterColor from "../editorComponents/ParameterColor";
+import SaveToCloud from "../editorComponents/SaveToCloud";
+import Download from "../editorComponents/Download";
+import WipeScreen from "../editorComponents/WipeScreen";
 
 let r, g, b;
 let c1, c2;
@@ -59,11 +62,6 @@ const Algo3 = (props) => {
       ..._,
       [input.name]: input.value,
     });
-  };
-
-  const handleWipe = () => {
-    setWipe(!wipe);
-    // setRefresh(true);
   };
 
   let x = 400;
@@ -218,10 +216,16 @@ const Algo3 = (props) => {
             )} */}
           </div>
           <div className="canvas-utilities">
-            <button onClick={handleWipe}>Wipe Screen</button>
-            <Refresh />
-            <Save />
-            <StartStop />
+            {/* <button onClick={handleWipe}>Wipe Screen</button> */}
+            <div>
+              <Download />
+              <SaveToCloud />
+            </div>
+            <div>
+              <WipeScreen wipe={wipe} setWipe={setWipe} />
+              <Refresh />
+              <StartStop />
+            </div>
           </div>
         </div>
         <div className="parameters-right">

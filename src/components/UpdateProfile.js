@@ -8,15 +8,15 @@ const UserProfile = () => {
   const [profilePic, setProfilePic] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
   //const { userid } = useParams();
-  const [user, setUser] = useContext(UserContext)
-  console.log(user)
-//   const [user, setUser] = useState({
-//     username: "",
-//     email: "",
-//     password: "",
-//     profile_pic_url: "",
-//     biography: "",
-//   });
+  const [user, setUser] = useContext(UserContext);
+  console.log(user);
+  //   const [user, setUser] = useState({
+  //     username: "",
+  //     email: "",
+  //     password: "",
+  //     profile_pic_url: "",
+  //     biography: "",
+  //   });
 
   const uploadPic = async () => {
     const picData = new FormData();
@@ -35,18 +35,14 @@ const UserProfile = () => {
       });
   };
 
-
   const handleChange = ({ currentTarget: input }) => {
     setUser({ ...user, [input.name]: input.value });
   };
 
-
-
   const handleSubmit = async () => {
     await axios
       .put(`http://localhost:4000/api/users/${user.id}`, user, {
-        profile_pic_url: profilePicUrl
-
+        profile_pic_url: profilePicUrl,
       }) // profile_pic_url: profilePicUrl
 
       .then(console.log("picture saved"))
@@ -57,9 +53,8 @@ const UserProfile = () => {
   return (
     <>
       <div className="content-page">
-        <h4>update your settings:</h4>
-        <div className="profile-header">
-          <div className="profile-edit-image">
+        <h5>update your settings:</h5>
+        {/* <div className="profile-edit-image">
             <img
               src={profilePicUrl}
               alt="User Profile Picture"
@@ -74,50 +69,50 @@ const UserProfile = () => {
               className="input-file"
             />
             <button onClick={uploadPic}>Upload</button>
-          </div>
-          <div className="profile-info-box">
-            <h1>{user.username}</h1>
+          </div> */}
+        <div className="profile-info-box">
+          <h1>{user.username}</h1>
 
-            <div className="form-page">
-              <form onSubmit={handleSubmit}>
-                <h2>Basic Info</h2>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  value={user.username}
-                  required
-                  onChange={handleChange}
-                />
-                <button>Edit</button>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  value={user.email}
-                  required
-                  onChange={handleChange}
-                ></input>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={user.password}
-                  required
-                  // onChange= {handleChange}
-                ></input>
-                <h2>Biography</h2>
-                <textarea
-                  name="biography"
-                  value={user.biography}
-                  placeholder="Your Story....."
-                  rows="10"
-                  cols="50"
-                  onChange={handleChange}
-                ></textarea>
-                <button type="submit">Save Changes</button>
-              </form>
-            </div>
+          <div className="form-page">
+            <form onSubmit={handleSubmit}>
+              <h6>Basic Info</h6>
+              <input
+                type="text"
+                placeholder="Username"
+                name="username"
+                value={user.username}
+                required
+                onChange={handleChange}
+              />
+              <button>Edit</button>
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={user.email}
+                required
+                onChange={handleChange}
+              ></input>
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={user.password}
+                required
+                // onChange= {handleChange}
+              ></input>
+              <h2>Biography</h2>
+              <textarea
+                name="biography"
+                value={user.biography}
+                placeholder="Your Story....."
+                rows="10"
+                cols="50"
+                onChange={handleChange}
+                style={{ color: "black", padding: "8px", fontSize: "1.2rem" }}
+              ></textarea>
+              <button type="submit">Save Changes</button>
+            </form>
           </div>
         </div>
       </div>
