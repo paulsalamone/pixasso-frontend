@@ -78,9 +78,8 @@ const UserProfile = () => {
     window.location.reload();
   };
 
-  const openModal = () => {
-    setShowModal((prev) => !prev);
-  };
+  //console.log(user.sketch_ids)
+
 
   return (
     <div className="content-page" style={{ zIndex: "0" }}>
@@ -137,6 +136,7 @@ const UserProfile = () => {
                             </button>
                           </div>
                         </form>
+
                       </div>
                     </>
                   );
