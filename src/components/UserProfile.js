@@ -24,11 +24,11 @@ const UserProfile = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwt_decode(token);
-      console.log(decoded);
+      //console.log(decoded);
       axios
         .get(`http://localhost:4000/api/users/${decoded.user._id}`)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           setUser({
             id: res.data._id,
             username: res.data.username,
@@ -41,7 +41,7 @@ const UserProfile = () => {
     }
   };
 
-  console.log(user);
+  // console.log(user);
 
   const handlePublish = async (e) => {
     e.preventDefault();
@@ -66,6 +66,21 @@ const UserProfile = () => {
       .catch((error) => console.log(error));
     window.location.reload();
   };
+
+
+  const handleDelete = async (e, id) =>{
+    e.preventDefault();
+    console.log(id)
+    await axios
+      .delete(`http://localhost:4000/api/sketch/${id}`)
+      
+        user.sketch_ids.pop(id)
+      .then(res => console.log(res))
+     // .then(console.log("deleted"))
+      .catch((error) => console.log(error));
+  }
+
+  console.log(user.sketch_ids)
 
   const placeholderBio =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
@@ -112,7 +127,9 @@ const UserProfile = () => {
                             style={{ display: "none" }}
                           ></input>
                           <button type="submit">Publish</button>
+                          {/* <button onClick={handleDelete(element._id)} type="submit">Delete</button> */}
                         </form>
+                       
                       </div>
                     </>
                   );

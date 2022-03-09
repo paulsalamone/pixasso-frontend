@@ -3,7 +3,6 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import defaultPic from "../images/profilepic.jpg";
 import { UserContext } from "../contexts/UserContext";
-//import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
   const [profilePic, setProfilePic] = useState("");
