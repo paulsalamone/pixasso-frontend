@@ -1,6 +1,7 @@
 import BigLogo from "../images/logo-large-home-tagline.png";
 import "../styles/home.css";
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
+
 const Home = () => {
   return (
     <div className="home-page">
@@ -25,8 +26,8 @@ const Home = () => {
           <Link to="/editor">
             <button className="button-home-big">make some art!</button>
           </Link>
-          <Link to="/editor-mobile">
-            <button className="button-home-mobile">make some art!!!!</button>
+          <Link to="/editormobile">
+            <button className="button-home-mobile">make some art!??!</button>
           </Link>
         </div>
       </div>

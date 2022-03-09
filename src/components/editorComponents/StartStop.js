@@ -1,5 +1,7 @@
 import { StartStopContext } from "../../contexts/StartStopContext";
 import { useState, useEffect, useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStop, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 const StartStop = () => {
   const [startStop, setStartStop] = useContext(StartStopContext);
@@ -22,7 +24,13 @@ const StartStop = () => {
     <div className="start-stop">
       <p>
         {/* Animation: */}
-        <button onClick={startHandler}>Start / Stop</button>{" "}
+        <button onClick={startHandler}>
+          <FontAwesomeIcon
+            icon={faPlay}
+            style={{ opacity: 0.5, marginRight: "5px" }}
+          />
+          Start / Stop
+        </button>{" "}
       </p>
     </div>
   );

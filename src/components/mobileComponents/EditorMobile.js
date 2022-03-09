@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Sketch from "react-p5";
 import Parameter from "../editorComponents/Parameter";
 import ParameterColor from "../editorComponents/ParameterColor";
+import ParameterMobile from "./ParameterMobile";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import StartStop from "../editorComponents/StartStop";
 import axios from "axios";
@@ -13,6 +14,14 @@ import Refresh from "../editorComponents/Refresh";
 import { HexColorPicker } from "react-colorful";
 import Save from "../editorComponents/Save";
 import Logo from "../../images/logo-small-white.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faDownload,
+  faPlay,
+  faHome,
+  faPen,
+} from "@fortawesome/free-solid-svg-icons";
 
 let iterator = 0;
 
@@ -58,7 +67,7 @@ const EditorMobile = (props) => {
   }, [refresh]);
 
   const setup = (p5, canvasParentRef) => {
-    canvas = p5.createCanvas(300, 300).parent(canvasParentRef);
+    canvas = p5.createCanvas(350, 250).parent(canvasParentRef);
     // canvas.parent("artwork");
     p5.background(55);
     p5.rectMode(p5.CENTER);
@@ -111,66 +120,74 @@ const EditorMobile = (props) => {
     <div className="mobile-editor-main">
       <header>
         {" "}
-        <a onClick={handleBack}>back</a>
         <img
           src={Logo}
           alt="small white pixasso logo"
           className="mobile-logo"
+          onClick={handleBack}
         />
-        <p style={{ color: "black" }}>back</p>
+        <button onClick={handleBack} className="back-button">
+          <FontAwesomeIcon icon={faHome} />
+        </button>
+        {/* <button onClick={handleBack} className="back-button">
+          <FontAwesomeIcon icon={faHome} style={{ opacity: "0" }} />
+        </button> */}
       </header>
-      <h3>Algorithm: MobileAlgo</h3>
+      {/* <h3>Algorithm: MobileAlgo</h3> */}
       <div className="mobile-canvas">
-        <div className="artwork">
-          <Sketch setup={setup} draw={draw} className="x" />
-        </div>
-        <div className="canvas-utilities">
-          {/* <Refresh /> */}
-          <button onClick={handleSaveImage}>Download</button>
-          {/* <button onClick={uploadImage}>Save to Cloud</button> */}
-          {/* <Save /> */}
-          <StartStop />
+        <div className="mobile-artwork">
+          <Sketch setup={setup} draw={draw} className="mobile-x" />
+          <div className="canvas-utilities">
+            {/* <Refresh /> */}
+            <StartStop />
+
+            <button onClick={handleSaveImage}>
+              <FontAwesomeIcon
+                icon={faDownload}
+                className="mobile-utility-button"
+              />
+              Download
+            </button>
+          </div>
         </div>
       </div>
       <div className="mobile-parameters">
-        <div className="parameters-group">
-          <Parameter
-            name="paramA"
-            value={_.paramA}
-            id="Stroke"
-            min=".1"
-            max="10"
-            step=".5"
-            handleParameter={handleParameter}
-          />
-          <Parameter
-            name="paramB"
-            value={_.paramB}
-            id="Spacing"
-            min="10"
-            max="50"
-            step="0"
-            handleParameter={handleParameter}
-          />
-          <Parameter
-            name="paramC"
-            value={_.paramC}
-            id="Random Size"
-            min="0"
-            max="100"
-            step="0"
-            handleParameter={handleParameter}
-          />
-          <Parameter
-            name="paramD"
-            value={_.paramD}
-            id="Color Balance"
-            min="0"
-            max="255"
-            step="0"
-            handleParameter={handleParameter}
-          />
-        </div>
+        <ParameterMobile
+          name="paramA"
+          value={_.paramA}
+          id="Stroke"
+          min=".1"
+          max="10"
+          step=".5"
+          handleParameter={handleParameter}
+        />
+        <ParameterMobile
+          name="paramB"
+          value={_.paramB}
+          id="Spacing"
+          min="10"
+          max="50"
+          step="0"
+          handleParameter={handleParameter}
+        />
+        <ParameterMobile
+          name="paramC"
+          value={_.paramC}
+          id="Random Size"
+          min="0"
+          max="100"
+          step="0"
+          handleParameter={handleParameter}
+        />
+        <ParameterMobile
+          name="paramD"
+          value={_.paramD}
+          id="Color Balance"
+          min="0"
+          max="255"
+          step="0"
+          handleParameter={handleParameter}
+        />
       </div>
     </div>
   );
