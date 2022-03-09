@@ -1,42 +1,50 @@
 import { useState, useContext, useEffect } from "react";
-import Community from "../components/Community";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 import defaultPic from "../images/profilepic.jpg";
-// import GalleryPlaceholder1 from "../images/gallery-placeholder1.png";
-// import GalleryPlaceholder2 from "../images/gallery-placeholder2.png";
-// import GalleryPlaceholder3 from "../images/gallery-placeholder3.png";
-// import GalleryPlaceholder4 from "../images/gallery-placeholder4.png";
-
-
-import { UserContext } from "../contexts/UserContext";
 
 const UserProfile = () => {
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
-  const [user, setUser] = useContext(UserContext);
- console.log(user)
 
-  const handleUnpublish = async(e) => {
-    e.preventDefault()
-    console.log(e.target.sketchid.value)
-    //user.sketch_ids.filter(sketch =>sketch._id=== e.target.sketchid.value )
-    
-    // console.log(user.sketch_ids.filter(sketch =>sketch._id=== e.target.sketchid.value ))
-    await axios
-    .put(`http://localhost:4000/api/sketch/${e.target.sketchid.value}`, {
-      sketch_status: false
-    })
-    .then(res => console.log(res))
-    .catch((error) => console.log(error))
-    console.log("unpublish");
-    
-  }
-  
-  const handlePublish = async(e) => {
+  const [user, setUser] = useState({
+    id: "",
+    username: "",
+    email: "",
+    password: "",
+    profile_pic_url: "",
+    biography: "",
+    sketch_ids: [],
+  });
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwt_decode(token);
+      console.log(decoded);
+      axios
+        .get(`http://localhost:4000/api/users/${decoded.user._id}`)
+        .then((res) => {
+          console.log(res);
+          setUser({
+            id: res.data._id,
+            username: res.data.username,
+            email: res.data.email,
+            password: res.data.password,
+            biography: res.data.biography,
+            sketch_ids: res.data.sketch_ids,
+          });
+        });
+    }
+  };
+
+  console.log(user);
+
+  const handlePublish = async (e) => {
     e.preventDefault();
-    
-
     await axios
       .put(`http://localhost:4000/api/sketch/${e.target.sketchid.value}`, {
         sketch_status: true,
@@ -44,8 +52,8 @@ const UserProfile = () => {
       .then((res) => console.log(res))
       .then(console.log("publish"))
       .catch((error) => console.log(error));
-}
-
+    window.location.reload();
+  };
 
   const handleUnpublish = async (e) => {
     e.preventDefault();
@@ -56,10 +64,11 @@ const UserProfile = () => {
       .then((res) => console.log(res))
       .then(console.log("publish"))
       .catch((error) => console.log(error));
+    window.location.reload();
   };
 
   const placeholderBio =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   return (
     <div className="content-page">
       <h4>artist profile</h4>
@@ -85,12 +94,11 @@ const UserProfile = () => {
         <div className="gallery-section">
           <h2>Unpublished Sketches</h2>
           <div className="gallery-grid">
-
-
-
-          {user.sketch_ids &&
+            {user.sketch_ids &&
               user.sketch_ids
                 .filter((sketch) => sketch.sketch_status === false)
+                .reverse()
+
                 .map((element) => {
                   return (
                     <>
@@ -109,19 +117,17 @@ const UserProfile = () => {
                     </>
                   );
                 })}
-
-                  </div>
+          </div>
         </div>
 
         <div className="gallery-section">
           <h2>Published Sketches</h2>
           <div className="gallery-grid">
-
-            
-
             {user.sketch_ids &&
               user.sketch_ids
                 .filter((sketch) => sketch.sketch_status === true)
+                .reverse()
+
                 .map((element) => {
                   return (
                     <>
@@ -143,8 +149,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-
-</div>
+    </div>
   );
 };
 
