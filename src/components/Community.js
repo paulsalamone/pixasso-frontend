@@ -8,8 +8,10 @@ import GalleryPlaceholder4 from "../images/gallery-placeholder4.png";
 import { UserContext } from "../contexts/UserContext";
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
-import Pagination from "./Pagination";
+import ReactPaginate from 'react-paginate'
+import {Link} from "react-router-dom"
+
+
 
 const Community = () => {
   const [usersDisplayed, setUsersDisplayed] = useState([])
@@ -97,10 +99,15 @@ const Community = () => {
                 {console.log(user.sketch_ids)}
                 return (
                   <>
-                  <h1 style={{color:"red"}}>{user.username}</h1>
+                  <Link to="/profile" style={{color:"red"}}>{user.username}</Link>
                   { user.sketch_ids.slice(-3).map((sketch) =>{
                     return(
-                      <img style={{width:"250px"}} src={sketch.sketch_url}/>
+                      <div>
+                        {!sketch.sketch_status &&
+                        //<h1>hello</h1>
+                        <img style={{width:"250px"}} src={sketch.sketch_url}/>
+                        }
+                      </div>
                     )
                   })
                   }
