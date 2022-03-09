@@ -3,12 +3,12 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import defaultPic from "../images/profilepic.jpg";
 import { UserContext } from "../contexts/UserContext";
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
   const [profilePic, setProfilePic] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
-  const { userid } = useParams();
+  //const { userid } = useParams();
   const [user, setUser] = useContext(UserContext)
   console.log(user)
 //   const [user, setUser] = useState({
@@ -36,32 +36,19 @@ const UserProfile = () => {
       });
   };
 
-//   const getProfile = () => {
-//     const token = localStorage.token;
-//     console.log(token);
-//     const decoded = jwt_decode(token);
-//     console.log(decoded);
-//     setUser({
-//       id: decoded.user._id,
-//       username: decoded.user.username,
-//       email: decoded.user.email,
-//       password: decoded.user.password,
-//       biography: decoded.user.biography,
-//       profile_pic_url: profilePicUrl,
-//     });
-//   };
-
-//   useEffect(() => {
-//     getProfile();
-//   }, []);
 
   const handleChange = ({ currentTarget: input }) => {
     setUser({ ...user, [input.name]: input.value });
   };
 
+
+
   const handleSubmit = async () => {
     await axios
-      .post(`http://localhost:4000/api/users/${userid}`, user) // profile_pic_url: profilePicUrl
+      .put(`http://localhost:4000/api/users/${user.id}`, user, {
+        profile_pic_url: profilePicUrl
+
+      }) // profile_pic_url: profilePicUrl
 
       .then(console.log("picture saved"))
 
