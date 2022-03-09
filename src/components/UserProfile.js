@@ -86,18 +86,7 @@ const UserProfile = () => {
           <h2>Unpublished Sketches</h2>
           <div className="gallery-grid">
 
-//             {user.sketch_ids && user.sketch_ids
-//           .filter(sketch =>sketch.sketch_status=== false)
-//           .map(element => {
-//               return (
-//                 <>
-//                 <div className="gallery-cell">
-//                     <img src={element.sketch_url} />
-//                     <button onClick={handlePublish}>Publish</button>
-//                   </div>                  
-//                 </>
-//               )
-//           })}
+
 
           {user.sketch_ids &&
               user.sketch_ids
@@ -127,31 +116,8 @@ const UserProfile = () => {
         <div className="gallery-section">
           <h2>Published Sketches</h2>
           <div className="gallery-grid">
-//           {user.sketch_ids && user.sketch_ids
-//           .filter(sketch =>sketch.sketch_status=== true)
-//           .map(element => {
-//               return (
-//                 <>
-//                   <div className="gallery-cell">
-//                     <form onSubmit={handleUnpublish}>
-//                       <img src={element.sketch_url} />
-//                       <input
-//                         name="sketchid"
-//                         type="text"
-//                         value={element._id}
-//                         style={{ display: "none" }}
-//                       />
-//                       <button type="submit">Unpublish</button>
-//                     </form>
-//                   </div>
-                  
-//                 </>
-//               )
-//           })}
+
             
-//             </div>
-//             </div>
-//       </div>
 
             {user.sketch_ids &&
               user.sketch_ids
