@@ -34,46 +34,45 @@ const Nav = () => {
   return (
     <>
       <>
-      <nav>
-        <div className="top-nav-left">
-          <div>
-            <Link to="/">
-              <img
-                src={Logo}
-                alt="small white pixasso logo"
-                className="nav-logo"
-              />
-            </Link>
-            <Link to="/editor">Editor</Link>
+        <nav>
+          <div className="top-nav-left">
+            <div>
+              <Link to="/">
+                <img
+                  src={Logo}
+                  alt="small white pixasso logo"
+                  className="nav-logo"
+                />
+              </Link>
+              <Link to="/editor">Editor</Link>
+            </div>
           </div>
-        </div>
-        <div className="top-nav-controls">
-          <Routes>
-            <Route path="/editor" element={<AlgoSelector />} />
-          </Routes>
-        </div>
-
-        {user && user ? (
-          <div className="top-nav-right">
-      
-            <Link to="/community">Community</Link>
-              
-            <Link to="/profile">{user}</Link>
-
-            <Link to="/update">Settings</Link>
-
-            <Link to="/register">
-              <a onClick={handleClick}>Logout</a>
-            </Link>
+          <div className="top-nav-controls">
+            <Routes>
+              <Route path="/editor" element={<AlgoSelector />} />
+            </Routes>
           </div>
-        ) : (
-          <div className="top-nav-right">
-            <Link to="/register">Register</Link>
-            <Link to="/login">Login</Link>
-          </div>
-        )}
-      </nav>
-    </>
+
+          {user && user ? (
+            <div className="top-nav-right">
+              <Link to="/community">Community</Link>
+
+              <Link to="/profile">{user}</Link>
+
+              <Link to="/update">Settings</Link>
+
+              <Link to="/register">
+                <a onClick={handleClick}>Logout</a>
+              </Link>
+            </div>
+          ) : (
+            <div className="top-nav-right">
+              <Link to="/register">Register</Link>
+              <Link to="/login">Login</Link>
+            </div>
+          )}
+        </nav>
+      </>
     </>
   );
 };

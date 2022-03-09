@@ -11,6 +11,9 @@ import Refresh from "../editorComponents/Refresh";
 import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
 import ParameterColor from "../editorComponents/ParameterColor";
+import SaveToCloud from "../editorComponents/SaveToCloud";
+import WipeScreen from "../editorComponents/WipeScreen";
+import Download from "../editorComponents/Download";
 
 let r, g, b;
 let c1, c2;
@@ -212,10 +215,15 @@ const Algo6 = (props) => {
             <SketchHost wipe={wipe} className="x" setup={setup} draw={draw} />
           </div>
           <div className="canvas-utilities">
-            <button onClick={handleWipe}>Wipe Screen</button>
-            <Refresh />
-            <Save />
-            <StartStop />
+            <div>
+              <Download />
+              <SaveToCloud />
+            </div>
+            <div>
+              <WipeScreen wipe={wipe} setWipe={setWipe} />
+              <Refresh />
+              <StartStop />
+            </div>
           </div>
         </div>
         <div className="parameters-right">
