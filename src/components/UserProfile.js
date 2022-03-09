@@ -24,11 +24,11 @@ const UserProfile = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwt_decode(token);
-      console.log(decoded);
+      //console.log(decoded);
       axios
         .get(`http://localhost:4000/api/users/${decoded.user._id}`)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           setUser({
             id: res.data._id,
             username: res.data.username,
@@ -41,7 +41,7 @@ const UserProfile = () => {
     }
   };
 
-  console.log(user);
+  // console.log(user);
 
   const handlePublish = async (e) => {
     e.preventDefault();
@@ -67,32 +67,54 @@ const UserProfile = () => {
     window.location.reload();
   };
 
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    console.log(id);
+    await axios.delete(`http://localhost:4000/api/sketch/${id}`);
+
+    user.sketch_ids
+      .pop(id)
+      .then((res) => console.log(res))
+      // .then(console.log("deleted"))
+      .catch((error) => console.log(error));
+  };
+
+  console.log(user.sketch_ids);
+
   const placeholderBio =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   return (
     <div className="content-page">
-      <h4>artist profile</h4>
+      <h5>artist profile</h5>
       <div className="profile-header">
-        <img
+        {/* <img
           src={profilePicUrl}
           alt="User Profile Picture"
           height="300px"
           width="300px"
           borderRadius="50px"
           className="profile-pic"
-        />
-        <div className="profile-info-box">
-          <h1>{user.username}</h1>
+        /> */}
+        <div className="profile-info-box" style={{ marginBottom: "45px" }}>
+          <h1
+            style={{
+              borderBottom: "1px solid grey",
+              paddingBottom: "4px",
+              marginBottom: "15px",
+            }}
+          >
+            {user.username}
+          </h1>
           {/* <h1>hello</h1> */}
           {/* <p>Email: {user.user.email}</p> */}
-          <h3>Artist Statement:</h3>
-          <p>{placeholderBio}</p>
+          <h6>Artist Statement:</h6>
+          <p>{user.biography}</p>
         </div>
       </div>
 
       <div className="gallery">
         <div className="gallery-section">
-          <h2>Unpublished Sketches</h2>
+          <h3>Unpublished Sketches</h3>
           <div className="gallery-grid">
             {user.sketch_ids &&
               user.sketch_ids
@@ -112,6 +134,7 @@ const UserProfile = () => {
                             style={{ display: "none" }}
                           ></input>
                           <button type="submit">Publish</button>
+                          {/* <button onClick={handleDelete(element._id)} type="submit">Delete</button> */}
                         </form>
                       </div>
                     </>
@@ -121,7 +144,7 @@ const UserProfile = () => {
         </div>
 
         <div className="gallery-section">
-          <h2>Published Sketches</h2>
+          <h3>Published Sketches</h3>
           <div className="gallery-grid">
             {user.sketch_ids &&
               user.sketch_ids

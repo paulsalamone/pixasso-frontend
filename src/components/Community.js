@@ -17,23 +17,27 @@ const Community = () => {
   const [sketchesDisplayed, setSketchesDisplayed] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const sketchesPerPage = 20;
 
+  const [loading, setLoading] = useState(false)
+  const sketchesPerPage = 20
+
+  const [data, setData] = useState([])
+  
   const fetchSketches = async () => {
     setLoading(true);
     await axios
-      .get(`http://localhost:4000/api/sketch/all`)
-      .then((res) => {
-        console.log(res);
-        setSketches(res.data.filter((sketch) => sketch));
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  };
+      .get(`http://localhost:4000/api/users/all`)
+      .then(res =>
+        setData(res.data)
+        // res.data.map(user => {
+        //   console.log(user.username)
+        //   user.sketch_ids.map(sketch => {
+        //     console.log(sketch.sketch_url)
+        //   })
+        // })
+        )
+  }
+  console.log(data)
 
   useEffect(() => {
     fetchSketches();
@@ -50,6 +54,7 @@ const Community = () => {
     setPageNumber(selected * sketchesPerPage);
   };
   console.log(sketches);
+
   return (
     <>
       <div className="content-page">
