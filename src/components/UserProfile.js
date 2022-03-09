@@ -6,6 +6,7 @@ import defaultPic from "../images/profilepic.jpg";
 
 const UserProfile = () => {
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
+  const [toDelete, setToDelete] = useState();
 
   const [user, setUser] = useState({
     id: "",
@@ -69,32 +70,26 @@ const UserProfile = () => {
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
-    console.log(id);
-    await axios.delete(`http://localhost:4000/api/sketch/${id}`);
+    console.log(e.target.sketchid);
+    await axios
+      .delete(`http://localhost:4000/api/sketch/${id}`)
 
-    user.sketch_ids
-      .pop(id)
+      // user.sketch_ids
+      //   .pop(id)
       .then((res) => console.log(res))
-      // .then(console.log("deleted"))
       .catch((error) => console.log(error));
+    window.location.reload();
   };
 
   console.log(user.sketch_ids);
 
   const placeholderBio =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
   return (
     <div className="content-page">
       <h5>artist profile</h5>
       <div className="profile-header">
-        {/* <img
-          src={profilePicUrl}
-          alt="User Profile Picture"
-          height="300px"
-          width="300px"
-          borderRadius="50px"
-          className="profile-pic"
-        /> */}
         <div className="profile-info-box" style={{ marginBottom: "45px" }}>
           <h1
             style={{
@@ -105,8 +100,7 @@ const UserProfile = () => {
           >
             {user.username}
           </h1>
-          {/* <h1>hello</h1> */}
-          {/* <p>Email: {user.user.email}</p> */}
+
           <h6>Artist Statement:</h6>
           <p>{user.biography}</p>
         </div>
@@ -114,7 +108,8 @@ const UserProfile = () => {
 
       <div className="gallery">
         <div className="gallery-section">
-          <h3>Unpublished Sketches</h3>
+          <h3>Unpublished Sketches 2</h3>
+
           <div className="gallery-grid">
             {user.sketch_ids &&
               user.sketch_ids
@@ -124,17 +119,24 @@ const UserProfile = () => {
                 .map((element) => {
                   return (
                     <>
-                      <div className="gallery-cell">
+                      <div className="gallery-cell" key={element._id}>
                         <form onSubmit={handlePublish}>
                           <img src={element.sketch_url} />
-                          <input
-                            name="sketchid"
-                            type="text"
-                            value={element._id}
-                            style={{ display: "none" }}
-                          ></input>
-                          <button type="submit">Publish</button>
-                          {/* <button onClick={handleDelete(element._id)} type="submit">Delete</button> */}
+                          <div>
+                            <input
+                              name="sketchid"
+                              type="text"
+                              value={element._id}
+                              style={{ display: "none" }}
+                            ></input>
+                            <button type="submit">Publish</button>
+                            <button
+                              onClick={(e) => handleDelete(e, element._id)}
+                              type="submit"
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </>
@@ -163,7 +165,15 @@ const UserProfile = () => {
                             value={element._id}
                             style={{ display: "none" }}
                           ></input>
-                          <button type="submit">Unpublish</button>
+                          <div>
+                            <button type="submit">Unpublish</button>
+                            <button
+                              onClick={(e) => handleDelete(e, element._id)}
+                              type="submit"
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </>
