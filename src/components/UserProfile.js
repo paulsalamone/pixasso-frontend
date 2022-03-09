@@ -8,7 +8,6 @@ import defaultPic from "../images/profilepic.jpg";
 // import GalleryPlaceholder2 from "../images/gallery-placeholder2.png";
 // import GalleryPlaceholder3 from "../images/gallery-placeholder3.png";
 // import GalleryPlaceholder4 from "../images/gallery-placeholder4.png";
-import { UserContext } from "../contexts/UserContext";
 
 
 import { UserContext } from "../contexts/UserContext";
