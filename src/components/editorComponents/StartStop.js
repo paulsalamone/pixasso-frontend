@@ -21,18 +21,13 @@ const StartStop = () => {
   };
 
   return (
-    <div className="start-stop">
-      <p>
-        {/* Animation: */}
-        <button onClick={startHandler}>
-          <FontAwesomeIcon
-            icon={faPlay}
-            style={{ opacity: 0.5, marginRight: "5px" }}
-          />
-          Start / Stop
-        </button>{" "}
-      </p>
-    </div>
+    <>
+      {/* Animation: */}
+      <button onClick={startHandler}>
+        <FontAwesomeIcon icon={faPlay} className="fa-icon" />
+        Start / Stop
+      </button>
+    </>
   );
 };
 
