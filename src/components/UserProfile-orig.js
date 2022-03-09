@@ -1,12 +1,12 @@
-import { ImageViewer } from "react-image-viewer-dv";
-
 import { useState, useContext, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import Modal from "./Modal1";
+
+import defaultPic from "../images/profilepic.jpg";
 
 const UserProfile = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
+  const [toDelete, setToDelete] = useState();
 
   const [user, setUser] = useState({
     id: "",
@@ -25,6 +25,7 @@ const UserProfile = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwt_decode(token);
+      //console.log(decoded);
       axios
         .get(`http://localhost:4000/api/users/${decoded.user._id}`)
         .then((res) => {
@@ -40,6 +41,8 @@ const UserProfile = () => {
         });
     }
   };
+
+  // console.log(user);
 
   const handlePublish = async (e) => {
     e.preventDefault();
@@ -78,12 +81,13 @@ const UserProfile = () => {
     window.location.reload();
   };
 
-  const openModal = () => {
-    setShowModal((prev) => !prev);
-  };
+  console.log(user.sketch_ids);
+
+  const placeholderBio =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
   return (
-    <div className="content-page" style={{ zIndex: "0" }}>
+    <div className="content-page">
       <h5>artist profile</h5>
       <div className="profile-header">
         <div className="profile-info-box" style={{ marginBottom: "45px" }}>
@@ -117,10 +121,7 @@ const UserProfile = () => {
                     <>
                       <div className="gallery-cell" key={element._id}>
                         <form onSubmit={handlePublish}>
-                          <ImageViewer>
-                            <img src={element.sketch_url} alt="pixasso art" />
-                          </ImageViewer>
-
+                          <img src={element.sketch_url} />
                           <div>
                             <input
                               name="sketchid"
