@@ -198,13 +198,19 @@ const Algo1 = (props) => {
             await axios
               .post("http://localhost:4000/api/sketch/upload", {
                 sketch_url: url,
+                // posted_by:user.id
               })
               .then((res) =>
                 axios.put(`http://localhost:4000/api/users/${user.id}`, {
                   sketch_ids: res.data._id,
                 })
+                .put(`http://localhost:4000/api/sketch/${res.data._id}`,{
+                  posted_by: user.id
+                })
               )
-              .then((res) => console.log(res));
+              
+              .then(res => console.log(res));
+
           })
           .catch((err) => console.log(err));
 
