@@ -28,6 +28,7 @@ const Nav = () => {
     e.preventDefault();
     localStorage.removeItem("token");
     console.log("bye bye");
+    window.location.reload();
   };
 
   return (

@@ -1,6 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const UserContext = createContext();
 
@@ -24,14 +25,19 @@ export const UserController = (props) => {
     if (token) {
         const decoded = jwt_decode(token);
         console.log(decoded);
-        setUser({
-            id: decoded.user._id,
-            username: decoded.user.username,
-            email: decoded.user.email,
-            password: decoded.user.password,
-            biography:decoded.user.biography,
-            sketch_ids:decoded.user.sketch_ids
+        axios.get(`http://localhost:4000/api/users/${decoded.user._id}`)
+        .then(res=> {
+            console.log(res)
+            setUser({
+                    id: res.data._id,
+                    username: res.data.username,
+                    email: res.data.email,
+                    password: res.data.password,
+                    biography:res.data.biography,
+                    sketch_ids:res.data.sketch_ids
+                })
         })
+            
     } else {
         navigate("/register");
     }

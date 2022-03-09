@@ -37,7 +37,8 @@ const Login = () => {
       if (error.response && error.resposne.status === 400) {
         setError(error.response.messege);
       }
-    }
+    };
+    window.location.reload();
   };
   console.log(user);
   return (
