@@ -14,6 +14,12 @@ import { BackgroundContext } from "../../contexts/BackgroundContext";
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
 import { ChromePicker } from "react-color";
 import BrushSize from "../editorComponents/BrushSize";
+import SaveToCloud from "../editorComponents/SaveToCloud";
+import WipeScreen from "../editorComponents/WipeScreen";
+import Download from "../editorComponents/Download";
+
+//RINGS
+let ring, angle, step;
 
 const Algo4 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
@@ -91,9 +97,6 @@ const Algo4 = (props) => {
     setRefresh(true);
   };
 
-  //HALO:
-  let r, angle, step;
-
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(800, 500).parent(canvasParentRef);
     p5.background(255);
@@ -104,12 +107,14 @@ const Algo4 = (props) => {
       console.log("Background image:" + img);
     });
 
-    r = 20;
+    //RINGS
+    ring = 30;
     angle = 0;
-    step = p5.TWO_PI / 20;
+    step = p5.TWO_PI / 18;
   };
 
   console.log(brushChoice);
+
   function draw(p5) {
     let alphaNum = p5.map(color.a, 0, 1, 0, 255);
 
@@ -128,139 +133,140 @@ const Algo4 = (props) => {
       }
 
       if (brushChoice === "pixel") {
-        p5.fill(color.r, color.g, color.b, alphaNum);
-        // p5.stroke(color.r, color.g, color.b, alphaNum);
+        p5.rectMode(p5.CENTER);
+        p5.fill(
+          color.r + p5.random(20),
+          color.g + p5.random(20),
+          color.b + p5.random(20),
+          alphaNum
+        );
 
         p5.noStroke();
-        p5.square(p5.mouseX, p5.mouseY, _.brushSize);
-        // p5.fill(color, 1/0);
-        p5.square(
-          p5.mouseX + p5.random(-15, 15),
-          p5.mouseY + p5.random(-15, 15),
+        p5.rect(p5.mouseX, p5.mouseY, _.brushSize);
+        p5.rect(
+          p5.mouseX + p5.random(-_.brushSize, _.brushSize),
+          p5.mouseY + p5.random(-_.brushSize, _.brushSize),
           _.brushSize / 2
         );
-        p5.square(
-          p5.mouseX + p5.random(-25, 25),
-          p5.mouseY + p5.random(-25, 25),
+        p5.fill(
+          color.r + p5.random(20),
+          color.g + p5.random(20),
+          color.b + p5.random(20),
+          alphaNum - 120
+        );
+        p5.rect(
+          p5.mouseX + p5.random(-_.brushSize * 2, _.brushSize * 2),
+          p5.mouseY + p5.random(-_.brushSize * 2, _.brushSize * 2),
           _.brushSize / 4
         );
-        // if (p5.mouseIsPressed) {
-        //   pixelBrush(p5, 20);
-        //   pixelBrush(p5, 1);
-        // }
+        p5.rect(
+          p5.mouseX + p5.random(-_.brushSize * 3, _.brushSize * 3),
+          p5.mouseY + p5.random(-_.brushSize * 3, _.brushSize * 3),
+          _.brushSize / 8
+        );
       }
 
       if (brushChoice === "hairy") {
         // pen(p5);
 
-        p5.stroke(color.r, color.g, color.b, alphaNum);
+        p5.stroke(
+          color.r + p5.random(20),
+          color.g + p5.random(20),
+          color.b + p5.random(20),
+          alphaNum
+        );
         p5.strokeWeight(_.brushSize);
         p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
         p5.strokeWeight(_.brushSize / 3);
         p5.line(
-          p5.mouseX + p5.random(-25, 25),
-          p5.mouseY + p5.random(-25, 25),
+          p5.mouseX + p5.random(-_.brushSize * 1.5, _.brushSize * 1.5),
+          p5.mouseY + p5.random(-_.brushSize * 1.5, _.brushSize * 1.5),
           p5.pmouseX,
           p5.pmouseY
         );
         p5.strokeWeight(_.brushSize / 5);
         p5.line(
-          p5.mouseX + p5.random(-35, 35),
-          p5.mouseY + p5.random(-35, 35),
+          p5.mouseX + p5.random(-_.brushSize * 3, _.brushSize * 3),
+          p5.mouseY + p5.random(-_.brushSize * 3, _.brushSize * 3),
           p5.pmouseX,
           p5.pmouseY
         );
-        // hairyBrush(p5);
       }
 
       if (brushChoice === "block") {
         p5.noStroke();
-        // p5.fill(0, 0, 0, 0.5);
-        // p5.circle(p5.mouseX - 10, p5.mouseY + 10, _.brushSize * 5);
+        p5.rectMode(p5.CENTER);
         p5.fill(color.r, color.g, color.b, alphaNum);
-        p5.circle(p5.mouseX, p5.mouseY, _.brushSize * 6);
+        p5.rect(p5.mouseX, p5.mouseY, _.brushSize * 6);
+      }
+
+      if (brushChoice === "rings") {
+        p5.noStroke();
+        p5.fill(color.r, color.g, color.b, alphaNum);
+        // p5.circle(p5.mouseX, p5.mouseY, _.brushSize);
+
+        let x = ring * p5.sin(angle);
+        let y = ring * p5.cos(angle);
+        p5.ellipse(p5.mouseX + x, p5.mouseY + y, _.brushSize);
+        angle = angle + step;
+      }
+
+      if (brushChoice === "twigs") {
+        p5.stroke(color.r, color.g, color.b, alphaNum);
+        p5.strokeWeight(p5.random(_.brushSize / 4, _.brushSize / 7));
+
+        p5.line(
+          p5.mouseX + p5.random(-_.brushSize * 3, _.brushSize * 3),
+          p5.mouseY + p5.random(-_.brushSize * 3, _.brushSize * 3),
+          p5.mouseX + p5.random(-_.brushSize * 3, _.brushSize * 3),
+          p5.mouseY + p5.random(-_.brushSize * 3, _.brushSize * 3)
+        );
+      }
+      if (brushChoice === "shadow") {
+        // p5.stroke(color.r, color.g, color.b, color.a);
+
+        p5.strokeWeight(_.brushSize);
+        p5.stroke(0);
+        p5.line(
+          p5.mouseX - 10,
+          p5.mouseY + 10,
+          p5.pmouseX - 10,
+          p5.pmouseY + 10
+        );
+        p5.stroke(color.r, color.g, color.b, alphaNum);
+        p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
+        p5.stroke(0, alphaNum);
+        p5.strokeWeight(_.brushSize / 4);
+        p5.line(p5.mouseX + 5, p5.mouseY - 5, p5.pmouseX + 5, p5.pmouseY - 5);
+        p5.stroke(255, alphaNum);
+
+        p5.strokeWeight(_.brushSize / 6);
+        p5.line(p5.mouseX + 1, p5.mouseY - 1, p5.pmouseX + 1, p5.pmouseY - 1);
+      }
+
+      if (brushChoice === "smudge") {
+        p5.strokeWeight(_.brushSize);
+        for (let i = 0; i < 200; i++) {
+          p5.stroke(
+            color.r + p5.random(60),
+            color.g + p5.random(60),
+            color.b + p5.random(60),
+            alphaNum / 20
+          );
+          p5.line(
+            p5.mouseX + p5.random(-_.brushSize / 4, _.brushSize / 4),
+            p5.mouseY + p5.random(-_.brushSize / 4, _.brushSize / 4),
+            p5.pmouseX + p5.random(-_.brushSize / 4, _.brushSize / 4),
+            p5.pmouseY + p5.random(-_.brushSize / 4, _.brushSize / 4)
+          );
+        }
       }
     }
-  }
-
-  function hairyBrush(p5) {
-    p5.stroke(_.BGhue, _.BGsaturation, _.BGbrightness);
-    p5.strokeWeight(_.brushSize / 2);
-    p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
-    // p5.line(p5.mouseX + 30, p5.mouseY + 30, p5.pmouseX + 30, p5.pmouseY + 30);
-
-    p5.stroke("black");
-    hairy(p5, 5, 10);
-    hairy(p5, 10, 10);
-    hairy(p5, 20, 20);
-  }
-
-  function hairy(p5, weight, rand) {
-    p5.strokeWeight(_.brushSize / weight);
-
-    p5.line(
-      p5.mouseX + p5.random(-rand, rand),
-      p5.mouseY + p5.random(-rand, rand),
-      p5.pmouseX + p5.random(-rand, rand),
-      p5.pmouseY + p5.random(-rand, rand)
-    );
-
-    // p5.fill("red");
-    // p5.noStroke();
-  }
-
-  function pixelBrush(p5, rand) {
-    p5.fill(color);
-    p5.noStroke();
-    p5.square(p5.mouseX, p5.mouseY, _.brushSize);
-    let spray = _.brushSize * 3;
-    p5.fill(color);
-
-    p5.square(
-      p5.mouseX + p5.random(-spray, spray),
-      p5.mouseY + p5.random(-spray, spray),
-      _.brushSize / 4
-    );
-    // p5.square(
-    //   p5.mouseX + p5.random(-rand * 3, rand * 3),
-    //   p5.mouseY + p5.random(-rand * 3, rand * 3),
-    //   p5.random(_.brushSize / 8)
-    // );
   }
 
   return (
     <div className="canvas-with-parameters">
       <div className="parameters-left-1column">
-        {/* <div className="parameters-group">
-            <h4>BackGround Color:</h4>
-            <Parameter
-              name={_.BGhueSettings.name}
-              value={_.BGhue}
-              id={_.BGhueSettings.id}
-              min={_.BGhueSettings.min}
-              max={_.BGhueSettings.max}
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name={_.BGsaturationSettings.name}
-              value={_.BGsaturation}
-              id={_.BGsaturationSettings.id}
-              min={_.BGsaturationSettings.min}
-              max={_.BGsaturationSettings.max}
-              step="0"
-              handleParameter={handleParameter}
-            />
-            <Parameter
-              name={_.BGbrightnessSettings.name}
-              value={_.BGbrightness}
-              id={_.BGbrightnessSettings.id}
-              min={_.BGbrightnessSettings.min}
-              max={_.BGbrightnessSettings.max}
-              step="0"
-              handleParameter={handleParameter}
-            />
-          </div> */}
         <div className="parameters-group">
           <h4>Choose Brush:</h4>
           <div className="parameter">
@@ -268,6 +274,10 @@ const Algo4 = (props) => {
             <ParameterBrush name="pixel" id="pixel" value="pixel" />
             <ParameterBrush name="hairy" id="hairy" value="hairy" />
             <ParameterBrush name="block" id="block" value="block" />
+            <ParameterBrush name="rings" id="rings" value="rings" />
+            <ParameterBrush name="twigs" id="twigs" value="twigs" />
+            <ParameterBrush name="shadow" id="shadow" value="shadow" />
+            <ParameterBrush name="smudge" id="smudge" value="smudge" />
           </div>
         </div>
         <div>
@@ -286,14 +296,15 @@ const Algo4 = (props) => {
             setup={setup}
             draw={draw}
           />
-
-          {/* <Sketch setup={setup} draw={draw} /> */}
         </div>
         <div className="canvas-utilities">
-          <button onClick={handleWipe}>Wipe Screen</button>
-          {/* <Refresh /> */}
-          <Save />
-          {/* <StartStop /> */}
+          <div>
+            <Download />
+            <SaveToCloud />
+          </div>
+          <div>
+            <WipeScreen wipe={wipe} setWipe={setWipe} />
+          </div>
         </div>
       </div>
 

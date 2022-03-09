@@ -1,13 +1,9 @@
-import { SaveContext } from "../../contexts/SaveContext";
-import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
-const Save = () => {
-  const [saveImage, setSaveImage] = useContext(SaveContext);
-
+const Download = (props) => {
   const handleSaveImage = (e) => {
-    setSaveImage(true);
+    props.setSaveImage(true);
   };
 
   return (
@@ -21,4 +17,4 @@ const Save = () => {
   );
 };
 
-export default Save;
+export default Download;

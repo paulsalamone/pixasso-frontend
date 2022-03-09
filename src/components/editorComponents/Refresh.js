@@ -2,6 +2,9 @@ import { RefreshContext } from "../../contexts/RefreshContext";
 import { useState, useContext } from "react";
 import StartStop from "./StartStop";
 import { StartStopContext } from "../../contexts/StartStopContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
+
 const Refresh = () => {
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [startStop, setStartStop] = useContext(StartStopContext);
@@ -20,9 +23,13 @@ const Refresh = () => {
   // }
 
   return (
-    <div style={{ filter: `${parameterStatus}` }}>
-      <button onClick={refreshHandler}>Reset sliders</button>
-    </div>
+    // <div style={{ filter: `${parameterStatus}` }}>
+    <>
+      <button onClick={refreshHandler}>
+        <FontAwesomeIcon icon={faSlidersH} className="fa-icon" />
+        Reset sliders
+      </button>
+    </>
   );
 };
 
