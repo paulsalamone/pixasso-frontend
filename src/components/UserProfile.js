@@ -93,7 +93,7 @@ const UserProfile = () => {
         <div className="profile-info-box" style={{ marginBottom: "45px" }}>
           <h1
             style={{
-              borderBottom: "1px solid grey",
+              // borderBottom: "1px solid grey",
               paddingBottom: "4px",
               marginBottom: "15px",
             }}
@@ -108,7 +108,7 @@ const UserProfile = () => {
 
       <div className="gallery">
         <div className="gallery-section">
-          <h3>Published Sketches</h3>
+          <h2>Published Sketches</h2>
           <div className="gallery-grid">
             {user.sketch_ids &&
               user.sketch_ids
@@ -147,7 +147,7 @@ const UserProfile = () => {
         </div>
 
         <div className="gallery-section">
-          <h3>Unpublished Sketches 2</h3>
+          <h2>Unpublished Sketches 2</h2>
 
           <div className="gallery-grid">
             {user.sketch_ids &&

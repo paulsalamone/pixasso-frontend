@@ -64,12 +64,12 @@ const Community = () => {
             nextLabel={"next"}
             breakLabel={"..."}
             pageCount={pageCount}
-            marginPagesDisplayed={4}
+            marginPagesDisplayed={6}
             onPageChange={handlePageChange}
             containerClassName={"pagination justify-content-center"}
             pageClassName={"page-item"}
             pageLinkClassName={"page-link"}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={6}
             previousClassName={"page-items"}
             previousLinkClassName={"page-link"}
             nextClassName={"page-item"}
@@ -124,26 +124,6 @@ const Community = () => {
                   </div>
                 );
               })}
-
-            <ReactPaginate
-              previousLabel={"previous"}
-              nextLabel={"next"}
-              breakLabel={"..."}
-              pageCount={pageCount}
-              marginPagesDisplayed={4}
-              onPageChange={handlePageChange}
-              containerClassName={"pagination justify-content-center"}
-              pageClassName={"page-item"}
-              pageLinkClassName={"page-link"}
-              pageRangeDisplayed={5}
-              previousClassName={"page-items"}
-              previousLinkClassName={"page-link"}
-              nextClassName={"page-item"}
-              nextLinkClassName={"page-link"}
-              breakClassName={"break-me"}
-              breakLinkClassName={"page-Link"}
-              activeClassName={"active"}
-            />
           </div>
         </div>
       </div>

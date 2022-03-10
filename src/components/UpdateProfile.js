@@ -53,7 +53,6 @@ const UserProfile = () => {
   return (
     <>
       <div className="content-page">
-        <h5>update your settings:</h5>
         {/* <div className="profile-edit-image">
             <img
               src={profilePicUrl}
@@ -71,26 +70,35 @@ const UserProfile = () => {
             <button onClick={uploadPic}>Upload</button>
           </div> */}
         <div className="profile-info-box">
-          <h1>{user.username}</h1>
-
           <div className="form-page">
             <form onSubmit={handleSubmit}>
-              <h6>Basic Info</h6>
+              <h2>Update your settings:</h2>
               <input
                 type="text"
                 placeholder="Username"
                 name="username"
                 value={user.username}
                 required
+                style={{
+                  color: "black",
+                  padding: "8px",
+                  fontSize: "1.2rem",
+                  width: "350px",
+                }}
                 onChange={handleChange}
               />
-              <button>Edit</button>
               <input
                 type="email"
                 placeholder="Email"
                 name="email"
                 value={user.email}
                 required
+                style={{
+                  color: "black",
+                  padding: "8px",
+                  fontSize: "1.2rem",
+                  width: "350px",
+                }}
                 onChange={handleChange}
               ></input>
               <input
@@ -99,6 +107,12 @@ const UserProfile = () => {
                 name="password"
                 value={user.password}
                 required
+                style={{
+                  color: "black",
+                  padding: "8px",
+                  fontSize: "1.2rem",
+                  width: "350px",
+                }}
                 // onChange= {handleChange}
               ></input>
               <h2>Biography</h2>
@@ -109,7 +123,13 @@ const UserProfile = () => {
                 rows="10"
                 cols="50"
                 onChange={handleChange}
-                style={{ color: "black", padding: "8px", fontSize: "1.2rem" }}
+                style={{
+                  color: "black",
+                  padding: "8px",
+                  fontSize: "1.2rem",
+                  width: "550px",
+                  marginBottom: "15px",
+                }}
               ></textarea>
               <button type="submit">Save Changes</button>
             </form>
