@@ -22,7 +22,7 @@ let gradStart, gradEnd;
 
 const Algo6 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
-  const [saveImage, setSaveImage] = useContext(SaveContext);
+  const [saveImage, setSaveImage] = useState(false);
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [_, set_] = useState({
     BGred: 90,
@@ -79,8 +79,9 @@ const Algo6 = (props) => {
   function draw(p5) {
     p5.frameRate(7);
 
-    if (saveImage === true) {
+    if (saveImage) {
       p5.save("PIXASSO.png");
+      console.log("p5 save image triggered");
       setSaveImage(false);
     }
 
@@ -216,7 +217,7 @@ const Algo6 = (props) => {
           </div>
           <div className="canvas-utilities">
             <div>
-              <Download />
+              <Download setSaveImage={setSaveImage} />
               <SaveToCloud />
             </div>
             <div>

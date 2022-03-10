@@ -23,7 +23,7 @@ let ring, angle, step;
 
 const Algo4 = (props) => {
   const [startStop, setStartStop] = useContext(StartStopContext);
-  const [saveImage, setSaveImage] = useContext(SaveContext);
+  const [saveImage, setSaveImage] = useState(false);
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [brushChoice, setBrushChoice] = useContext(BrushContext);
   const [background, setBackground] = useContext(BackgroundContext);
@@ -100,6 +100,7 @@ const Algo4 = (props) => {
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(800, 500).parent(canvasParentRef);
     p5.background(255);
+
     // p5.colorMode(p5.HSB, 360, 100, 100, 10);
     p5.colorMode(p5.RGB);
     p5.loadImage(background, (img) => {
@@ -119,10 +120,12 @@ const Algo4 = (props) => {
     let alphaNum = p5.map(color.a, 0, 1, 0, 255);
 
     p5.frameRate(60);
-    if (saveImage === true) {
+    if (saveImage) {
       p5.save("PIXASSO.png");
+      console.log("p5 save image triggered");
       setSaveImage(false);
     }
+
     if (p5.mouseIsPressed) {
       if (brushChoice === "default") {
         // p5.stroke(color.r, color.g, color.b, color.a);
@@ -299,7 +302,7 @@ const Algo4 = (props) => {
         </div>
         <div className="canvas-utilities">
           <div>
-            <Download />
+            <Download setSaveImage={setSaveImage} />
             <SaveToCloud />
           </div>
           <div>
