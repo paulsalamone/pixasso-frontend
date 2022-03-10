@@ -3,7 +3,6 @@ import ParameterBrush from "../editorComponents/ParameterBrush";
 import SketchHost from "./SketchHost";
 import { StartStopContext } from "../../contexts/StartStopContext";
 import { RefreshContext } from "../../contexts/RefreshContext";
-import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
 import { BrushContext } from "../../contexts/BrushContext";
 import { BackgroundContext } from "../../contexts/BackgroundContext";
