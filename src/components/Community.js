@@ -85,6 +85,7 @@ const Community = () => {
                   console.log(user.sketch_ids);
                 }
                 return (
+
                   <div
                     className="community-grid-cell "
                     // style={{ border: "2px solid green" }}

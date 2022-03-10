@@ -1,17 +1,15 @@
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../images/logoP-medium-color.png";
 import jwt_decode from "jwt-decode";
 //import {UserContext} from "../contexts/UserContext";
 
-
 const Login = () => {
   //const [user, setUser] = useContext(UserContext)
-  useEffect(()=>{
-    console.log(user)
-  },[])
-
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   let navigate = useNavigate();
 
@@ -31,13 +29,13 @@ const Login = () => {
       const url = "http://localhost:4000/api/auth/login";
       const { data } = await axios.post(url, user);
       localStorage.setItem("token", data);
-      navigate('/profile')
+      navigate("/profile");
       console.log("logged in");
     } catch (error) {
       if (error.response && error.resposne.status === 400) {
         setError(error.response.messege);
       }
-    };
+    }
     window.location.reload();
   };
   console.log(user);
