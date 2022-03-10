@@ -202,17 +202,19 @@ const Algo1 = (props) => {
                 sketch_url: url,
               })
 
-              .then(async(res) =>
-                await axios
-                .put(`http://localhost:4000/api/users/${user.id}`, {
-                  sketch_ids : res.data._id
-                }) 
-              ) 
-            })
-              .then(res => console.log(res))
+              .then(
+                async (res) =>
+                  await axios.put(
+                    `http://localhost:4000/api/users/${user.id}`,
+                    {
+                      sketch_ids: res.data._id,
+                    }
+                  )
+              );
+          })
+          .then((res) => console.log(res))
 
           .catch((err) => console.log(err));
-      
       },
       "image/jpeg",
       0.95
@@ -314,7 +316,7 @@ const Algo1 = (props) => {
               value={_.jiggle2}
               id="Scramble"
               min="0"
-              max="200"
+              max="400"
               step="0"
               handleParameter={handleParameter}
             />
@@ -359,7 +361,7 @@ const Algo1 = (props) => {
               value={_.strokeWeight}
               id="Thickness"
               min="0"
-              max="60"
+              max="200"
               step="0"
               handleParameter={handleParameter}
             />
@@ -379,7 +381,7 @@ const Algo1 = (props) => {
               value={_.spread}
               id="Spread"
               min="0"
-              max="400"
+              max="800"
               step="0"
               handleParameter={handleParameter}
             />
@@ -396,20 +398,20 @@ const Algo1 = (props) => {
               handleParameter={handleParameter}
             />
             <Parameter
-              name="randomSize"
-              value={_.randomSize}
-              id="Up/Down"
-              min="-200"
-              max="200"
+              name="shake"
+              value={_.shake}
+              id="Sideways"
+              min="-400"
+              max="400"
               step="0"
               handleParameter={handleParameter}
             />
             <Parameter
-              name="shake"
-              value={_.shake}
-              id="Sideways"
-              min="-200"
-              max="200"
+              name="randomSize"
+              value={_.randomSize}
+              id="Up/Down"
+              min="-400"
+              max="400"
               step="0"
               handleParameter={handleParameter}
             />

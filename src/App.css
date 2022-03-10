@@ -172,15 +172,16 @@ form {
 footer {
   background-color: var(--sub1);
   color: var(--neutral3);
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
-  bottom: 0;
+  /* bottom: 0; */
   text-transform: lowercase;
   font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 1px;
   text-align: center;
   padding: 10px;
+  margin-top: 50px;
 }
 
 .content-page {

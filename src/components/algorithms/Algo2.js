@@ -269,8 +269,8 @@ const Algo2 = (props) => {
               name="strokeHue"
               value={_.strokeHue}
               id="Hue"
-              min="0"
-              max="360"
+              min="5"
+              max="355"
               color="hue"
               step="0"
               handleParameter={handleParameter}
@@ -279,8 +279,8 @@ const Algo2 = (props) => {
               name="strokeBrightness"
               value={_.strokeBrightness}
               id="Brightness"
-              min="0"
-              max="100"
+              min="5"
+              max="95"
               step="0"
               color="brightness"
               hue={_.BGhue}

@@ -83,16 +83,10 @@ const Community = () => {
                   console.log(user.sketch_ids);
                 }
                 return (
-                  <div
-                    className="community-grid-cell "
-                    // style={{ border: "2px solid green" }}
-                  >
-                    {/* <Link to="/profile" style={{ color: "red" }}>
-                      {user.username}
-                    </Link> */}
+                  <div className="community-grid-cell ">
                     <h2>{user.username}</h2>
                     <div className="community-grid-row">
-                      {user.sketch_ids &&
+                      {user.sketch_ids.length > 1 &&
                         user.sketch_ids.slice(-3).map((sketch) => {
                           return (
                             <div>
