@@ -1,18 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import ParameterBrush from "../editorComponents/ParameterBrush";
-import Sketch from "react-p5";
 import SketchHost from "./SketchHost";
 import { StartStopContext } from "../../contexts/StartStopContext";
-import StartStop from "../editorComponents/StartStop";
-import { SaveContext } from "../../contexts/SaveContext";
-import Save from "../editorComponents/Save";
 import { RefreshContext } from "../../contexts/RefreshContext";
 import Upload from "../editorComponents/Upload";
 import Parameter from "../editorComponents/Parameter";
 import { BrushContext } from "../../contexts/BrushContext";
 import { BackgroundContext } from "../../contexts/BackgroundContext";
-import { HexColorPicker, RgbaColorPicker } from "react-colorful";
-import { ChromePicker } from "react-color";
+import { RgbaColorPicker } from "react-colorful";
 import BrushSize from "../editorComponents/BrushSize";
 import SaveToCloud from "../editorComponents/SaveToCloud";
 import WipeScreen from "../editorComponents/WipeScreen";
@@ -21,9 +16,9 @@ import Download from "../editorComponents/Download";
 //RINGS
 let ring, angle, step;
 
-const Algo4 = (props) => {
+const Algo4 = () => {
   const [startStop, setStartStop] = useContext(StartStopContext);
-  const [saveImage, setSaveImage] = useContext(SaveContext);
+  const [saveImage, setSaveImage] = useState(false);
   const [refresh, setRefresh] = useContext(RefreshContext);
   const [brushChoice, setBrushChoice] = useContext(BrushContext);
   const [background, setBackground] = useContext(BackgroundContext);
@@ -74,7 +69,6 @@ const Algo4 = (props) => {
   });
   const [backup, setBackup] = useState(_);
   const [wipe, setWipe] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     setStartStop({ ...startStop, start: true });
@@ -92,14 +86,10 @@ const Algo4 = (props) => {
     });
   };
 
-  const handleWipe = () => {
-    setWipe(!wipe);
-    setRefresh(true);
-  };
-
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(800, 500).parent(canvasParentRef);
     p5.background(255);
+
     // p5.colorMode(p5.HSB, 360, 100, 100, 10);
     p5.colorMode(p5.RGB);
     p5.loadImage(background, (img) => {
@@ -119,13 +109,14 @@ const Algo4 = (props) => {
     let alphaNum = p5.map(color.a, 0, 1, 0, 255);
 
     p5.frameRate(60);
-    if (saveImage === true) {
+    if (saveImage) {
       p5.save("PIXASSO.png");
+      console.log("p5 save image triggered");
       setSaveImage(false);
     }
+
     if (p5.mouseIsPressed) {
       if (brushChoice === "default") {
-        // p5.stroke(color.r, color.g, color.b, color.a);
         p5.stroke(color.r, color.g, color.b, alphaNum);
 
         p5.strokeWeight(_.brushSize);
@@ -287,19 +278,11 @@ const Algo4 = (props) => {
 
       <div className="canvas-container">
         <div className="artwork">
-          {/* <img src={background} /> */}
-          {/* <img src={StaticImage} alt="static image"></img> */}
-          <SketchHost
-            // preload={preload}
-            wipe={wipe}
-            className="x"
-            setup={setup}
-            draw={draw}
-          />
+          <SketchHost wipe={wipe} className="x" setup={setup} draw={draw} />
         </div>
         <div className="canvas-utilities">
           <div>
-            <Download />
+            <Download setSaveImage={setSaveImage} />
             <SaveToCloud />
           </div>
           <div>
