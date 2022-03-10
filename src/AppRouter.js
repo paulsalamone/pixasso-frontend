@@ -1,4 +1,4 @@
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
@@ -10,19 +10,12 @@ import EditorMobile from "./components/mobileComponents/EditorMobile";
 
 import Community from "./components/Community";
 
-import UploadSketch from "./components/UploadSketch";
-import DownloadSketch from "./components/DownloadSketch";
 import UpdateProfile from "./components/UpdateProfile";
 import UserProfile from "./components/UserProfile";
-
 
 const AppRouter = () => {
   return (
     <>
-      {/* <body> */}
-      {/* <header>
-        <Nav />
-      </header> */}
       <Routes>
         <Route path="/editor" element={<Nav />} />
         <Route path="/community" element={<Nav />} />
@@ -40,18 +33,14 @@ const AppRouter = () => {
           <Route path="/editormobile" element={<EditorMobile />} />
 
           <Route path="/community" element={<Community />} />
-          {/* <Route path="/upload" element={<UploadSketch />} /> */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
 
-          {/* <Route path="/download" element={<DownloadSketch />} /> */}
           <Route path="/update" element={<UpdateProfile />} />
           <Route path="/profile" element={<UserProfile />} />
         </Routes>
         <Footer />
       </div>
-
-      {/* </body> */}
     </>
   );
 };

@@ -1,13 +1,10 @@
 import { ImageViewer } from "react-image-viewer-dv";
 
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import Modal from "./Modal1";
 
 const UserProfile = () => {
-  const [showModal, setShowModal] = useState(false);
-
   const [user, setUser] = useState({
     id: "",
     username: "",
@@ -77,14 +74,10 @@ const UserProfile = () => {
     await axios
       .delete(`https://pixasso.herokuapp.com/api/sketch/${id}`)
 
-      // user.sketch_ids
-      //   .pop(id)
       .then((res) => console.log(res))
       .catch((error) => console.log(error));
     window.location.reload();
   };
-
-  //console.log(user.sketch_ids)
 
   return (
     <div className="content-page" style={{ zIndex: "0" }}>
@@ -93,7 +86,6 @@ const UserProfile = () => {
         <div className="profile-info-box" style={{ marginBottom: "45px" }}>
           <h1
             style={{
-              // borderBottom: "1px solid grey",
               paddingBottom: "4px",
               marginBottom: "15px",
             }}
