@@ -246,36 +246,57 @@ footer {
   flex-direction: column;
   align-items: center;
   margin: 15px;
+
   /* padding: 30px; */
   /* border: 1px solid #00ff00; */
 }
 
-.gallery-cell img {
-  width: 90%;
+.gallery-cell img,
+.community-image {
+  width: 300px;
   margin-bottom: 7px;
+  padding: 10px;
 }
 
 .community-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(10, 1fr);
-  width: 100%;
-  grid-gap: 30px;
+  /* display: grid;
+  grid-template-columns: 1fr; */
+  /* grid-template-rows: repeat(10, 1fr); */
+  /* width: 100%;
+  grid-gap: 30px; */
   /* border: 2px red solid; */
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
 }
 
 .community-grid-cell {
-  width: 92%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 1px;
-  /* border: 1px dotted red; */
+  text-align: left;
+  /* border: 1px dotted orange; */
 }
 
-.community-grid-cell img {
+.community-grid-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* border: 1px dotted orange; */
   width: 100%;
+  /* height: 300px; */
 }
+
+/* .community-grid-cell img {
+  width: 100%;
+} */
+
+/* .community-image {
+  width: 300px;
+} */
 
 .community-info-box {
   width: 100%;
@@ -309,16 +330,19 @@ footer {
 
 .previous-label {
   background-color: red;
-  color: yellow;
+  /* color: yellow; */
 }
 
 /* REACT PAGINATE */
 
 .pagination {
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
   display: flex;
   justify-content: center;
+  position: relative;
+  left: -25px;
 }
+
 .pagination > li {
   display: inline-block;
   padding-left: 0;
@@ -341,7 +365,7 @@ footer {
 }
 
 .pagination > li.active > a {
-  color: #fff;
+  /* color: yellow; */
   background-color: #7c7d7c;
   /* border-color: #ffad6a; */
 }
@@ -369,24 +393,24 @@ footer {
 }
 
 .page-items {
-  padding: 50px;
-  color: red;
+  padding: 10px;
+  /* color: red; */
   /* display: none; */
   opacity: 0;
 }
 
 .page-item {
   color: black;
-  background-color: red;
+  /* background-color: red; */
   font-size: 0.8rem;
 }
 
 .page-link {
-  color: red;
+  /* color: red; */
 }
 
 .active {
-  background-color: red;
+  /* background-color: red; */
 }
 
 /* ARSALAN PAGINATE */
