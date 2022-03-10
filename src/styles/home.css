@@ -19,7 +19,7 @@
 }
 
 .big-logo {
-  width: 300px;
+  width: auto;
   height: auto;
 }
 
@@ -33,7 +33,7 @@
 
 .hero-text {
   margin: 60px;
-  max-width: 580px;
+  max-width: 620px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
