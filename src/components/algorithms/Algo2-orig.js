@@ -75,24 +75,20 @@ const Algo2 = (props) => {
     }
 
     if (startStop.start) {
-      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness, 5);
+      p5.background(_.BGhue, _.BGsaturation, _.BGbrightness);
       p5.frameRate(startStop.rate);
 
       p5.colorMode(p5.HSB);
       p5.rectMode(p5.CENTER);
+      p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
+      p5.strokeWeight(_.strokeWeight);
 
       //GRID
       for (let i = 0; i < 100; i += 1) {
         for (let j = 0; j < 100; j += 1) {
           if (i % 2 !== 0 || j % 2 !== 0) {
             // NORMAL SQUARE
-            p5.stroke(_.strokeHue, _.strokeBrightness, _.strokeBrightness);
-            p5.strokeWeight(_.strokeWeight);
-            p5.circle(
-              i * _.squareSize + p5.random(0, _.shake),
-              j * _.squareSize + p5.random(0, _.shake),
-              _.squareSize - _.spacing + p5.random(0, _.randomSize)
-            );
+
             p5.fill(_.hue, _.saturation, _.brightness);
             p5.translate(_.columnize / 10, 0);
 
@@ -103,17 +99,8 @@ const Algo2 = (props) => {
             );
           } else {
             // DARK SQUARE
-            p5.fill(
-              _.hue,
-              _.saturation / 2,
-              _.brightness - 40 + p5.random(-20, 10)
-            );
+            p5.fill(_.hue, _.saturation / 2, _.brightness - 50);
             p5.translate(_.columnize / 10, 0);
-            p5.square(
-              i * _.squareSize + p5.random(0, _.shake),
-              j * _.squareSize + p5.random(0, _.shake),
-              _.checkSize - _.spacing + p5.random(0, _.randomSize)
-            );
             p5.square(
               i * _.squareSize + p5.random(0, _.shake),
               j * _.squareSize + p5.random(0, _.shake),
@@ -196,8 +183,8 @@ const Algo2 = (props) => {
               name="squareSize"
               value={_.squareSize}
               id="Circle Size"
-              min="3"
-              max="200"
+              min="1"
+              max="100"
               step="0"
               handleParameter={handleParameter}
             />
@@ -205,16 +192,16 @@ const Algo2 = (props) => {
               name="spacing"
               value={_.spacing}
               id="Spacing"
-              min="-50"
-              max="150"
+              min="10"
+              max="80"
               handleParameter={handleParameter}
             />
             <Parameter
               name="checkSize"
               value={_.checkSize}
               id="Square Size"
-              min="-100"
-              max="200"
+              min="0"
+              max="100"
               step="0"
               handleParameter={handleParameter}
             />
@@ -261,7 +248,7 @@ const Algo2 = (props) => {
               value={_.strokeWeight}
               id="Weight"
               min="0"
-              max="15"
+              max="20"
               step="0"
               handleParameter={handleParameter}
             />
@@ -304,7 +291,7 @@ const Algo2 = (props) => {
               value={_.randomSize}
               id="Random Size"
               min="0"
-              max="100"
+              max="50"
               step="0"
               handleParameter={handleParameter}
             />
@@ -313,7 +300,7 @@ const Algo2 = (props) => {
               value={_.shake}
               id="Shake"
               min="0"
-              max="100"
+              max="50"
               step="0"
               handleParameter={handleParameter}
             />
