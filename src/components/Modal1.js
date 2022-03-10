@@ -5,10 +5,7 @@ const Modal = (props) => {
     <>
       {" "}
       {props.showModal ? (
-        <Background
-        // onClick={closeModal} ref={modalRef}
-        >
-          {/* <animated.div style={animation}> */}
+        <Background>
           <ModalWrapper showModal={props.showModal}>
             <ModalImg src={props.pic} alt="camera" />
             <ModalContent>
@@ -21,7 +18,6 @@ const Modal = (props) => {
               onClick={() => props.setShowModal((prev) => !prev)}
             />
           </ModalWrapper>
-          {/* </animated.div> */}
         </Background>
       ) : null}
     </>
@@ -30,15 +26,15 @@ const Modal = (props) => {
 
 export default Modal;
 
-const ModalBox = styled.div`
-width: 850px;
-height: 550px;
-border: 10px white solid;
-padding: 20px;
-box-shadow: 3px 3px 10px rgba(0,0,0, 0.5;
-	z-index: 10;
-	position: relative;
-`;
+// const ModalBox = styled.div`
+// width: 850px;
+// height: 550px;
+// border: 10px white solid;
+// padding: 20px;
+// box-shadow: 3px 3px 10px rgba(0,0,0, 0.5;
+// 	z-index: 10;
+// 	position: relative;
+// `;
 
 const Background = styled.div`
   width: 100%;

@@ -69,7 +69,7 @@ const Algo2 = (props) => {
 
   const draw = (p5) => {
     if (saveImage) {
-      p5.save("output_canvas.png");
+      p5.save("PIXASSO.png");
       console.log("p5 save image triggered");
       setSaveImage(false);
     }

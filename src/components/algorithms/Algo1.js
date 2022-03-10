@@ -83,7 +83,7 @@ const Algo1 = (props) => {
     p5.frameRate(7);
 
     if (saveImage) {
-      p5.saveCanvas(canvas, "canvas.png");
+      p5.save("PIXASSO.png");
       console.log("p5 save image triggered");
       setSaveImage(false);
     }

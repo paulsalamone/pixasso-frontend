@@ -1,22 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import defaultPic from "../images/profilepic.jpg";
 import { UserContext } from "../contexts/UserContext";
 
 const UserProfile = () => {
   const [profilePic, setProfilePic] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
-  //const { userid } = useParams();
   const [user, setUser] = useContext(UserContext);
   console.log(user);
-  //   const [user, setUser] = useState({
-  //     username: "",
-  //     email: "",
-  //     password: "",
-  //     profile_pic_url: "",
-  //     biography: "",
-  //   });
 
   const uploadPic = async () => {
     const picData = new FormData();
@@ -53,44 +44,36 @@ const UserProfile = () => {
   return (
     <>
       <div className="content-page">
-        <h5>update your settings:</h5>
-        {/* <div className="profile-edit-image">
-            <img
-              src={profilePicUrl}
-              alt="User Profile Picture"
-              height="300px"
-              width="300px"
-              borderRadius="50px"
-              className="profile-pic"
-            />
-            <input
-              type="file"
-              onChange={(e) => setProfilePic(e.target.files[0])}
-              className="input-file"
-            />
-            <button onClick={uploadPic}>Upload</button>
-          </div> */}
         <div className="profile-info-box">
-          <h1>{user.username}</h1>
-
           <div className="form-page">
             <form onSubmit={handleSubmit}>
-              <h6>Basic Info</h6>
+              <h2>Update your settings:</h2>
               <input
                 type="text"
                 placeholder="Username"
                 name="username"
                 value={user.username}
                 required
+                style={{
+                  color: "black",
+                  padding: "8px",
+                  fontSize: "1.2rem",
+                  width: "350px",
+                }}
                 onChange={handleChange}
               />
-              <button>Edit</button>
               <input
                 type="email"
                 placeholder="Email"
                 name="email"
                 value={user.email}
                 required
+                style={{
+                  color: "black",
+                  padding: "8px",
+                  fontSize: "1.2rem",
+                  width: "350px",
+                }}
                 onChange={handleChange}
               ></input>
               <input
@@ -99,7 +82,12 @@ const UserProfile = () => {
                 name="password"
                 value={user.password}
                 required
-                // onChange= {handleChange}
+                style={{
+                  color: "black",
+                  padding: "8px",
+                  fontSize: "1.2rem",
+                  width: "350px",
+                }}
               ></input>
               <h2>Biography</h2>
               <textarea
@@ -109,7 +97,13 @@ const UserProfile = () => {
                 rows="10"
                 cols="50"
                 onChange={handleChange}
-                style={{ color: "black", padding: "8px", fontSize: "1.2rem" }}
+                style={{
+                  color: "black",
+                  padding: "8px",
+                  fontSize: "1.2rem",
+                  width: "550px",
+                  marginBottom: "15px",
+                }}
               ></textarea>
               <button type="submit">Save Changes</button>
             </form>
