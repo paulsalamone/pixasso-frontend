@@ -8,56 +8,48 @@ import GalleryPlaceholder4 from "../images/gallery-placeholder4.png";
 import { UserContext } from "../contexts/UserContext";
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import ReactPaginate from 'react-paginate'
-import {Link} from "react-router-dom"
-
-
+import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
+import { ImageViewer } from "react-image-viewer-dv";
 
 const Community = () => {
-  const [usersDisplayed, setUsersDisplayed] = useState([])
+  const [usersDisplayed, setUsersDisplayed] = useState([]);
   const [user, setUser] = useContext(UserContext);
-  const [sketches, setSketches] = useState([]);
-  const [sketchesDisplayed, setSketchesDisplayed] = useState([]);
+
   const [pageNumber, setPageNumber] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
-  const [loading, setLoading] = useState(false)
-  const usersPerPage = 6
-  const [users, setUsers] = useState([])
-  
+  const [loading, setLoading] = useState(false);
+  const usersPerPage = 6;
+  const [users, setUsers] = useState([]);
+
   const fetchUsers = async () => {
     setLoading(true);
-    await axios
-      .get(`http://localhost:4000/api/users/all`)
-      .then(res => {
-        // console.log(res.data)
-        setUsers(res.data)
-      })
-        setLoading(false)
-        console.log(users)
-  }
-  
-  useEffect(()=>{
-    fetchUsers()
-  },[])
+    await axios.get(`http://localhost:4000/api/users/all`).then((res) => {
+      // console.log(res.data);
+      setUsers(res.data);
+    });
+    setLoading(false);
+    console.log(users);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   useEffect(() => {
     setPageCount(Math.ceil(users.length / usersPerPage));
     let reverseList = users.reverse();
-    console.log(reverseList)
-    setUsersDisplayed(reverseList.slice(pageNumber, pageNumber + usersPerPage)) // 1,1+2----2,2+2
-  }, [users, pageNumber])
-
+    console.log(reverseList);
+    setUsersDisplayed(reverseList.slice(pageNumber, pageNumber + usersPerPage)); // 1,1+2----2,2+2
+  }, [users, pageNumber]);
 
   // return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 
-
-
-  const handlePageChange = ({selected}) => {
+  const handlePageChange = ({ selected }) => {
     setPageNumber(selected * usersPerPage);
-  }
-  console.log(usersDisplayed)
- 
+  };
+  console.log(usersDisplayed);
 
   return (
     <>
@@ -85,38 +77,50 @@ const Community = () => {
             activeClassName={"active"}
           />
           <div className="community-grid">
-            {/* <CommunityCard artwork={GalleryPlaceholder1} title="Tan Clouds" />
-            <CommunityCard artwork={GalleryPlaceholder2} title="Weird Chess" />
-            <CommunityCard artwork={GalleryPlaceholder3} title="Bullseye!" />
-            <CommunityCard
-              artwork={GalleryPlaceholder4}
-              title="Spring in the City"
-            /> */}
-          
-
-            <div>
-              {!loading && usersDisplayed.map(user =>{
-                {console.log(user.sketch_ids)}
+            {!loading &&
+              usersDisplayed.map((user) => {
+                {
+                  console.log(user.sketch_ids);
+                }
                 return (
-                  <>
-                  <Link to="/profile" style={{color:"red"}}>{user.username}</Link>
-                  { user.sketch_ids.slice(-3).map((sketch) =>{
-                    return(
-                      <div>
-                        {!sketch.sketch_status &&
-                        //<h1>hello</h1>
-                        <img style={{width:"250px"}} src={sketch.sketch_url}/>
-                        }
-                      </div>
-                    )
-                  })
-                  }
-                  </>
-                )
-                })
-              }
-            </div>
-            
+                  <div
+                    className="community-grid-cell "
+                    // style={{ border: "2px solid green" }}
+                  >
+                    {/* <Link to="/profile" style={{ color: "red" }}>
+                      {user.username}
+                    </Link> */}
+                    <h2>{user.username}</h2>
+                    <div className="community-grid-row">
+                      {user.sketch_ids &&
+                        user.sketch_ids.slice(-3).map((sketch) => {
+                          return (
+                            <div>
+                              {sketch.sketch_status && (
+                                //<h1>hello</h1>
+
+                                <>
+                                  <ImageViewer>
+                                    <img
+                                      className="community-image"
+                                      src={sketch.sketch_url}
+                                      alt="community pixasso art"
+                                    />
+                                  </ImageViewer>
+                                </>
+                                //    <img
+                                //    className="community-image"
+                                //    src={sketch.sketch_url}
+                                //  />
+                              )}
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
+                );
+              })}
+
             <ReactPaginate
               previousLabel={"previous"}
               nextLabel={"next"}
@@ -126,9 +130,9 @@ const Community = () => {
               onPageChange={handlePageChange}
               containerClassName={"pagination justify-content-center"}
               pageClassName={"page-item"}
-              pageLinkClassName= {"page-link"}
+              pageLinkClassName={"page-link"}
               pageRangeDisplayed={5}
-              previousClassName= {"page-items"}
+              previousClassName={"page-items"}
               previousLinkClassName={"page-link"}
               nextClassName={"page-item"}
               nextLinkClassName={"page-link"}
@@ -136,27 +140,7 @@ const Community = () => {
               breakLinkClassName={"page-Link"}
               activeClassName={"active"}
             />
-
           </div>
-          <ReactPaginate
-            previousLabel={"previous-label"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            pageCount={pageCount}
-            marginPagesDisplayed={4}
-            onPageChange={handlePageChange}
-            containerClassName={"pagination justify-content-center"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            pageRangeDisplayed={5}
-            previousClassName={"page-items"}
-            previousLinkClassName={"page-link"}
-            nextClassName={"page-item"}
-            nextLinkClassName={"page-link"}
-            breakClassName={"break-me"}
-            breakLinkClassName={"page-Link"}
-            activeClassName={"active"}
-          />
         </div>
       </div>
     </>

@@ -80,7 +80,6 @@ const UserProfile = () => {
 
   //console.log(user.sketch_ids)
 
-
   return (
     <div className="content-page" style={{ zIndex: "0" }}>
       <h5>artist profile</h5>
@@ -102,6 +101,45 @@ const UserProfile = () => {
       </div>
 
       <div className="gallery">
+        <div className="gallery-section">
+          <h3>Published Sketches</h3>
+          <div className="gallery-grid">
+            {user.sketch_ids &&
+              user.sketch_ids
+                .filter((sketch) => sketch.sketch_status === true)
+                .reverse()
+
+                .map((element) => {
+                  return (
+                    <>
+                      <div className="gallery-cell">
+                        <form onSubmit={handleUnpublish}>
+                          <ImageViewer>
+                            <img src={element.sketch_url} alt="pixasso art" />
+                          </ImageViewer>
+                          <input
+                            name="sketchid"
+                            type="text"
+                            value={element._id}
+                            style={{ display: "none" }}
+                          ></input>
+                          <div>
+                            <button type="submit">Unpublish</button>
+                            <button
+                              onClick={(e) => handleDelete(e, element._id)}
+                              type="submit"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </>
+                  );
+                })}
+          </div>
+        </div>
+
         <div className="gallery-section">
           <h3>Unpublished Sketches 2</h3>
 
@@ -128,44 +166,6 @@ const UserProfile = () => {
                               style={{ display: "none" }}
                             ></input>
                             <button type="submit">Publish</button>
-                            <button
-                              onClick={(e) => handleDelete(e, element._id)}
-                              type="submit"
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </form>
-
-                      </div>
-                    </>
-                  );
-                })}
-          </div>
-        </div>
-
-        <div className="gallery-section">
-          <h3>Published Sketches</h3>
-          <div className="gallery-grid">
-            {user.sketch_ids &&
-              user.sketch_ids
-                .filter((sketch) => sketch.sketch_status === true)
-                .reverse()
-
-                .map((element) => {
-                  return (
-                    <>
-                      <div className="gallery-cell">
-                        <form onSubmit={handleUnpublish}>
-                          <img src={element.sketch_url} />
-                          <input
-                            name="sketchid"
-                            type="text"
-                            value={element._id}
-                            style={{ display: "none" }}
-                          ></input>
-                          <div>
-                            <button type="submit">Unpublish</button>
                             <button
                               onClick={(e) => handleDelete(e, element._id)}
                               type="submit"
