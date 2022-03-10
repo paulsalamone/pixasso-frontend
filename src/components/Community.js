@@ -30,7 +30,7 @@ const Community = () => {
       setUsers(res.data);
     });
     setLoading(false);
-    console.log(users);
+    // console.log(users);
   };
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Community = () => {
   const handlePageChange = ({ selected }) => {
     setPageNumber(selected * usersPerPage);
   };
-  console.log(usersDisplayed);
+  // console.log(usersDisplayed);
 
   return (
     <>
@@ -80,20 +80,28 @@ const Community = () => {
             {!loading &&
               usersDisplayed.map((user) => {
                 {
+                  console.log(user.username);
+
                   console.log(user.sketch_ids);
                 }
                 return (
-                  <div className="community-grid-cell ">
-                    <h2>{user.username}</h2>
+
+                  <div
+                    className="community-grid-cell "
+                    // style={{ border: "2px solid green" }}
+                  >
+                    {/* <Link to="/profile" style={{ color: "red" }}>
+                      {user.username}
+                    </Link> */}
+                        <h2>{ user.sketch_ids.filter(test => test.sketch_status === true).length > 1  && user.username}</h2>
+
                     <div className="community-grid-row">
-                      {user.sketch_ids.length > 1 &&
-                        user.sketch_ids.slice(-3).map((sketch) => {
+                      {user.sketch_ids &&
+                        user.sketch_ids.filter(test => test.sketch_status === true).slice(-3).map((sketch) => {
                           return (
                             <div>
-                              {sketch.sketch_status && (
-                                //<h1>hello</h1>
-
-                                <>
+                             
+                                <div>
                                   <ImageViewer>
                                     <img
                                       className="community-image"
@@ -101,15 +109,12 @@ const Community = () => {
                                       alt="community pixasso art"
                                     />
                                   </ImageViewer>
-                                </>
-                                //    <img
-                                //    className="community-image"
-                                //    src={sketch.sketch_url}
-                                //  />
+                                </div>
+                                </div>
                               )}
-                            </div>
-                          );
-                        })}
+                            
+                          )
+                        }
                     </div>
                   </div>
                 );
