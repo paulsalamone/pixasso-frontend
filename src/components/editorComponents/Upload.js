@@ -20,7 +20,7 @@ const Upload = (props) => {
       .then((resp) => resp.json())
       .then((data) => {
         // props.setImageUrl(data.url);
-        setBackground(data.url);
+        setBackground(data.url.replace("http", "https"));
 
         axios
           .post("https://pixasso.herokuapp.com/api/sketch/upload", {
@@ -31,6 +31,8 @@ const Upload = (props) => {
       })
       .catch((error) => console.log(error));
   };
+
+  console.log(background);
 
   return (
     <>
@@ -48,7 +50,7 @@ const Upload = (props) => {
           <button onClick={uploadImage}>Upload</button>
           <div>
             {/* <p>Uploaded image will be displayed here</p> */}
-            <img src={background} />
+            <img src={background} style={{ width: "120px" }} />
           </div>
         </div>
       </div>
