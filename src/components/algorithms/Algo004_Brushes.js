@@ -12,6 +12,7 @@ import SaveToCloud from "../editorComponents/SaveToCloud";
 import WipeScreen from "../editorComponents/WipeScreen";
 import Download from "../editorComponents/Download";
 import axios from "axios";
+import Upload from "../editorComponents/Upload";
 
 //RINGS
 let ring, angle, step;
@@ -299,9 +300,9 @@ const Algo4 = () => {
           </div>
         </div>
         <div>
-          {/* <Upload /> */}
+          <Upload />
 
-          <div className="parameters-group">
+          {/* <div className="parameters-group">
             <h4>Background:</h4>
             <div className="form-page">
               <label class="custom-file-upload">
@@ -314,11 +315,10 @@ const Algo4 = () => {
 
               <button onClick={uploadImage}>Upload</button>
               <div>
-                {/* <p>Uploaded image will be displayed here</p> */}
                 <img src={background} style={{ width: "120px" }} />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
