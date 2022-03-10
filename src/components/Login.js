@@ -65,7 +65,7 @@ const Login = () => {
         <button type="submit">Submit</button>
         <h1>{error}</h1>
         <h1>New here?</h1>
-        <Link to="/Register">Please Register!</Link>
+        <Link to="/register">Please Register!</Link>
       </form>
     </div>
   );
