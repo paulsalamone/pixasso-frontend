@@ -1,22 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import defaultPic from "../images/profilepic.jpg";
 import { UserContext } from "../contexts/UserContext";
 
 const UserProfile = () => {
   const [profilePic, setProfilePic] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic);
-  //const { userid } = useParams();
   const [user, setUser] = useContext(UserContext);
   console.log(user);
-  //   const [user, setUser] = useState({
-  //     username: "",
-  //     email: "",
-  //     password: "",
-  //     profile_pic_url: "",
-  //     biography: "",
-  //   });
 
   const uploadPic = async () => {
     const picData = new FormData();
@@ -53,22 +44,6 @@ const UserProfile = () => {
   return (
     <>
       <div className="content-page">
-        {/* <div className="profile-edit-image">
-            <img
-              src={profilePicUrl}
-              alt="User Profile Picture"
-              height="300px"
-              width="300px"
-              borderRadius="50px"
-              className="profile-pic"
-            />
-            <input
-              type="file"
-              onChange={(e) => setProfilePic(e.target.files[0])}
-              className="input-file"
-            />
-            <button onClick={uploadPic}>Upload</button>
-          </div> */}
         <div className="profile-info-box">
           <div className="form-page">
             <form onSubmit={handleSubmit}>
@@ -113,7 +88,6 @@ const UserProfile = () => {
                   fontSize: "1.2rem",
                   width: "350px",
                 }}
-                // onChange= {handleChange}
               ></input>
               <h2>Biography</h2>
               <textarea

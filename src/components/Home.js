@@ -1,11 +1,10 @@
 import BigLogo from "../images/logo-large-home-tagline.png";
 import "../styles/home.css";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <div className="home-page">
-      {/* <div className="home-spacer"></div> */}{" "}
       <h3 className="mobile-message">
         NOTE: you are viewing the mobile version of this site. For the full
         Pixasso experience, please view the desktop version.

@@ -24,11 +24,9 @@ export const UserController = (props) => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwt_decode(token);
-      //console.log(decoded);
       axios
         .get(`https://pixasso.herokuapp.com/api/users/${decoded.user._id}`)
         .then((res) => {
-          //console.log(res)
           setUser({
             id: res.data._id,
             username: res.data.username,

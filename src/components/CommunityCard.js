@@ -1,7 +1,3 @@
-import GalleryPlaceholder1 from "../images/gallery-placeholder1.png";
-import GalleryPlaceholder2 from "../images/gallery-placeholder2.png";
-import GalleryPlaceholder3 from "../images/gallery-placeholder3.png";
-import GalleryPlaceholder4 from "../images/gallery-placeholder4.png";
 import "../App.css";
 
 const CommunityCard = (props) => {
