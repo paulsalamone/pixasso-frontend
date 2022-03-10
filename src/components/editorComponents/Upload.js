@@ -23,7 +23,7 @@ const Upload = (props) => {
         setBackground(data.url);
 
         axios
-          .post("http://localhost:4000/api/sketch/upload", {
+          .post("https://pixasso.herokuapp.com/api/sketch/upload", {
             // sketch_Url: props.imageUrl,
             sketch_Url: background,
           })

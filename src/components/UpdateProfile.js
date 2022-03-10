@@ -41,7 +41,7 @@ const UserProfile = () => {
 
   const handleSubmit = async () => {
     await axios
-      .put(`http://localhost:4000/api/users/${user.id}`, user, {
+      .put(`https://pixasso.herokuapp.com/api/users/${user.id}`, user, {
         profile_pic_url: profilePicUrl,
       }) // profile_pic_url: profilePicUrl
 

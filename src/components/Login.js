@@ -32,7 +32,7 @@ const Login = () => {
       navigate("/profile");
       console.log("logged in");
     } catch (error) {
-      if (error.response && error.resposne.status === 400) {
+      if (error.response && error.response.status === 400) {
         setError(error.response.messege);
       }
     }

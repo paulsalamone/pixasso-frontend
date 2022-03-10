@@ -25,10 +25,12 @@ const Community = () => {
 
   const fetchUsers = async () => {
     setLoading(true);
-    await axios.get(`http://localhost:4000/api/users/all`).then((res) => {
-      // console.log(res.data);
-      setUsers(res.data);
-    });
+    await axios
+      .get(`https://pixasso.herokuapp.com/api/users/all`)
+      .then((res) => {
+        // console.log(res.data);
+        setUsers(res.data);
+      });
     setLoading(false);
     // console.log(users);
   };
@@ -85,7 +87,6 @@ const Community = () => {
                   console.log(user.sketch_ids);
                 }
                 return (
-
                   <div
                     className="community-grid-cell "
                     // style={{ border: "2px solid green" }}
@@ -93,14 +94,20 @@ const Community = () => {
                     {/* <Link to="/profile" style={{ color: "red" }}>
                       {user.username}
                     </Link> */}
-                        <h2>{ user.sketch_ids.filter(test => test.sketch_status === true).length > 1  && user.username}</h2>
+                    <h2>
+                      {user.sketch_ids.filter(
+                        (test) => test.sketch_status === true
+                      ).length > 1 && user.username}
+                    </h2>
 
                     <div className="community-grid-row">
                       {user.sketch_ids &&
-                        user.sketch_ids.filter(test => test.sketch_status === true).slice(-3).map((sketch) => {
-                          return (
-                            <div>
-                             
+                        user.sketch_ids
+                          .filter((test) => test.sketch_status === true)
+                          .slice(-3)
+                          .map((sketch) => {
+                            return (
+                              <div>
                                 <div>
                                   <ImageViewer>
                                     <img
@@ -110,11 +117,9 @@ const Community = () => {
                                     />
                                   </ImageViewer>
                                 </div>
-                                </div>
-                              )}
-                            
-                          )
-                        }
+                              </div>
+                            );
+                          })}
                     </div>
                   </div>
                 );

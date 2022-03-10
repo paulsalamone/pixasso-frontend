@@ -26,7 +26,7 @@ const UserProfile = () => {
     if (token) {
       const decoded = jwt_decode(token);
       axios
-        .get(`http://localhost:4000/api/users/${decoded.user._id}`)
+        .get(`https://pixasso.herokuapp.com/api/users/${decoded.user._id}`)
         .then((res) => {
           //console.log(res);
           setUser({
@@ -44,9 +44,12 @@ const UserProfile = () => {
   const handlePublish = async (e) => {
     e.preventDefault();
     await axios
-      .put(`http://localhost:4000/api/sketch/${e.target.sketchid.value}`, {
-        sketch_status: true,
-      })
+      .put(
+        `https://pixasso.herokuapp.com/api/sketch/${e.target.sketchid.value}`,
+        {
+          sketch_status: true,
+        }
+      )
       .then((res) => console.log(res))
       .then(console.log("publish"))
       .catch((error) => console.log(error));
@@ -56,9 +59,12 @@ const UserProfile = () => {
   const handleUnpublish = async (e) => {
     e.preventDefault();
     await axios
-      .put(`http://localhost:4000/api/sketch/${e.target.sketchid.value}`, {
-        sketch_status: false,
-      })
+      .put(
+        `https://pixasso.herokuapp.com/api/sketch/${e.target.sketchid.value}`,
+        {
+          sketch_status: false,
+        }
+      )
       .then((res) => console.log(res))
       .then(console.log("publish"))
       .catch((error) => console.log(error));
@@ -69,7 +75,7 @@ const UserProfile = () => {
     e.preventDefault();
     console.log(e.target.sketchid);
     await axios
-      .delete(`http://localhost:4000/api/sketch/${id}`)
+      .delete(`https://pixasso.herokuapp.com/api/sketch/${id}`)
 
       // user.sketch_ids
       //   .pop(id)
