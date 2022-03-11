@@ -139,7 +139,7 @@ const UserProfile = () => {
         </div>
 
         <div className="gallery-section">
-          <h2>Unpublished Sketches 2</h2>
+          <h2>Unpublished Sketches</h2>
 
           <div className="gallery-grid">
             {user.sketch_ids &&
