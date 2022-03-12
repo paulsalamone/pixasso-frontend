@@ -33,6 +33,10 @@ const Register = () => {
     <div className="form-page">
       <img src={Logo} alt="pixasso medium logo" />
       <form onSubmit={handleSubmit}>
+        <Link to="/editor">
+          <button className="button-home-big">make some art!</button>
+        </Link>
+
         <h1>Register for Pixasso</h1>
         <input
           type="text"
