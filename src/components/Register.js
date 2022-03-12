@@ -38,6 +38,7 @@ const Register = () => {
         </Link>
 
         <h1>Register for Pixasso</h1>
+        <p>(necessary to save art to our website)</p>
         <input
           type="text"
           placeholder="Username"
